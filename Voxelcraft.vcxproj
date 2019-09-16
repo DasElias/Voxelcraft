@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\visual_studio_dependencies\glad\src\glad.cpp" />
+    <ClCompile Include="..\..\..\..\visual_studio_dependencies\gzstream\gzstream.cpp" />
+    <ClCompile Include="..\..\..\..\visual_studio_dependencies\simplex-noise\SimplexNoise.cpp" />
+    <ClCompile Include="src\eguiImpl\nodes\MainMenuElement.cpp" />
+    <ClCompile Include="src\eguiImpl\nodes\PauseStateElement.cpp" />
+    <ClCompile Include="src\eguiImpl\themes\VoxelcraftTheme.cpp" />
+    <ClCompile Include="src\model\AbstractBlock.cpp" />
+    <ClCompile Include="src\model\AbstractChunk.cpp" />
+    <ClCompile Include="src\model\AbstractChunkSaver.cpp" />
+    <ClCompile Include="src\model\AbstractChunkStack.cpp" />
+    <ClCompile Include="src\model\AbstractPlayer.cpp" />
+    <ClCompile Include="src\model\Bedrock.cpp" />
+    <ClCompile Include="src\model\Block.cpp" />
+    <ClCompile Include="src\model\BlockCreator.cpp" />
+    <ClCompile Include="src\model\BlockType.cpp" />
+    <ClCompile Include="src\model\Chunk.cpp" />
+    <ClCompile Include="src\model\ChunkIO.cpp" />
+    <ClCompile Include="src\model\ChunkSaver.cpp" />
+    <ClCompile Include="src\model\ChunkStack.cpp" />
+    <ClCompile Include="src\model\ChunkStackGenerator.cpp" />
+    <ClCompile Include="src\model\EdenGenerator.cpp" />
+    <ClCompile Include="src\model\events\block\BlockBreakEvent.cpp" />
+    <ClCompile Include="src\model\events\block\BlockEvent.cpp" />
+    <ClCompile Include="src\model\events\block\BlockPlaceEvent.cpp" />
+    <ClCompile Include="src\model\events\Cancellable.cpp" />
+    <ClCompile Include="src\model\events\chunkStack\ChunkStackEvent.cpp" />
+    <ClCompile Include="src\model\events\chunkStack\ChunkStackUnloadEvent.cpp" />
+    <ClCompile Include="src\model\events\player\ItemInHandChangedEvent.cpp" />
+    <ClCompile Include="src\model\events\player\PlayerEvent.cpp" />
+    <ClCompile Include="src\model\events\player\ToggleSprintingEvent.cpp" />
+    <ClCompile Include="src\model\Face.cpp" />
+    <ClCompile Include="src\model\Frustum.cpp" />
+    <ClCompile Include="src\model\GameItem.cpp" />
+    <ClCompile Include="src\model\Level.cpp" />
+    <ClCompile Include="src\model\LevelBuilder.cpp" />
+    <ClCompile Include="src\model\LevelIOException.cpp" />
+    <ClCompile Include="src\model\LevelMetadata.cpp" />
+    <ClCompile Include="src\model\MousePicker.cpp" />
+    <ClCompile Include="src\model\Player.cpp" />
+    <ClCompile Include="src\model\PlayerPosition.cpp" />
+    <ClCompile Include="src\model\ProjectionMatrix.cpp" />
+    <ClCompile Include="src\model\states\IngameState.cpp" />
+    <ClCompile Include="src\model\states\MainMenuState.cpp" />
+    <ClCompile Include="src\model\states\PauseState.cpp" />
+    <ClCompile Include="src\model\states\State.cpp" />
+    <ClCompile Include="src\model\states\StateManager.cpp" />
+    <ClCompile Include="src\model\TextureOrientation.cpp" />
+    <ClCompile Include="src\model\utils\Cleanable.cpp" />
+    <ClCompile Include="src\model\utils\FileUtils.cpp" />
+    <ClCompile Include="src\model\utils\MathUtils.cpp" />
+    <ClCompile Include="src\model\utils\TimeUtils.cpp" />
+    <ClCompile Include="src\model\utils\VectorUtils.cpp" />
+    <ClCompile Include="src\rendering\BlockInHandRenderer.cpp" />
+    <ClCompile Include="src\rendering\BlockRenderer.cpp" />
+    <ClCompile Include="src\rendering\GaussianBlurPostProcessor.cpp" />
+    <ClCompile Include="src\rendering\InHandRenderer.cpp" />
+    <ClCompile Include="src\rendering\LevelRenderer.cpp" />
+    <ClCompile Include="src\rendering\LevelRendererInterface.cpp" />
+    <ClCompile Include="src\rendering\PostProcessor.cpp" />
+    <ClCompile Include="src\rendering\shaderPrograms\ShaderProgram.cpp" />
+    <ClCompile Include="src\rendering\shaderPrograms\VertexFragmentShaderProgram.cpp" />
+    <ClCompile Include="src\rendering\shaderPrograms\VertexGeometryFragmentShaderProgram.cpp" />
+    <ClCompile Include="src\renderModel\AbstractChunkVaoManager.cpp" />
+    <ClCompile Include="src\renderModel\ChunkVaoManager.cpp" />
+    <ClCompile Include="src\renderModel\ChunkVertexArrayObject.cpp" />
+    <ClCompile Include="src\renderModel\DefaultChunkVao.cpp" />
+    <ClCompile Include="src\renderModel\FrameBufferObject.cpp" />
+    <ClCompile Include="src\renderModel\GeneralVertexArrayObject.cpp" />
+    <ClCompile Include="src\renderModel\InstancedRenderingVbo.cpp" />
+    <ClCompile Include="src\renderModel\SimpleTexture.cpp" />
+    <ClCompile Include="src\renderModel\Texture.cpp" />
+    <ClCompile Include="src\renderModel\TextureArray.cpp" />
+    <ClCompile Include="src\system\KeyAssignmentsImpl.cpp" />
+    <ClCompile Include="src\system\Lwjgl3CursorHandler.cpp" />
+    <ClCompile Include="src\system\Lwjgl3DisplayHandler.cpp" />
+    <ClCompile Include="src\system\Lwjgl3InputHandler.cpp" />
+    <ClCompile Include="src\system\Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h" />
+    <ClInclude Include="src\eguiImpl\nodes\PauseStateElement.h" />
+    <ClInclude Include="src\eguiImpl\themes\VoxelcraftTheme.h" />
+    <ClInclude Include="src\model\AbstractBlock.h" />
+    <ClInclude Include="src\model\AbstractChunk.h" />
+    <ClInclude Include="src\model\AbstractChunkSaver.h" />
+    <ClInclude Include="src\model\AbstractChunkStack.h" />
+    <ClInclude Include="src\model\AbstractPlayer.h" />
+    <ClInclude Include="src\model\Bedrock.h" />
+    <ClInclude Include="src\model\Block.h" />
+    <ClInclude Include="src\model\BlockCreator.h" />
+    <ClInclude Include="src\model\BlockType.h" />
+    <ClInclude Include="src\model\Chunk.h" />
+    <ClInclude Include="src\model\ChunkIO.h" />
+    <ClInclude Include="src\model\ChunkSaver.h" />
+    <ClInclude Include="src\model\ChunkStack.h" />
+    <ClInclude Include="src\model\ChunkStackGenerator.h" />
+    <ClInclude Include="src\model\EdenGenerator.h" />
+    <ClInclude Include="src\model\events\block\BlockBreakEvent.h" />
+    <ClInclude Include="src\model\events\block\BlockEvent.h" />
+    <ClInclude Include="src\model\events\block\BlockPlaceEvent.h" />
+    <ClInclude Include="src\model\events\Cancellable.h" />
+    <ClInclude Include="src\model\events\chunkStack\ChunkStackEvent.h" />
+    <ClInclude Include="src\model\events\chunkStack\ChunkStackUnloadEvent.h" />
+    <ClInclude Include="src\model\events\player\ItemInHandChangedEvent.h" />
+    <ClInclude Include="src\model\events\player\PlayerEvent.h" />
+    <ClInclude Include="src\model\events\player\ToggleSprintingEvent.h" />
+    <ClInclude Include="src\model\Face.h" />
+    <ClInclude Include="src\model\Frustum.h" />
+    <ClInclude Include="src\model\GameItem.h" />
+    <ClInclude Include="src\model\Level.h" />
+    <ClInclude Include="src\model\LevelBuilder.h" />
+    <ClInclude Include="src\model\LevelIOException.h" />
+    <ClInclude Include="src\model\LevelMetadata.h" />
+    <ClInclude Include="src\model\MousePicker.h" />
+    <ClInclude Include="src\model\Player.h" />
+    <ClInclude Include="src\model\PlayerPosition.h" />
+    <ClInclude Include="src\model\ProjectionMatrix.h" />
+    <ClInclude Include="src\model\states\FpsProvider.h" />
+    <ClInclude Include="src\model\states\IngameState.h" />
+    <ClInclude Include="src\model\states\MainMenuState.h" />
+    <ClInclude Include="src\model\states\PauseState.h" />
+    <ClInclude Include="src\model\states\State.h" />
+    <ClInclude Include="src\model\states\StateManager.h" />
+    <ClInclude Include="src\model\TextureOrientation.h" />
+    <ClInclude Include="src\model\utils\Cleanable.h" />
+    <ClInclude Include="src\model\utils\EigenVectorMapUtils.h" />
+    <ClInclude Include="src\model\utils\FileUtils.h" />
+    <ClInclude Include="src\model\utils\MathUtils.h" />
+    <ClInclude Include="src\model\utils\TimeUtils.h" />
+    <ClInclude Include="src\model\utils\VectorUtils.h" />
+    <ClInclude Include="src\rendering\BlockInHandRenderer.h" />
+    <ClInclude Include="src\rendering\BlockRenderer.h" />
+    <ClInclude Include="src\rendering\GaussianBlurPostProcessor.h" />
+    <ClInclude Include="src\rendering\InHandRenderer.h" />
+    <ClInclude Include="src\rendering\LevelRenderer.h" />
+    <ClInclude Include="src\rendering\LevelRendererInterface.h" />
+    <ClInclude Include="src\rendering\ParticleRenderer.h" />
+    <ClInclude Include="src\rendering\PostProcessor.h" />
+    <ClInclude Include="src\rendering\shaderPrograms\ShaderProgram.h" />
+    <ClInclude Include="src\rendering\shaderPrograms\VertexFragmentShaderProgram.h" />
+    <ClInclude Include="src\rendering\shaderPrograms\VertexGeometryFragmentShaderProgram.h" />
+    <ClInclude Include="src\renderModel\AbstractChunkVaoManager.h" />
+    <ClInclude Include="src\renderModel\BufferOffsetMacro.h" />
+    <ClInclude Include="src\renderModel\ChunkVaoManager.h" />
+    <ClInclude Include="src\renderModel\ChunkVertexArrayObject.h" />
+    <ClInclude Include="src\renderModel\DefaultChunkVao.h" />
+    <ClInclude Include="src\renderModel\FrameBufferObject.h" />
+    <ClInclude Include="src\renderModel\GeneralVertexArrayObject.h" />
+    <ClInclude Include="src\renderModel\InstancedRenderingVbo.h" />
+    <ClInclude Include="src\renderModel\SimpleTexture.h" />
+    <ClInclude Include="src\renderModel\Texture.h" />
+    <ClInclude Include="src\renderModel\TextureArray.h" />
+    <ClInclude Include="src\renderModel\VaoManager.h" />
+    <ClInclude Include="src\renderModel\VertexArrayObject.h" />
+    <ClInclude Include="src\system\KeyAssignmentsImpl.h" />
+    <ClInclude Include="src\system\Lwjgl3CursorHandler.h" />
+    <ClInclude Include="src\system\Lwjgl3DisplayHandler.h" />
+    <ClInclude Include="src\system\Lwjgl3InputHandler.h" />
+    <ClInclude Include="src\system\Main.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\rendering\shaderPrograms\shaders\2d_fragment.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\2d_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\blockInHand_fragment.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\blockInHand_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\blocks_fragment.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\blocks_geometry.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\blocks_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\chunkCulling_fragment.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\chunkCulling_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\contrastChanging_fragment.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\contrastChanging_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\defaultPostProcessing_fragment.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\defaultPostProcessing_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\gaussianBlur_fragment.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\gaussianBlur_horizontal_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\gaussianBlur_vertical_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\particle_fragment.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\particle_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\skybox_fragment.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\skybox_vertex.glsl" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{056E8FA5-04C9-419C-97AE-92591E961C4D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Voxelcraft</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\include;C:\Users\Elias\visual_studio_dependencies\simpleini;C:\Users\Elias\visual_studio_dependencies\CTPL;C:\Users\Elias\visual_studio_dependencies\optional-master\include;C:\Users\Elias\visual_studio_dependencies\gzstream;C:\Users\Elias\visual_studio_dependencies\simplex-noise;C:\Users\Elias\visual_studio_dependencies\glm;C:\Users\Elias\visual_studio_dependencies\glad\include;C:\Program Files (x86)\GnuWin32\src\zlib\1.2.3\zlib-1.2.3\toProject;C:\Users\Elias\visual_studio_dependencies\static_block;$(SolutionDir)NanoVG;$(SolutionDir)EGui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\source\repos\Voxelcraft_New\x64\Debug\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>NanoVG.lib;EGui.lib;zlib.lib;glfw3.lib;glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\include;C:\Users\Elias\visual_studio_dependencies\simpleini;C:\Users\Elias\visual_studio_dependencies\CTPL;C:\Users\Elias\visual_studio_dependencies\optional-master\include;C:\Users\Elias\visual_studio_dependencies\gzstream;C:\Users\Elias\visual_studio_dependencies\simplex-noise;C:\Users\Elias\visual_studio_dependencies\glm;C:\Users\Elias\visual_studio_dependencies\glad\include;C:\Program Files (x86)\GnuWin32\src\zlib\1.2.3\zlib-1.2.3\toProject;C:\Users\Elias\visual_studio_dependencies\static_block;$(SolutionDir)NanoVG;$(SolutionDir)EGui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\source\repos\Voxelcraft_New\x64\Debug\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>NanoVG.lib;EGui.lib;zlib.lib;glfw3.lib;glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
