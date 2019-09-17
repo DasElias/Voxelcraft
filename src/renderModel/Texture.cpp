@@ -1,5 +1,5 @@
 #include "Texture.h"
 
-namespace vc::renderingModel {
+namespace vc {
 	float const Texture::ANISOTROPIC_FILTERING_AMOUNT = 4;
 }

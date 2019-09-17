@@ -9,7 +9,7 @@
 
 using namespace std;
 
-namespace vc::model {
+namespace vc {
 	namespace {
 		float pow2(float exponent) {
 			return powf(2, exponent);

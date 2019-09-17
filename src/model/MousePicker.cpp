@@ -7,7 +7,7 @@
 using namespace egui;
 using namespace glm;
 
-namespace vc::model {
+namespace vc {
 	MousePicker::MousePicker(Player& player) :
 			player(player) {
 	}

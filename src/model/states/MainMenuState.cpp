@@ -6,11 +6,11 @@
 #include "StateManager.h"
 
 
-namespace vc::model {
+namespace vc {
 
 	const std::string MainMenuState::WORLD_SAVE_PATH = getApplicationFolder().append("\\save");
 
-	MainMenuState::MainMenuState(StateManager& stateManager, vc::renderingModel::AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool, egui::MasterRenderer& eguiRenderer, egui::EGuiContext& eguiCtx) :
+	MainMenuState::MainMenuState(StateManager& stateManager, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool, egui::MasterRenderer& eguiRenderer, egui::EGuiContext& eguiCtx) :
 			State(stateManager),
 			vaoCreator(vaoCreator),
 			threadPool(threadPool),

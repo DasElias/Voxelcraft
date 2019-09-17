@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <vector>
-namespace vc::rendering {
+namespace vc {
 	VertexGeometryFragmentShaderProgram::VertexGeometryFragmentShaderProgram(const char* vertexShaderCode, const char* geometryShaderCode, const char* fragmentShaderCode,
 			std::function<void(void)> bindShaderVariables) {
 

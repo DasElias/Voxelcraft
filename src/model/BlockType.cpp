@@ -5,7 +5,7 @@
 #include "Block.h"
 
 
-namespace vc::model {
+namespace vc {
 	std::map<int, std::shared_ptr<BlockType>> BlockType::ALL_VALUES = {};
 
 	std::map<std::string, int> TextureFile::allTextureIds = {};

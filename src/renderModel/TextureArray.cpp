@@ -8,7 +8,7 @@
 #include <stb_image.h>
 #include <iostream>
 
-namespace vc::renderingModel {
+namespace vc {
 
 	TextureArray::TextureArray(std::vector<std::string>& textures) :
 			width(64),

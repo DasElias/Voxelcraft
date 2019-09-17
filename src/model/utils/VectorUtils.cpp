@@ -1,6 +1,6 @@
 #include "VectorUtils.h"
 
-namespace vc::model {
+namespace vc {
 	void set(glm::vec2& vec, float x, float y) {
 		vec.x = x;
 		vec.y = y;

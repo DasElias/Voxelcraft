@@ -1,7 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 
-namespace vc::model {
+namespace vc {
 	void set(glm::vec2& vec, float x, float y);
 	void set(glm::vec3& vec, float x, float y, float z);
 	void set(glm::vec4& vec, float x, float y, float z, float a);

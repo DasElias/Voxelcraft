@@ -6,7 +6,7 @@
 #include "BufferOffsetMacro.h"
 
 
-namespace vc::renderingModel {
+namespace vc {
 	InstancedRenderingVbo::InstancedRenderingVbo(std::uint32_t targetVao, int amountOfFloats) :
 			targetVao(targetVao) {
 

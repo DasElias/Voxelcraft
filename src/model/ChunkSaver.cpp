@@ -15,7 +15,7 @@
 #include "TextureOrientation.h"
 #include "utils/MathUtils.h"
 
-namespace vc::model {
+namespace vc {
 
 	void ChunkSaver::lexer(std::string data, LexerResult& result_lexerResult) {
 		std::string labelTarget = "";

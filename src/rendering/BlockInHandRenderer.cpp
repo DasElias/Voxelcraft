@@ -14,9 +14,9 @@
 #include "shaderPrograms/shaders/blockInHand_vertex.glsl"
 #include "shaderPrograms/shaders/blockInHand_fragment.glsl"
 
-using namespace vc::model;
+using namespace vc;
 
-namespace vc::rendering {
+namespace vc {
 	// ----------------------------------------------------------------------
 	// -----------------------------CONSTRUCTORS-----------------------------
 	// ----------------------------------------------------------------------
@@ -227,7 +227,7 @@ namespace vc::rendering {
 	// ----------------------------------------------------------------------
 	// -----------------------------CONSTRUCTORS-----------------------------
 	// ----------------------------------------------------------------------
-	BlockInHandRenderer::BlockInHandRenderer(vc::renderingModel::TextureArray blockTextureArray) :
+	BlockInHandRenderer::BlockInHandRenderer(TextureArray blockTextureArray) :
 			blockTextureArray(blockTextureArray),
 			vao(CUBE_DATA, CUBE_TEXTURE) {
 	}
@@ -237,7 +237,7 @@ namespace vc::rendering {
 	// ----------------------------------------------------------------------
 	// -------------------------------METHODS--------------------------------
 	// ----------------------------------------------------------------------
-	void BlockInHandRenderer::render(const std::shared_ptr<vc::model::BlockType>& type) {
+	void BlockInHandRenderer::render(const std::shared_ptr<BlockType>& type) {
 		glDisable(GL_DEPTH_TEST);
 
 		shader.startProgram();

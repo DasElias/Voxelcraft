@@ -4,7 +4,7 @@
 
 #include <input/DisplayHandler.h>
 
-namespace vc::system {
+namespace vc {
 	class Lwjgl3DisplayHandler : public egui::DisplayHandler {
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace vc::renderingModel {
+namespace vc {
 	ChunkVaoManager::ChunkVaoManager(int size) {
 		for(int counter = 0; counter < size; ++counter) {
 			vacantVaos.push(&addVao(true));

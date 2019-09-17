@@ -5,50 +5,48 @@
 #include "../../eguiImpl/nodes/MainMenuElement.h"
 
 namespace vc {
-	namespace model {
-		class MainMenuState : public State {
-			// ----------------------------------------------------------------------
-			// ----------------------------STATIC-FIELDS-----------------------------
-			// ----------------------------------------------------------------------
-			private:
-				static std::string const WORLD_SAVE_PATH;
+	class MainMenuState : public State {
+		// ----------------------------------------------------------------------
+		// ----------------------------STATIC-FIELDS-----------------------------
+		// ----------------------------------------------------------------------
+		private:
+			static std::string const WORLD_SAVE_PATH;
 
-			// ----------------------------------------------------------------------
-			// --------------------------------FIELDS--------------------------------
-			// ----------------------------------------------------------------------
-			private:
-				vc::renderingModel::AbstractChunkVaoManager& vaoCreator;
-				ctpl::thread_pool& threadPool;
-				
-				egui::MasterRenderer& renderer;
-				std::shared_ptr<egui::MainMenuElement> elem;
-				egui::Scene scene;
+		// ----------------------------------------------------------------------
+		// --------------------------------FIELDS--------------------------------
+		// ----------------------------------------------------------------------
+		private:
+			AbstractChunkVaoManager& vaoCreator;
+			ctpl::thread_pool& threadPool;
+			
+			egui::MasterRenderer& renderer;
+			std::shared_ptr<egui::MainMenuElement> elem;
+			egui::Scene scene;
 
 
-			// ----------------------------------------------------------------------
-			// -----------------------------CONSTRUCTORS-----------------------------
-			// ----------------------------------------------------------------------
-			public:
-				MainMenuState(StateManager& stateManager, vc::renderingModel::AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool, egui::MasterRenderer& eguiRenderer, egui::EGuiContext& eguiCtx);
-				~MainMenuState();
+		// ----------------------------------------------------------------------
+		// -----------------------------CONSTRUCTORS-----------------------------
+		// ----------------------------------------------------------------------
+		public:
+			MainMenuState(StateManager& stateManager, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool, egui::MasterRenderer& eguiRenderer, egui::EGuiContext& eguiCtx);
+			~MainMenuState();
 
-			// ----------------------------------------------------------------------
-			// -------------------------------METHODS--------------------------------
-			// ----------------------------------------------------------------------
-			private:
-				void changeStateAndLoadLevel(Level* p_l);
+		// ----------------------------------------------------------------------
+		// -------------------------------METHODS--------------------------------
+		// ----------------------------------------------------------------------
+		private:
+			void changeStateAndLoadLevel(Level* p_l);
 
-				void createGameScore();
-				void loadGameScore();
-				void openOptions();
-				void exitGame();
+			void createGameScore();
+			void loadGameScore();
+			void openOptions();
+			void exitGame();
 
-				void unloadLevel();
+			void unloadLevel();
 
-			public:
-				void updateAndRender(float delta) override;
-				void onStateEnter() override;
-		};
+		public:
+			void updateAndRender(float delta) override;
+			void onStateEnter() override;
+	};
 
-	}
 }

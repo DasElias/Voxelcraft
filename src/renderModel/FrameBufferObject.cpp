@@ -5,7 +5,7 @@
 #include <input/IOHandler.h>
 
 
-namespace vc::renderingModel {
+namespace vc {
 	FrameBufferObject::FrameBufferObject(int width, int height, int samples) :
 			width(width),
 			height(height),

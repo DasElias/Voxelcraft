@@ -1,6 +1,6 @@
 #include "ChunkStackGenerator.h"
 
 
-namespace vc::model {
+namespace vc {
 
 }

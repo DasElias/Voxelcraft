@@ -5,47 +5,45 @@
 #include <cstdint>
 
 namespace vc {
-	namespace model {
-		class AbstractBlock {
-			// ----------------------------------------------------------------------
-			// --------------------------------FIELDS--------------------------------
-			// ----------------------------------------------------------------------
-			protected:
-				uint8_t const inChunkX, inChunkY, inChunkZ;
+	class AbstractBlock {
+		// ----------------------------------------------------------------------
+		// --------------------------------FIELDS--------------------------------
+		// ----------------------------------------------------------------------
+		protected:
+			uint8_t const inChunkX, inChunkY, inChunkZ;
 
-			// ----------------------------------------------------------------------
-			// -----------------------------CONSTRUCTORS-----------------------------
-			// ----------------------------------------------------------------------
-			protected:
-				AbstractBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ);
+		// ----------------------------------------------------------------------
+		// -----------------------------CONSTRUCTORS-----------------------------
+		// ----------------------------------------------------------------------
+		protected:
+			AbstractBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ);
 
-			public:
-				AbstractBlock(const AbstractBlock&) = delete;
-				virtual ~AbstractBlock() = default;
+		public:
+			AbstractBlock(const AbstractBlock&) = delete;
+			virtual ~AbstractBlock() = default;
 
-			// ----------------------------------------------------------------------
-			// -------------------------------METHODS--------------------------------
-			// ----------------------------------------------------------------------
-			public:
-
-
-				uint8_t getInChunkY() const;
-				uint8_t getInChunkZ() const;
-				uint8_t getInChunkX() const;
-
-				virtual int getWorldX() const =0;
-				virtual int getWorldY() const =0;
-				virtual int getWorldZ() const =0;
-
-				virtual int8_t getMetadata() const =0;
-				virtual const BlockType& getBlockType() const =0;
-				virtual const TextureOrientation& getTexOrientation() const =0;
-				virtual float getWidth() const =0;
-				virtual float getHeight() const =0;
-				virtual float getDepth() const =0;
-				virtual bool isSolid() const =0;
+		// ----------------------------------------------------------------------
+		// -------------------------------METHODS--------------------------------
+		// ----------------------------------------------------------------------
+		public:
 
 
-		};
-	}
+			uint8_t getInChunkY() const;
+			uint8_t getInChunkZ() const;
+			uint8_t getInChunkX() const;
+
+			virtual int getWorldX() const =0;
+			virtual int getWorldY() const =0;
+			virtual int getWorldZ() const =0;
+
+			virtual int8_t getMetadata() const =0;
+			virtual const BlockType& getBlockType() const =0;
+			virtual const TextureOrientation& getTexOrientation() const =0;
+			virtual float getWidth() const =0;
+			virtual float getHeight() const =0;
+			virtual float getDepth() const =0;
+			virtual bool isSolid() const =0;
+
+
+	};
 }

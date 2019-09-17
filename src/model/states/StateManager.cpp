@@ -1,6 +1,6 @@
 #include "StateManager.h"
 
-namespace vc::model {
+namespace vc {
 	StateManager::StateManager() {
 	}
 

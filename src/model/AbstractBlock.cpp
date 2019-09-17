@@ -1,7 +1,7 @@
 #include "AbstractBlock.h"
 #include "utils/MathUtils.h"
 
-namespace vc::model {
+namespace vc {
 	AbstractBlock::AbstractBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ) :
 			inChunkX(inChunkX),
 			inChunkY(inChunkY),

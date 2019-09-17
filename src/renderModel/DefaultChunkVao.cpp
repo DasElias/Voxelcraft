@@ -6,7 +6,7 @@
 #include "BufferOffsetMacro.h"
 #include <iostream>
 
-namespace vc::renderingModel {
+namespace vc {
 	// ----------------------------------------------------------------------
 	// -----------------------------CONSTRUCTORS-----------------------------
 	// ----------------------------------------------------------------------
@@ -55,7 +55,7 @@ namespace vc::renderingModel {
 		if(!isInitialized) init();
 
 
-		data.resize(vc::model::Chunk::CHUNK_SIZE * vc::model::Chunk::CHUNK_SIZE * vc::model::Chunk::CHUNK_SIZE);
+		data.resize(Chunk::CHUNK_SIZE * Chunk::CHUNK_SIZE * Chunk::CHUNK_SIZE);
 
 		glBindBuffer(GL_ARRAY_BUFFER, dataVboId);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, data.size() * sizeof(data[0]), &data[0]);

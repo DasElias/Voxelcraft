@@ -14,16 +14,16 @@
 
 
 
-namespace vc::rendering {
+namespace vc {
 	namespace {
-		vc::renderingModel::TextureArray genTextureArray() {
+		TextureArray genTextureArray() {
 			// get the folders, where all the textures are stored
-			std::string applFolder = vc::model::getApplicationFolder().append("\\textures\\");
+			std::string applFolder = getApplicationFolder().append("\\textures\\");
 
 			// put all the TextureFile-objects in an array
-			std::vector<vc::model::TextureFile> allTextureFiles;
-			for(auto& bt : vc::model::BlockType::getAll()) {
-				std::array<tl::optional<vc::model::TextureFile>, 6> texFiles = bt.second->getTextureFiles();
+			std::vector<TextureFile> allTextureFiles;
+			for(auto& bt : BlockType::getAll()) {
+				std::array<tl::optional<TextureFile>, 6> texFiles = bt.second->getTextureFiles();
 				for(auto& texFile : texFiles) {
 					if(! texFile.has_value()) continue;
 
@@ -33,7 +33,7 @@ namespace vc::rendering {
 
 			// sort the texture files by texture array
 			std::sort(allTextureFiles.begin(), allTextureFiles.end(), 
-				[](const vc::model::TextureFile& o1, const vc::model::TextureFile& o2) -> bool {
+				[](const TextureFile& o1, const TextureFile& o2) -> bool {
 					// this lambda returns true if the first argument should before the second one
 					// we want to sort the list in ascending order
 					// => return true if a < b
@@ -43,7 +43,7 @@ namespace vc::rendering {
 			);
 
 			// remove duplicates
-			auto compareFunction = [](const vc::model::TextureFile& o1, const vc::model::TextureFile& o2) {
+			auto compareFunction = [](const TextureFile& o1, const TextureFile& o2) {
 				return o1.getGlobalTextureId() == o2.getGlobalTextureId();
 			};
 			allTextureFiles.erase(unique(allTextureFiles.begin(), allTextureFiles.end(), compareFunction), allTextureFiles.end());
@@ -54,15 +54,15 @@ namespace vc::rendering {
 				texturePaths.push_back(applFolder + (texFile.getPath().append(".png")));
 			}
 
-			return vc::renderingModel::TextureArray(texturePaths);
+			return TextureArray(texturePaths);
 		}
 	}
 	LevelRenderer::LevelRenderer() :
 			blockTextureArray(genTextureArray()),
 			blockRenderer(blockTextureArray),
 			blockInHandRenderer(blockTextureArray),
-			multisampleFbo({new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight(), MULTISAMPLES)}),
-			outputFbo({new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight())}),
+			multisampleFbo({new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight(), MULTISAMPLES)}),
+			outputFbo({new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight())}),
 			postProcessor(),
 			lastFrameWindowWidth(egui::getDisplayHandler().getFramebufferWidth()),
 			lastFrameWindowHeight(egui::getDisplayHandler().getFramebufferHeight()),
@@ -79,12 +79,12 @@ namespace vc::rendering {
 		int newHeight = egui::getDisplayHandler().getHeight();
 
 		if(newWidth != this->lastFrameWindowWidth || newHeight != this->lastFrameWindowHeight) {
-			this->lastTimeResizing = vc::model::getMilliseconds();
+			this->lastTimeResizing = getMilliseconds();
 			this->lastFrameWindowWidth = newWidth;
 			this->lastFrameWindowHeight = newHeight;
 		}
 
-		if(this->lastTimeResizing + RESIZING_FBO_DELAY_MS < vc::model::getMilliseconds()) {
+		if(this->lastTimeResizing + RESIZING_FBO_DELAY_MS < getMilliseconds()) {
 			this->lastTimeResizing = LLONG_MAX - RESIZING_FBO_DELAY_MS;
 			//TODO logging
 			return true;
@@ -106,7 +106,7 @@ namespace vc::rendering {
 		glEnable(GL_CULL_FACE);
 
 		if(updateOutputFbo) {
-			multisampleFbo.reset(new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight(), MULTISAMPLES));
+			multisampleFbo.reset(new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight(), MULTISAMPLES));
 		}
 
 		glm::vec4 backgroundColor = p_currentLevel->getBackgroundColor();
@@ -136,7 +136,7 @@ namespace vc::rendering {
 		bool updateOutputFbo = updateFbos();
 
 		if(updateOutputFbo) {
-			outputFbo.reset(new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight()));
+			outputFbo.reset(new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight()));
 		}
 
 		render_impl(delta, updateOutputFbo);

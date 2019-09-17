@@ -4,7 +4,7 @@
 
 #include "../model/utils/FileUtils.h"
 
-namespace vc::system {
+namespace vc {
 	KeyAssignmentsImpl::KeyAssignmentsImpl() {
 
 		SI_Error err = properties.LoadFile(getFile().c_str());
@@ -27,8 +27,8 @@ namespace vc::system {
 	}
 
 	std::string KeyAssignmentsImpl::getFile() {
-		std::string file = vc::model::getApplicationFolder().append("\\config.ini");
-		if(! vc::model::doesExist(file)) vc::model::createFile(file);
+		std::string file = getApplicationFolder().append("\\config.ini");
+		if(! doesExist(file)) createFile(file);
 
 		return file;
 	}

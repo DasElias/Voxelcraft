@@ -10,57 +10,55 @@
 
 
 namespace vc {
-	namespace rendering {
-		class InHandRenderer : public LevelRendererInterface {
-			// ----------------------------------------------------------------------
-			// ----------------------------STATIC-FIELDS-----------------------------
-			// ----------------------------------------------------------------------
-			static float const MODEL_SCALE;
+	class InHandRenderer : public LevelRendererInterface {
+		// ----------------------------------------------------------------------
+		// ----------------------------STATIC-FIELDS-----------------------------
+		// ----------------------------------------------------------------------
+		static float const MODEL_SCALE;
 
-			// ----------------------------------------------------------------------
-			// --------------------------------FIELDS--------------------------------
-			// ----------------------------------------------------------------------
-			private:
-				vc::model::ProjectionMatrix blockInHandProjectionMatrix;
-				vc::model::Level* p_currentLevel = nullptr;
-				egui::FunctionWrapper<vc::model::BlockPlaceEvent> blockPlaceEventHandler = {[this](vc::model::BlockPlaceEvent&) {
-						onBlockPlaced();
-					}};
-				egui::FunctionWrapper<vc::model::BlockBreakEvent> blockBreakEventHandler = {[this](vc::model::BlockBreakEvent&) {
-						onBlockPlaced();
-					}};
-				egui::FunctionWrapper<vc::model::ItemInHandChangedEvent> itemInHandChangeEventHandler = {[this](vc::model::ItemInHandChangedEvent&) {
-						onItemChanged();
-					}};
+		// ----------------------------------------------------------------------
+		// --------------------------------FIELDS--------------------------------
+		// ----------------------------------------------------------------------
+		private:
+			ProjectionMatrix blockInHandProjectionMatrix;
+			Level* p_currentLevel = nullptr;
+			egui::FunctionWrapper<BlockPlaceEvent> blockPlaceEventHandler = {[this](BlockPlaceEvent&) {
+					onBlockPlaced();
+				}};
+			egui::FunctionWrapper<BlockBreakEvent> blockBreakEventHandler = {[this](BlockBreakEvent&) {
+					onBlockPlaced();
+				}};
+			egui::FunctionWrapper<ItemInHandChangedEvent> itemInHandChangeEventHandler = {[this](ItemInHandChangedEvent&) {
+					onItemChanged();
+				}};
 
 
-				long long blockPlacedStartTime;
-				long long itemInHandChangedTime;
+			long long blockPlacedStartTime;
+			long long itemInHandChangedTime;
 
-			// ----------------------------------------------------------------------
-			// -----------------------------CONSTRUCTORS-----------------------------
-			// ----------------------------------------------------------------------
-			public:
-				InHandRenderer();
-				InHandRenderer(const InHandRenderer&) = delete;
-				~InHandRenderer();
-			// ----------------------------------------------------------------------
-			// -------------------------------METHODS--------------------------------
-			// ----------------------------------------------------------------------
-			private:
-				void onBlockPlaced();
-				void onItemChanged();
+		// ----------------------------------------------------------------------
+		// -----------------------------CONSTRUCTORS-----------------------------
+		// ----------------------------------------------------------------------
+		public:
+			InHandRenderer();
+			InHandRenderer(const InHandRenderer&) = delete;
+			~InHandRenderer();
+		// ----------------------------------------------------------------------
+		// -------------------------------METHODS--------------------------------
+		// ----------------------------------------------------------------------
+		private:
+			void onBlockPlaced();
+			void onItemChanged();
 
-			protected:
-				vc::model::Level* getCurrentLevel();
+		protected:
+			Level* getCurrentLevel();
 
-			public:
-				void setCurrentLevel(vc::model::Level* p_currentLevel) override;
-				float getBlockPlace_percent();
-				float getItemChange_percent();
+		public:
+			void setCurrentLevel(Level* p_currentLevel) override;
+			float getBlockPlace_percent();
+			float getItemChange_percent();
 
-				glm::mat4x4 getModelProjectionMatrix();
+			glm::mat4x4 getModelProjectionMatrix();
 
-		};
-	}
+	};
 }

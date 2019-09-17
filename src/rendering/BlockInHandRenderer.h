@@ -7,91 +7,89 @@
 #include "../renderModel/VertexArrayObject.h"
 
 namespace vc {
-	namespace rendering {
-		class BlockInHandRenderer : public InHandRenderer {
+	class BlockInHandRenderer : public InHandRenderer {
 
-			// ----------------------------------------------------------------------
-			// -----------------------------CHILD-CLASS------------------------------
-			// ----------------------------------------------------------------------
-			private: 
-				class BlockInHandShader : public VertexFragmentShaderProgram {
-					// ----------------------------------------------------------------------
-					// --------------------------------FIELDS--------------------------------
-					// ----------------------------------------------------------------------
-					private:
-						int location_projectionMatrix;
+		// ----------------------------------------------------------------------
+		// -----------------------------CHILD-CLASS------------------------------
+		// ----------------------------------------------------------------------
+		private: 
+			class BlockInHandShader : public VertexFragmentShaderProgram {
+				// ----------------------------------------------------------------------
+				// --------------------------------FIELDS--------------------------------
+				// ----------------------------------------------------------------------
+				private:
+					int location_projectionMatrix;
 
-					// ----------------------------------------------------------------------
-					// -----------------------------CONSTRUCTORS-----------------------------
-					// ----------------------------------------------------------------------
-					public:
-						BlockInHandShader();
+				// ----------------------------------------------------------------------
+				// -----------------------------CONSTRUCTORS-----------------------------
+				// ----------------------------------------------------------------------
+				public:
+					BlockInHandShader();
 
-					// ----------------------------------------------------------------------
-					// -------------------------------METHODS--------------------------------
-					// ----------------------------------------------------------------------
-					public:
-						void loadProjectionMatrix(glm::mat4x4 projectionMatrix);
-				};
+				// ----------------------------------------------------------------------
+				// -------------------------------METHODS--------------------------------
+				// ----------------------------------------------------------------------
+				public:
+					void loadProjectionMatrix(glm::mat4x4 projectionMatrix);
+			};
 
-				class BlockInHandVao : public vc::renderingModel::VertexArrayObject {
-					// ----------------------------------------------------------------------
-					// --------------------------------FIELDS--------------------------------
-					// ----------------------------------------------------------------------
-					private:
-						std::uint32_t vaoId;
-						std::size_t vertexCount;
+			class BlockInHandVao : public VertexArrayObject {
+				// ----------------------------------------------------------------------
+				// --------------------------------FIELDS--------------------------------
+				// ----------------------------------------------------------------------
+				private:
+					std::uint32_t vaoId;
+					std::size_t vertexCount;
 
-						std::uint32_t texIdVbo;
+					std::uint32_t texIdVbo;
 
-					// ----------------------------------------------------------------------
-					// -----------------------------CONSTRUCTORS-----------------------------
-					// ----------------------------------------------------------------------
-					public:
-						BlockInHandVao(const std::vector<float>& data, const std::vector<float>& texData);
-						~BlockInHandVao();
+				// ----------------------------------------------------------------------
+				// -----------------------------CONSTRUCTORS-----------------------------
+				// ----------------------------------------------------------------------
+				public:
+					BlockInHandVao(const std::vector<float>& data, const std::vector<float>& texData);
+					~BlockInHandVao();
 
-					// ----------------------------------------------------------------------
-					// -------------------------------METHODS--------------------------------
-					// ----------------------------------------------------------------------
-					private:
-						std::uint32_t generateVbo(std::uint32_t indexInVao, std::int32_t sizePerVertex, const std::vector<float>& data);
-						std::uint32_t generateTexIdVbo(std::uint32_t indexInVao, std::int32_t sizePerVertex);
+				// ----------------------------------------------------------------------
+				// -------------------------------METHODS--------------------------------
+				// ----------------------------------------------------------------------
+				private:
+					std::uint32_t generateVbo(std::uint32_t indexInVao, std::int32_t sizePerVertex, const std::vector<float>& data);
+					std::uint32_t generateTexIdVbo(std::uint32_t indexInVao, std::int32_t sizePerVertex);
 
-					public:
-						std::uint32_t getVertexArrayObjectId() override;
-						std::size_t getIndiciesCount() override;
+				public:
+					std::uint32_t getVertexArrayObjectId() override;
+					std::size_t getIndiciesCount() override;
 
-						void loadTextureIds(const std::vector<int>& texIds);
-				};
-
+					void loadTextureIds(const std::vector<int>& texIds);
+			};
 
 
 
 
 
-			// ----------------------------------------------------------------------
-			// --------------------------------FIELDS--------------------------------
-			// ----------------------------------------------------------------------
-			private:
-				BlockInHandShader shader;
-				vc::renderingModel::TextureArray blockTextureArray;
-				BlockInHandVao vao;
 
-			// ----------------------------------------------------------------------
-			// -----------------------------CONSTRUCTORS-----------------------------
-			// ----------------------------------------------------------------------
-			private:
-				BlockInHandRenderer(const BlockInHandRenderer&) = delete;
+		// ----------------------------------------------------------------------
+		// --------------------------------FIELDS--------------------------------
+		// ----------------------------------------------------------------------
+		private:
+			BlockInHandShader shader;
+			TextureArray blockTextureArray;
+			BlockInHandVao vao;
 
-			public:
-				BlockInHandRenderer(vc::renderingModel::TextureArray blockTextureArray);
-				~BlockInHandRenderer();
+		// ----------------------------------------------------------------------
+		// -----------------------------CONSTRUCTORS-----------------------------
+		// ----------------------------------------------------------------------
+		private:
+			BlockInHandRenderer(const BlockInHandRenderer&) = delete;
 
-			// ----------------------------------------------------------------------
-			// -------------------------------METHODS--------------------------------
-			// ----------------------------------------------------------------------
-			void render(const std::shared_ptr<vc::model::BlockType>& type);
-		};
-	}
+		public:
+			BlockInHandRenderer(TextureArray blockTextureArray);
+			~BlockInHandRenderer();
+
+		// ----------------------------------------------------------------------
+		// -------------------------------METHODS--------------------------------
+		// ----------------------------------------------------------------------
+		void render(const std::shared_ptr<BlockType>& type);
+	};
 }

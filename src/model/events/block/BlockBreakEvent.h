@@ -5,14 +5,12 @@
 
 
 namespace vc {
-	namespace model {
-		class BlockBreakEvent : public BlockEvent, public Cancellable {
+	class BlockBreakEvent : public BlockEvent, public Cancellable {
 
-			// ----------------------------------------------------------------------
-			// -----------------------------CONSTRUCTORS-----------------------------
-			// ----------------------------------------------------------------------
-			public:
-				BlockBreakEvent(AbstractBlock* const p_replacedBlock, AbstractPlayer* const p_player);
+		// ----------------------------------------------------------------------
+		// -----------------------------CONSTRUCTORS-----------------------------
+		// ----------------------------------------------------------------------
+		public:
+			BlockBreakEvent(AbstractBlock* const p_replacedBlock, AbstractPlayer* const p_player);
 		};
-	}
 }

@@ -3,14 +3,12 @@
 #include "../Cancellable.h"
 
 namespace vc {
-	namespace model {
-		class ChunkStackUnloadEvent : public ChunkStackEvent, public Cancellable {
+	class ChunkStackUnloadEvent : public ChunkStackEvent, public Cancellable {
 
-			// ----------------------------------------------------------------------
-			// -----------------------------CONSTRUCTORS-----------------------------
-			// ----------------------------------------------------------------------
-			public:
-				ChunkStackUnloadEvent(AbstractChunkStack* const p_chunkStack);
-		};
-	}
+		// ----------------------------------------------------------------------
+		// -----------------------------CONSTRUCTORS-----------------------------
+		// ----------------------------------------------------------------------
+		public:
+			ChunkStackUnloadEvent(AbstractChunkStack* const p_chunkStack);
+	};
 }

@@ -1,6 +1,6 @@
 #include "Bedrock.h"
 
-namespace vc::model {
+namespace vc {
 	Bedrock::Bedrock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, Chunk& c, const TextureOrientation& texOrientation, int8_t metadata) :
 			Block(inChunkX, inChunkY, inChunkZ, BlockType::BEDROCK.get(), c, texOrientation, metadata) {
 	}

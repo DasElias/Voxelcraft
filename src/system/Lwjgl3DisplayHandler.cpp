@@ -1,6 +1,6 @@
 #include "Lwjgl3DisplayHandler.h"
 
-namespace vc::system {
+namespace vc {
 	Lwjgl3DisplayHandler::Lwjgl3DisplayHandler(GLFWwindow* window, int startWidth, int startHeight) :
 			window(window),
 			width(startWidth),

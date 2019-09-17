@@ -13,7 +13,7 @@
 #include "utils/MathUtils.h"
 #include "utils/VectorUtils.h"
 
-namespace vc::model {
+namespace vc {
 	const glm::vec4 Level::DAY_SKY_COLOR = {0.494f, 0.671f, 1, 1};
 	const glm::vec4 Level::NIGHT_SKY_COLOR = {0, 0, 0, 1};
 	const long Level::AUTOSAVE_INTERVAL = 1 * 60;
@@ -21,7 +21,7 @@ namespace vc::model {
 	const int Level::DELETE_RANGE = RENDER_RANGE + 2;
 	const float Level::DAY_NIGHT_LENGTH = 1 * 60;
 
-	Level::Level(std::unique_ptr<LevelMetadata> metadata, std::string levelFolder, vc::renderingModel::AbstractChunkVaoManager& vaoManager, ctpl::thread_pool& helperThreadPool) :
+	Level::Level(std::unique_ptr<LevelMetadata> metadata, std::string levelFolder, AbstractChunkVaoManager& vaoManager, ctpl::thread_pool& helperThreadPool) :
 			levelMetadata(std::move(metadata)),
 			levelFolder(levelFolder),
 			allChunkStacks(VECTOR2I_COMPARE),
@@ -207,7 +207,7 @@ namespace vc::model {
 		return chunkLoader;
 	}
 
-	vc::renderingModel::AbstractChunkVaoManager& Level::getVaoManager() const {
+	AbstractChunkVaoManager& Level::getVaoManager() const {
 		return vaoManager;
 	}
 

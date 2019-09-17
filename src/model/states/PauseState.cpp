@@ -8,8 +8,8 @@
 #include "StateManager.h"
 
 
-namespace vc::model {
-	PauseState::PauseState(StateManager& sm, vc::rendering::LevelRenderer& levelRenderer, egui::MasterRenderer& eguiRenderer, egui::EGuiContext& eguiCtx) :
+namespace vc {
+	PauseState::PauseState(StateManager& sm, LevelRenderer& levelRenderer, egui::MasterRenderer& eguiRenderer, egui::EGuiContext& eguiCtx) :
 			State(sm),
 			levelRenderer(levelRenderer),
 			eguiRenderer(eguiRenderer),

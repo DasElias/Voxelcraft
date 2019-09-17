@@ -12,7 +12,7 @@
 
 egui::VoxelcraftTheme::VoxelcraftTheme(EGuiContext& context) :
 	AbstractTheme(context, [this]() {
-		std::string applFolder = vc::model::getApplicationFolder();
+		std::string applFolder = vc::getApplicationFolder();
 
 		std::shared_ptr<Font> defaultFont = Font::createFont(ctx, "CodersCrux", std::string(applFolder).append("\\resources\\fonts\\coders_crux.ttf"));
 		std::shared_ptr<Font> emojiFont = Font::createFont(ctx, "EmojiFallback", std::string(applFolder).append("\\resources\\fonts\\OpenSansEmoji.ttf"));

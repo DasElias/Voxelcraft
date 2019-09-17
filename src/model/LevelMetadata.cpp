@@ -3,7 +3,7 @@
 #include "utils/TimeUtils.h"
 #include <stdexcept>
 
-namespace vc::model {
+namespace vc {
 	const char* const LevelMetadata::LEVEL_NAME_KEY = "levelName";
 	const char* const LevelMetadata::SEED_KEY = "seed";
 	const char* const LevelMetadata::LAST_LOADED_KEY = "lastLoaded";

@@ -16,7 +16,7 @@
 #include "TextureOrientation.h"
 #include "utils/MathUtils.h"
 
-namespace vc::model {
+namespace vc {
 	float const Chunk::CHUNK_SIZE_FLOAT = CHUNK_SIZE;
 
 
@@ -35,7 +35,7 @@ namespace vc::model {
 		}
 	}
 
-	void Chunk::createBlock(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, std::vector<vc::renderingModel::ChunkVaoData>& data) {
+	void Chunk::createBlock(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, std::vector<ChunkVaoData>& data) {
 		const TextureOrientation& orientation = p_block->getTexOrientation();
 
 		//left
@@ -65,7 +65,7 @@ namespace vc::model {
 	}
 
 
-	void Chunk::addToDataArray(std::vector<vc::renderingModel::ChunkVaoData>& data, Block* p_block, std::int8_t facing, std::int8_t tex) {
+	void Chunk::addToDataArray(std::vector<ChunkVaoData>& data, Block* p_block, std::int8_t facing, std::int8_t tex) {
 		data.push_back({
 			float(p_block->getWorldX()), float(p_block->getWorldY()), float(p_block->getWorldZ()), 
 			short(((p_block->getBlockType().getTextureFiles()[tex])->getGlobalTextureId() << 3) | facing)
@@ -92,7 +92,7 @@ namespace vc::model {
 		return maxHeight;
 	}
 
-	vc::renderingModel::ChunkVertexArrayObject* const Chunk::getVao() const {
+	ChunkVertexArrayObject* const Chunk::getVao() const {
 		return p_chunkVaoObject;
 	}
 
@@ -106,7 +106,7 @@ namespace vc::model {
 			std::cerr << "ChunkStack is updated, even though at least one neighbour is null.";
 		}
 
-		static std::vector<vc::renderingModel::ChunkVaoData> data;
+		static std::vector<ChunkVaoData> data;
 		data.clear();
 
 		//if(this->positionData.capacity() < p_chunkVaoObject->getPosDataLength()) this->positionData.reserve(p_chunkVaoObject->getPosDataLength());

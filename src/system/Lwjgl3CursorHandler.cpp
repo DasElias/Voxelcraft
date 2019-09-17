@@ -1,6 +1,6 @@
 #include "Lwjgl3CursorHandler.h"
 
-namespace vc::system {
+namespace vc {
 	Lwjgl3CursorHandler::Lwjgl3CursorHandler(GLFWwindow* window) :
 			window(window) {
 	}

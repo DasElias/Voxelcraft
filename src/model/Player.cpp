@@ -17,7 +17,7 @@
 
 using namespace egui;
 
-namespace vc::model {
+namespace vc {
 	const int Player::REJUMP_ON_Y_CHANGE_DELAY_MS = 100;
 	const float Player::COLLISION_TOLERANCE = 0.3f;
 	const float Player::GET_BLOCK_UNDER_TOLERANCE = 0.2f;

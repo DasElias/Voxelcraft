@@ -3,7 +3,7 @@
 
 #include <map>
 
-namespace vc::system {
+namespace vc {
 	namespace {
 		static std::map<GLFWwindow*, Lwjgl3InputHandler*> instanceMap;
 

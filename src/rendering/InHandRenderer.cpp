@@ -9,10 +9,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/glm.hpp>
 
-using namespace vc::model;
+using namespace vc;
 using namespace egui;
 
-namespace vc::rendering {
+namespace vc {
 	const float InHandRenderer::MODEL_SCALE = 0.02f;
 
 	InHandRenderer::InHandRenderer() :
@@ -31,11 +31,11 @@ namespace vc::rendering {
 		itemInHandChangedTime = getMilliseconds();
 	}
 
-	vc::model::Level* InHandRenderer::getCurrentLevel() {
+	Level* InHandRenderer::getCurrentLevel() {
 		return p_currentLevel;
 	}
 
-	void InHandRenderer::setCurrentLevel(vc::model::Level* p_currentLevel) {
+	void InHandRenderer::setCurrentLevel(Level* p_currentLevel) {
 		if(this->p_currentLevel != nullptr) {
 			this->p_currentLevel->getBlockPlaceEventManager().removeEventHandler(blockPlaceEventHandler);
 			this->p_currentLevel->getBlockBreakEventManager().removeEventHandler(blockBreakEventHandler);
@@ -58,9 +58,9 @@ namespace vc::rendering {
 		float animationDuration = Player::BLOCK_PLACE_DELAY_MS * 2;
 
 		if(deltaTime < animationDuration / 2) {
-			return vc::model::interpolateLinear(float(deltaTime), 0, 0, animationDuration / 2, 1);
+			return interpolateLinear(float(deltaTime), 0, 0, animationDuration / 2, 1);
 		} else if (deltaTime < animationDuration) {
-			return vc::model::interpolateLinear(deltaTime - (animationDuration / 2), 0, 1, animationDuration / 2, 0);
+			return interpolateLinear(deltaTime - (animationDuration / 2), 0, 1, animationDuration / 2, 0);
 		} else {
 			return 0;
 		}
@@ -73,9 +73,9 @@ namespace vc::rendering {
 		float animationDuration = 500;
 
 		if(deltaTime < animationDuration / 2) {
-			return vc::model::interpolateLinear(float(deltaTime), 0, 0, animationDuration / 2, 1);
+			return interpolateLinear(float(deltaTime), 0, 0, animationDuration / 2, 1);
 		} else if (deltaTime < animationDuration) {
-			return vc::model::interpolateLinear(deltaTime - (animationDuration / 2), 0, 1, animationDuration / 2, 0);
+			return interpolateLinear(deltaTime - (animationDuration / 2), 0, 1, animationDuration / 2, 0);
 		} else {
 			return 0;
 		}
@@ -100,7 +100,7 @@ namespace vc::rendering {
 		model = glm::translate(model, vec3(0, -getItemChange_percent() * 0.05f, 0));
 		model = glm::scale(model, vec3(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 		model = glm::rotate(model, 0.2f, vec3(1, 0, 0));
-		model = glm::rotate(model, vc::model::PI / 4.0f, vec3(0, 1, 0));
+		model = glm::rotate(model, PI / 4.0f, vec3(0, 1, 0));
 		model = glm::rotate(model, 0.2f, vec3(0, 0, 1));
 
 

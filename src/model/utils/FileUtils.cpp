@@ -9,7 +9,7 @@
 
 using namespace boost;
 
-namespace vc::model {
+namespace vc {
 	bool doesExist(std::string path) {
 		return filesystem::exists(path);
 	}

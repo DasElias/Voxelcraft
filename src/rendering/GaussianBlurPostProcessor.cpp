@@ -12,7 +12,7 @@
 #include "shaderPrograms/shaders/defaultPostProcessing_fragment.glsl"
 
 
-namespace vc::rendering {
+namespace vc {
 	GaussianBlurPostProcessor::HorizontalBlurShader::HorizontalBlurShader() :
 		VertexFragmentShaderProgram(
 			gaussianBlur_horizontal_vertex,
@@ -55,10 +55,10 @@ namespace vc::rendering {
 	}
 
 	GaussianBlurPostProcessor::GaussianBlurPostProcessor() :
-			horizontalFbo({new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getWidth() / 4, egui::getDisplayHandler().getHeight() / 4)}),
-			verticalFbo({new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getWidth() / 4, egui::getDisplayHandler().getHeight() / 4)}),
-			horizontalFbo2({new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getWidth() / 8, egui::getDisplayHandler().getHeight() / 8)}),
-			verticalFbo2({new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getWidth() / 8, egui::getDisplayHandler().getHeight() / 8)}) {
+			horizontalFbo({new FrameBufferObject(egui::getDisplayHandler().getWidth() / 4, egui::getDisplayHandler().getHeight() / 4)}),
+			verticalFbo({new FrameBufferObject(egui::getDisplayHandler().getWidth() / 4, egui::getDisplayHandler().getHeight() / 4)}),
+			horizontalFbo2({new FrameBufferObject(egui::getDisplayHandler().getWidth() / 8, egui::getDisplayHandler().getHeight() / 8)}),
+			verticalFbo2({new FrameBufferObject(egui::getDisplayHandler().getWidth() / 8, egui::getDisplayHandler().getHeight() / 8)}) {
 
 		horizontalShader.startProgram();
 		horizontalShader.setFboWidth(float(horizontalFbo->getWidth()));
@@ -72,7 +72,7 @@ namespace vc::rendering {
 	GaussianBlurPostProcessor::~GaussianBlurPostProcessor() {
 	}
 
-	void GaussianBlurPostProcessor::renderHorizontalBlur(vc::renderingModel::FrameBufferObject& target, uint32_t textureId) {
+	void GaussianBlurPostProcessor::renderHorizontalBlur(FrameBufferObject& target, uint32_t textureId) {
 		target.bind();
 		target.clear();
 		horizontalShader.startProgram();
@@ -84,7 +84,7 @@ namespace vc::rendering {
 		target.unbind();
 	}
 
-	void GaussianBlurPostProcessor::renderVerticalBlur(vc::renderingModel::FrameBufferObject& target, uint32_t textureId) {
+	void GaussianBlurPostProcessor::renderVerticalBlur(FrameBufferObject& target, uint32_t textureId) {
 		target.bind();
 		target.clear();
 		verticalShader.startProgram();
@@ -98,10 +98,10 @@ namespace vc::rendering {
 
 	void GaussianBlurPostProcessor::render(uint32_t textureId, bool updateFbos) {
 		if(updateFbos) {
-			horizontalFbo.reset(new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getWidth() / 4, egui::getDisplayHandler().getHeight() / 4));
-			verticalFbo.reset(new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getWidth() / 4, egui::getDisplayHandler().getHeight() / 4));
-			horizontalFbo2.reset(new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getWidth() / 8, egui::getDisplayHandler().getHeight() / 8));
-			verticalFbo2.reset(new vc::renderingModel::FrameBufferObject(egui::getDisplayHandler().getWidth() / 8, egui::getDisplayHandler().getHeight() / 8));
+			horizontalFbo.reset(new FrameBufferObject(egui::getDisplayHandler().getWidth() / 4, egui::getDisplayHandler().getHeight() / 4));
+			verticalFbo.reset(new FrameBufferObject(egui::getDisplayHandler().getWidth() / 4, egui::getDisplayHandler().getHeight() / 4));
+			horizontalFbo2.reset(new FrameBufferObject(egui::getDisplayHandler().getWidth() / 8, egui::getDisplayHandler().getHeight() / 8));
+			verticalFbo2.reset(new FrameBufferObject(egui::getDisplayHandler().getWidth() / 8, egui::getDisplayHandler().getHeight() / 8));
 		}
 
 		glActiveTexture(GL_TEXTURE0);

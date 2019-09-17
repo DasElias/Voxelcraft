@@ -9,8 +9,8 @@
 
 #include <model/nodes/UnorganizedParentElement.h>
 
-namespace vc::model {
-	IngameState::IngameState(StateManager& stateManager, vc::rendering::LevelRenderer& levelRenderer, FpsProvider& fpsProvider, egui::MasterRenderer& eguiRenderer) :
+namespace vc {
+	IngameState::IngameState(StateManager& stateManager, LevelRenderer& levelRenderer, FpsProvider& fpsProvider, egui::MasterRenderer& eguiRenderer) :
 			State(stateManager),
 			levelRenderer(levelRenderer),
 			fpsProvider(fpsProvider),

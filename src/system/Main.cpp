@@ -33,9 +33,9 @@
 #include <model\nodes\Button.cpp>
 
 using namespace std;
-using namespace vc::model;
-using namespace vc::rendering;
-using namespace vc::renderingModel;
+using namespace vc;
+using namespace vc;
+using namespace vc;
 
 
 void glfwErrorCallback(int error, const char* description) {
@@ -117,7 +117,7 @@ static void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GL
 
 }
 
-namespace vc::system {
+namespace vc {
 	Main::Main() {
 
 
@@ -243,6 +243,6 @@ namespace vc::system {
 
 int main() {
 	std::cerr << "Application has started!" << endl;
-	vc::system::Main();
+	vc::Main();
 	return 1;
 }

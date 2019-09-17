@@ -7,7 +7,7 @@
 #include <algorithm>
 
 #include <stb_image.h>
-namespace vc::renderingModel {
+namespace vc {
 	SimpleTexture::SimpleTexture(std::string path) {
 		unsigned char* img = stbi_load(path.c_str(), &width, &height, 0, STBI_rgb_alpha);
 

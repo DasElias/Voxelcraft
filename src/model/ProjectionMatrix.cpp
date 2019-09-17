@@ -5,7 +5,7 @@
 #include "utils/MathUtils.h"
 #include "input/IOHandler.h"
 
-namespace vc::model {
+namespace vc {
 	ProjectionMatrix::ProjectionMatrix(float fov, float zNear, float zFar) :
 			zNear(zNear),
 			zFar(zFar) {

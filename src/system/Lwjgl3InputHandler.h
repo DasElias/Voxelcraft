@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "input/IOHandler.h"
 
-namespace vc::system {
+namespace vc {
 
 	class Lwjgl3InputHandler : public egui::InputHandler {
 		// ----------------------------------------------------------------------

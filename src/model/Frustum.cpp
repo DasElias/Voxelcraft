@@ -12,7 +12,7 @@
 
 using namespace glm;
 
-namespace vc::model {
+namespace vc {
 	const float Frustum::NEAR_PLANE_DISTANCE = 0.1f;
 	const float Frustum::FAR_PLANE_DISTANCE = 600;
 	const float Frustum::FAR_PLANE_DISTANCE_CULLING = 300;

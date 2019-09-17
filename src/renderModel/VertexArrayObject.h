@@ -3,25 +3,23 @@
 #include <cstdint>
 
 namespace vc {
-	namespace renderingModel {
-		class VertexArrayObject {
-			// ----------------------------------------------------------------------
-			// -----------------------------CONSTRUCTORS-----------------------------
-			// ----------------------------------------------------------------------
-			protected:
-				VertexArrayObject() = default;
+	class VertexArrayObject {
+		// ----------------------------------------------------------------------
+		// -----------------------------CONSTRUCTORS-----------------------------
+		// ----------------------------------------------------------------------
+		protected:
+			VertexArrayObject() = default;
 
-			public:
-				virtual ~VertexArrayObject() = default;
-				VertexArrayObject(const VertexArrayObject&) = delete;
+		public:
+			virtual ~VertexArrayObject() = default;
+			VertexArrayObject(const VertexArrayObject&) = delete;
 
-			// ----------------------------------------------------------------------
-			// -------------------------------METHODS--------------------------------
-			// ----------------------------------------------------------------------
-			public:
-				virtual std::uint32_t getVertexArrayObjectId() =0;
+		// ----------------------------------------------------------------------
+		// -------------------------------METHODS--------------------------------
+		// ----------------------------------------------------------------------
+		public:
+			virtual std::uint32_t getVertexArrayObjectId() =0;
 
-				virtual std::size_t getIndiciesCount() =0;
-		};
-	}
+			virtual std::size_t getIndiciesCount() =0;
+	};
 }

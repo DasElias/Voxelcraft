@@ -1,7 +1,7 @@
 #include "TimeUtils.h"
 
 #include <chrono>
-namespace vc::model {
+namespace vc {
 	long long getMilliseconds() {
 		namespace sc = std::chrono;
 

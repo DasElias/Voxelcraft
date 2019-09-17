@@ -10,40 +10,38 @@
 
 
 namespace vc {
-	namespace model {
-		class PauseState : public State {
-			// ----------------------------------------------------------------------
-			// ----------------------------STATIC-FIELDS-----------------------------
-			// ----------------------------------------------------------------------
-			private:
-				static int const PRESS_ESC_DELAY = 200;
+	class PauseState : public State {
+		// ----------------------------------------------------------------------
+		// ----------------------------STATIC-FIELDS-----------------------------
+		// ----------------------------------------------------------------------
+		private:
+			static int const PRESS_ESC_DELAY = 200;
 
-			// ----------------------------------------------------------------------
-			// --------------------------------FIELDS--------------------------------
-			// ----------------------------------------------------------------------
-			private:
-				vc::rendering::LevelRenderer& levelRenderer;
+		// ----------------------------------------------------------------------
+		// --------------------------------FIELDS--------------------------------
+		// ----------------------------------------------------------------------
+		private:
+			LevelRenderer& levelRenderer;
 
-				egui::MasterRenderer& eguiRenderer;
-				std::shared_ptr<egui::PauseStateElement> elem;
-				egui::Scene scene;
+			egui::MasterRenderer& eguiRenderer;
+			std::shared_ptr<egui::PauseStateElement> elem;
+			egui::Scene scene;
 
-			// ----------------------------------------------------------------------
-			// -----------------------------CONSTRUCTORS-----------------------------
-			// ----------------------------------------------------------------------
-			public:
-				PauseState(StateManager& stateManager, vc::rendering::LevelRenderer& levelRenderer, egui::MasterRenderer& eguiRenderer, egui::EGuiContext& eguiCtx);
+		// ----------------------------------------------------------------------
+		// -----------------------------CONSTRUCTORS-----------------------------
+		// ----------------------------------------------------------------------
+		public:
+			PauseState(StateManager& stateManager, LevelRenderer& levelRenderer, egui::MasterRenderer& eguiRenderer, egui::EGuiContext& eguiCtx);
 
 
-			// ----------------------------------------------------------------------
-			// -------------------------------METHODS--------------------------------
-			// ----------------------------------------------------------------------
-			public:
-				void updateAndRender(float delta) override;
-				void onStateEnter() override;
-				void onCurrentLevelChange(vc::model::Level* oldLevel, vc::model::Level* newLevel) override;
-				void onStateExit() override;
-		};
+		// ----------------------------------------------------------------------
+		// -------------------------------METHODS--------------------------------
+		// ----------------------------------------------------------------------
+		public:
+			void updateAndRender(float delta) override;
+			void onStateEnter() override;
+			void onCurrentLevelChange(Level* oldLevel, Level* newLevel) override;
+			void onStateExit() override;
+	};
 
-	}
 }

@@ -5,7 +5,7 @@
 #include <input/CursorHandler.h>
 
 
-namespace vc::system {
+namespace vc {
 	class Lwjgl3CursorHandler : public egui::CursorHandler {
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------

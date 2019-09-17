@@ -1,7 +1,7 @@
 #include "State.h"
 
 #include "../utils/TimeUtils.h"
-namespace vc::model {
+namespace vc {
 
 	State::State(StateManager& stateManager) :
 			stateManager(stateManager) {

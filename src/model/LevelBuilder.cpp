@@ -3,12 +3,12 @@
 #include "LevelIOException.h"
 #include "utils/FileUtils.h"
 
-namespace vc::model {
+namespace vc {
 	namespace {
 		const std::string LEVEL_CONFIG_NAME = "level.config";
 	}
 
-	Level* loadLevel(std::string levelFolderPath, vc::renderingModel::AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool) {
+	Level* loadLevel(std::string levelFolderPath, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool) {
 		if(! doesLevelExist(levelFolderPath)) throw LevelIOException("The given folder doesn't contain a valid level.");
 		if(! isDirectory(levelFolderPath)) throw LevelIOException("The given path is not a directory.");
 
@@ -20,7 +20,7 @@ namespace vc::model {
 		return p_level;
 	}
 
-	Level* createLevel(std::string levelFolderPath, float seed, vc::renderingModel::AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool) {
+	Level* createLevel(std::string levelFolderPath, float seed, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool) {
 		if(doesLevelExist(levelFolderPath)) throw LevelIOException("The given folder does already contain a valid level.");
 
 		if(! doesExist(levelFolderPath)) createDirectory(levelFolderPath);

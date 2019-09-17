@@ -12,21 +12,22 @@
 
 
 namespace vc {
-	namespace model {
-		class Player;
-		class Level;
-		class ChunkStack;
+	class Player;
+	class Level;
+	class ChunkStack;
 
-		class Chunk : public AbstractChunk {
-
+	class Chunk : public AbstractChunk {
+		// ----------------------------------------------------------------------
+		// ----------------------------STATIC-FIELDS-----------------------------
+		// ----------------------------------------------------------------------
 		public:
 			static int const CHUNK_SIZE = 40;
 			static float const CHUNK_SIZE_FLOAT;
 			static int const CHUNK_SIZE_SQUARED = CHUNK_SIZE * CHUNK_SIZE;
 
-			// ----------------------------------------------------------------------
-			// --------------------------------FIELDS--------------------------------
-			// ----------------------------------------------------------------------
+		// ----------------------------------------------------------------------
+		// --------------------------------FIELDS--------------------------------
+		// ----------------------------------------------------------------------
 		private:
 			glm::ivec3 const chunkCoords;
 			Level& level;
@@ -34,27 +35,27 @@ namespace vc {
 
 			std::array<Block*, CHUNK_SIZE* CHUNK_SIZE* CHUNK_SIZE> blocks = {};
 			int placedBlockCounter = 0;
-			vc::renderingModel::ChunkVertexArrayObject* p_chunkVaoObject;
+			ChunkVertexArrayObject* p_chunkVaoObject;
 			int maxHeight = 0;
 			float squaredDistanceToPlayer = 0;
 			bool lastTimeVisible = true;
 
 
-			// ----------------------------------------------------------------------
-			// -----------------------------CONSTRUCTORS-----------------------------
-			// ----------------------------------------------------------------------
+		// ----------------------------------------------------------------------
+		// -----------------------------CONSTRUCTORS-----------------------------
+		// ----------------------------------------------------------------------
 		public:
 			Chunk(glm::ivec3 chunkCoords, Level& lvl, ChunkStack& chunkStack);
 			Chunk(const Chunk&) = delete;
 			~Chunk();
 
 
-			// ----------------------------------------------------------------------
-			// -------------------------------METHODS--------------------------------
-			// ----------------------------------------------------------------------
+		// ----------------------------------------------------------------------
+		// -------------------------------METHODS--------------------------------
+		// ----------------------------------------------------------------------
 		private:
-			void createBlock(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, std::vector<vc::renderingModel::ChunkVaoData>& data);
-			void addToDataArray(std::vector<vc::renderingModel::ChunkVaoData>& data, Block* p_block, std::int8_t facing, std::int8_t tex);
+			void createBlock(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, std::vector<ChunkVaoData>& data);
+			void addToDataArray(std::vector<ChunkVaoData>& data, Block* p_block, std::int8_t facing, std::int8_t tex);
 
 		public:
 			bool wasLastTimeVisible() const override;
@@ -64,7 +65,7 @@ namespace vc {
 			void updateDistanceToPlayer() override;
 
 			int getMaxHeight() const override;
-			vc::renderingModel::ChunkVertexArrayObject* const getVao() const override;
+			ChunkVertexArrayObject* const getVao() const override;
 			int getAmountOfPlacedBlocks() const override;
 
 			void updateVao() override;
@@ -81,6 +82,5 @@ namespace vc {
 			glm::ivec3 getChunkCoordinates() const override;
 			Block* const getBlock(uint8_t intChunkX, uint8_t inChunkY, uint8_t intChunkZ);
 			Level& getLevel();
-		};
-	}
+	};
 }
