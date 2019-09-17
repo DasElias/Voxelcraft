@@ -19,8 +19,6 @@
 namespace vc::model {
 	float const Chunk::CHUNK_SIZE_FLOAT = CHUNK_SIZE;
 
-	std::vector<float> Chunk::positionData;
-	std::vector<uint16_t> Chunk::texFacingData;
 
 	Chunk::Chunk(glm::ivec3 chunkCoords, Level& lvl, ChunkStack& chunkStack) :
 		chunkCoords(chunkCoords),
@@ -37,43 +35,41 @@ namespace vc::model {
 		}
 	}
 
-	void Chunk::createBlock(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, std::vector<float>& posData, std::vector<uint16_t>& texFacingData) {
+	void Chunk::createBlock(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, std::vector<vc::renderingModel::ChunkVaoData>& data) {
 		const TextureOrientation& orientation = p_block->getTexOrientation();
 
 		//left
 		if ((inChunkX == 0 && chunkStack.getLeftNeighbor() == nullptr) || (inChunkX == 0 && chunkStack.getLeftNeighbor()->getChunk(chunkCoords.y)->getBlock(CHUNK_SIZE - 1, inChunkY, inChunkZ) == nullptr) || (inChunkX > 0 && getBlock(inChunkX - 1, inChunkY, inChunkZ) == nullptr)) {
-			addToDataArray(posData, texFacingData, p_block, LEFT, orientation.getLeft());
+			addToDataArray(data, p_block, LEFT, orientation.getLeft());
 		}
 		//right
 		if ((inChunkX == (CHUNK_SIZE - 1) && chunkStack.getRightNeighbor() == nullptr) || (inChunkX == (CHUNK_SIZE - 1) && chunkStack.getRightNeighbor()->getChunk(chunkCoords.y)->getBlock(0, inChunkY, inChunkZ) == nullptr) || (inChunkX < (CHUNK_SIZE - 1) && getBlock(inChunkX + 1, inChunkY, inChunkZ) == nullptr)) {
-			addToDataArray(posData, texFacingData, p_block, RIGHT, orientation.getRight());
+			addToDataArray(data, p_block, RIGHT, orientation.getRight());
 		}
 		//bottom
 		if ((inChunkY == 0 && chunkCoords.y == 0) || (inChunkY == 0 && chunkCoords.y > 0 && chunkStack.getChunk(chunkCoords.y - 1)->getBlock(inChunkX, CHUNK_SIZE - 1, inChunkZ) == nullptr) || (inChunkY > 0 && getBlock(inChunkX, inChunkY - 1, inChunkZ) == nullptr)) {
-			addToDataArray(posData, texFacingData, p_block, BOTTOM, orientation.getBottom());
+			addToDataArray(data, p_block, BOTTOM, orientation.getBottom());
 		}
 		//top
 		if ((inChunkY == (CHUNK_SIZE - 1) && chunkCoords.y < (ChunkStack::AMOUNT_OF_CHUNKS - 1) && chunkStack.getChunk(chunkCoords.y + 1)->getBlock(inChunkX, 0, inChunkZ) == nullptr) || (inChunkY < (CHUNK_SIZE - 1) && getBlock(inChunkX, inChunkY + 1, inChunkZ) == nullptr)) {
-			addToDataArray(posData, texFacingData, p_block, TOP, orientation.getTop());
+			addToDataArray(data, p_block, TOP, orientation.getTop());
 		}
 		//front
 		if ((inChunkZ == 0 && chunkStack.getFrontNeighbor() == nullptr) || (inChunkZ == 0 && chunkStack.getFrontNeighbor()->getChunk(chunkCoords.y)->getBlock(inChunkX, inChunkY, CHUNK_SIZE - 1) == nullptr) || (inChunkZ > 0 && getBlock(inChunkX, inChunkY, inChunkZ - 1) == nullptr)) {
-			addToDataArray(posData, texFacingData, p_block, FRONT, orientation.getFront());
+			addToDataArray(data, p_block, FRONT, orientation.getFront());
 		}
 		//back
 		if ((inChunkZ == (CHUNK_SIZE - 1) && chunkStack.getBackNeighbor() == nullptr) || (inChunkZ == (CHUNK_SIZE - 1) && chunkStack.getBackNeighbor()->getChunk(chunkCoords.y)->getBlock(inChunkX, inChunkY, 0) == nullptr) || (inChunkZ < (CHUNK_SIZE - 1) && getBlock(inChunkX, inChunkY, inChunkZ + 1) == nullptr)) {
-			addToDataArray(posData, texFacingData, p_block, BACK, orientation.getBack());
+			addToDataArray(data, p_block, BACK, orientation.getBack());
 		}
 	}
 
 
-	void Chunk::addToDataArray(std::vector<float>& positionData, std::vector<uint16_t>& texFacingData, Block* p_block, std::int8_t facing, std::int8_t tex) {
-		positionData.push_back(float(p_block->getWorldX()));
-		positionData.push_back(float(p_block->getWorldY()));
-		positionData.push_back(float(p_block->getWorldZ()));
-
-
-		texFacingData.push_back(((p_block->getBlockType().getTextureFiles()[tex])->getGlobalTextureId() << 3) | facing);
+	void Chunk::addToDataArray(std::vector<vc::renderingModel::ChunkVaoData>& data, Block* p_block, std::int8_t facing, std::int8_t tex) {
+		data.push_back({
+			float(p_block->getWorldX()), float(p_block->getWorldY()), float(p_block->getWorldZ()), 
+			short(((p_block->getBlockType().getTextureFiles()[tex])->getGlobalTextureId() << 3) | facing)
+		});
 	}
 
 	bool Chunk::wasLastTimeVisible() const {
@@ -110,11 +106,10 @@ namespace vc::model {
 			std::cerr << "ChunkStack is updated, even though at least one neighbour is null.";
 		}
 
-		this->positionData.clear();
-		this->texFacingData.clear();
+		static std::vector<vc::renderingModel::ChunkVaoData> data;
+		data.clear();
 
-		if(this->positionData.capacity() < p_chunkVaoObject->getPosDataLength()) this->positionData.reserve(p_chunkVaoObject->getPosDataLength());
-		if(this->texFacingData.capacity() < p_chunkVaoObject->getTexFacingDataLength()) this->texFacingData.reserve(p_chunkVaoObject->getTexFacingDataLength());
+		//if(this->positionData.capacity() < p_chunkVaoObject->getPosDataLength()) this->positionData.reserve(p_chunkVaoObject->getPosDataLength());
 
 		maxHeight = 0;
 
@@ -128,12 +123,12 @@ namespace vc::model {
 						if(inChunkY > maxHeight) maxHeight = inChunkY;
 					}
 
-					createBlock(p_b, inChunkX, inChunkY, inChunkZ, positionData, texFacingData);
+					createBlock(p_b, inChunkX, inChunkY, inChunkZ, data);
 				}
 			}
 		}
 
-		p_chunkVaoObject->updateData(positionData, texFacingData);
+		p_chunkVaoObject->updateData(data);
 	}
 
 	void Chunk::placeBlockWithoutUpdateAndEvent(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ) {

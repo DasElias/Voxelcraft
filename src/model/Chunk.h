@@ -8,6 +8,7 @@
 #include "../renderModel/ChunkVertexArrayObject.h"
 #include "AbstractChunk.h"
 #include "Block.h"
+#include "../renderModel/ChunkVaoData.h"
 
 
 namespace vc {
@@ -17,13 +18,6 @@ namespace vc {
 		class ChunkStack;
 
 		class Chunk : public AbstractChunk {
-
-			// ----------------------------------------------------------------------
-			// ----------------------------STATIC-FIELDS-----------------------------
-			// ----------------------------------------------------------------------
-			private:
-				static std::vector<float> positionData;
-				static std::vector<uint16_t> texFacingData;
 
 		public:
 			static int const CHUNK_SIZE = 40;
@@ -59,8 +53,8 @@ namespace vc {
 			// -------------------------------METHODS--------------------------------
 			// ----------------------------------------------------------------------
 		private:
-			void createBlock(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, std::vector<float>& positionData, std::vector<uint16_t>& texFacingData);
-			void addToDataArray(std::vector<float>& positionData, std::vector<uint16_t>& texFacingData, Block* p_block, std::int8_t facing, std::int8_t tex);
+			void createBlock(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, std::vector<vc::renderingModel::ChunkVaoData>& data);
+			void addToDataArray(std::vector<vc::renderingModel::ChunkVaoData>& data, Block* p_block, std::int8_t facing, std::int8_t tex);
 
 		public:
 			bool wasLastTimeVisible() const override;

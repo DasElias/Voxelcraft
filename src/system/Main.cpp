@@ -186,14 +186,14 @@ namespace vc::system {
 		ctpl::thread_pool threadPool(2);
 
 		MainMenuState mainMenuState(stateManager, vaoManager, threadPool, nvgRenderer, ctx);
-		IngameState ingameState(stateManager, levelRenderer, *this);
+		IngameState ingameState(stateManager, levelRenderer, *this, nvgRenderer);
 		PauseState pauseState(stateManager, levelRenderer, nvgRenderer, ctx);
 
 		stateManager.addState("MainMenuState", &mainMenuState);
 		stateManager.addState("IngameState", &ingameState);
 		stateManager.addState("PauseState", &pauseState);
 		stateManager.changeState("MainMenuState");
-
+		
 		loop();
 
 	}

@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "VertexArrayObject.h"
+#include "ChunkVaoData.h"
 
 namespace vc {
 	namespace renderingModel {
@@ -17,10 +18,7 @@ namespace vc {
 			// -------------------------------METHODS--------------------------------
 			// ----------------------------------------------------------------------
 			public:
-				virtual void updateData(std::vector<float>& posData, std::vector<uint16_t>& texFacingData) =0;
-
-				virtual int getPosDataLength() const =0;
-				virtual int getTexFacingDataLength() const =0;
+				virtual void updateData(std::vector<ChunkVaoData>& data) =0;
 		};
 	}
 }

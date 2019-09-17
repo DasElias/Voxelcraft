@@ -17,8 +17,7 @@ namespace vc {
 			// --------------------------------FIELDS--------------------------------
 			// ----------------------------------------------------------------------
 		private:
-			std::uint32_t posDataVboId = 0;
-			std::uint32_t texFacingVboId = 0;
+			std::uint32_t dataVboId = 0;
 
 			std::uint32_t vaoId = 0;
 			std::size_t indiciesCount = 0;
@@ -42,10 +41,9 @@ namespace vc {
 		public:
 			std::uint32_t getVertexArrayObjectId() override;
 			std::size_t getIndiciesCount() override;
-			void updateData(std::vector<float>& posData, std::vector<uint16_t>& texFacingData) override;
-			
-			int getPosDataLength() const override;
-			int getTexFacingDataLength() const override;
+
+			void updateData(std::vector<ChunkVaoData>& data) override;
+		
 		};
 	}
 }

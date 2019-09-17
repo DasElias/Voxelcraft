@@ -7,21 +7,11 @@
 #include <iostream>
 
 namespace vc::renderingModel {
-	namespace {
-#pragma pack(push, 1)
-		struct DataToUpload {
-			GLfloat coordX;
-			GLfloat coordY;
-			GLfloat coordZ;
-			GLushort texId_facing;
-		};
-#pragma pack(pop)
-	}
 	// ----------------------------------------------------------------------
 	// -----------------------------CONSTRUCTORS-----------------------------
 	// ----------------------------------------------------------------------
 	DefaultChunkVao::DefaultChunkVao(bool shouldInitialize) {
-		if (shouldInitialize) init();
+		if(shouldInitialize) init();
 	}
 
 	DefaultChunkVao::~DefaultChunkVao() {
@@ -39,21 +29,15 @@ namespace vc::renderingModel {
 		glBindVertexArray(vaoId);
 
 		// create vbo
-		glGenBuffers(1, &posDataVboId);
-		glBindBuffer(GL_ARRAY_BUFFER, posDataVboId);
+		glGenBuffers(1, &dataVboId);
+		glBindBuffer(GL_ARRAY_BUFFER, dataVboId);
 
 		// allocate memory
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * DATA_LENGTH, nullptr, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, (4 * DATA_LENGTH) + TEXTUREID_FACING_LENGTH, nullptr, GL_STATIC_DRAW);
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-
-
-
-		glGenBuffers(1, &texFacingVboId);
-		glBindBuffer(GL_ARRAY_BUFFER, texFacingVboId);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uint16_t) * TEXTUREID_FACING_LENGTH, nullptr, GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, false, 3 * 4 + 2, BUFFER_OFFSET(0));
 		glEnableVertexAttribArray(1);
-		glVertexAttribIPointer(1, 1, GL_UNSIGNED_SHORT, 0, 0);
+		glVertexAttribIPointer(1, 1, GL_UNSIGNED_SHORT, 3 * 4 + 2, BUFFER_OFFSET(3 * 4));
 
 		// unbind vao
 		glBindVertexArray(0);
@@ -67,31 +51,17 @@ namespace vc::renderingModel {
 		return indiciesCount;
 	}
 
-	void DefaultChunkVao::updateData(std::vector<float>& posData, std::vector<uint16_t>& texFacingData) {
-		if (!isInitialized) init();
+	void DefaultChunkVao::updateData(std::vector<ChunkVaoData>& data) {
+		if(!isInitialized) init();
 
-		std::size_t prevLength = posData.size();
 
-		if(posData.size() < DATA_LENGTH) posData.resize(DATA_LENGTH);
-		if(texFacingData.size() < TEXTUREID_FACING_LENGTH) texFacingData.resize(TEXTUREID_FACING_LENGTH);
+		data.resize(vc::model::Chunk::CHUNK_SIZE * vc::model::Chunk::CHUNK_SIZE * vc::model::Chunk::CHUNK_SIZE);
 
-		glBindBuffer(GL_ARRAY_BUFFER, posDataVboId);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, DATA_LENGTH * sizeof(posData[0]), &posData[0]);
-
-		glBindBuffer(GL_ARRAY_BUFFER, texFacingVboId);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, TEXTUREID_FACING_LENGTH * sizeof(texFacingData[0]), &texFacingData[0]);
-
+		glBindBuffer(GL_ARRAY_BUFFER, dataVboId);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, data.size() * sizeof(data[0]), &data[0]);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-		this->indiciesCount = prevLength / 3;
-	}
-
-	int DefaultChunkVao::getPosDataLength() const {
-		return DATA_LENGTH;
-	}
-
-	int DefaultChunkVao::getTexFacingDataLength() const {
-		return TEXTUREID_FACING_LENGTH;
+		this->indiciesCount = data.size();
 	}
 
 }
