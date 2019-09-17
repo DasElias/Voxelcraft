@@ -5,6 +5,8 @@
 #include "FpsProvider.h"
 #include "State.h"
 
+#include <model/scene/Scene.h>
+#include <model/nodes/Label.h>
 
 namespace vc {
 	namespace model {
@@ -21,17 +23,20 @@ namespace vc {
 			private:
 				vc::rendering::LevelRenderer& levelRenderer;
 
-				// TODO EGUI
+				egui::MasterRenderer& eguiRenderer;
+				std::shared_ptr<egui::Label> fpsLabel;
+				std::shared_ptr<egui::Label> autosaveLabel;
+				egui::Scene scene;
 
 				FpsProvider& fpsProvider;
 				std::vector<float> fpsArrList = std::vector<float>();
-				float fps = 0;
+				float fpsAvg = 0, fpsMin = 0, fpsMax = 0;
 
 			// ----------------------------------------------------------------------
 			// -----------------------------CONSTRUCTORS-----------------------------
 			// ----------------------------------------------------------------------
 			public:
-				IngameState(StateManager& stateManager, vc::rendering::LevelRenderer& levelRenderer, FpsProvider& fpsProvider);
+				IngameState(StateManager& stateManager, vc::rendering::LevelRenderer& levelRenderer, FpsProvider& fpsProvider, egui::MasterRenderer& eguiRenderer);
 
 
 			// ----------------------------------------------------------------------
