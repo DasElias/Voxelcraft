@@ -82,6 +82,7 @@
     <ClCompile Include="src\rendering\shaderPrograms\VertexFragmentShaderProgram.cpp" />
     <ClCompile Include="src\rendering\shaderPrograms\VertexGeometryFragmentShaderProgram.cpp" />
     <ClCompile Include="src\renderModel\AbstractChunkVaoManager.cpp" />
+    <ClCompile Include="src\renderModel\ChunkVaoData.cpp" />
     <ClCompile Include="src\renderModel\ChunkVaoManager.cpp" />
     <ClCompile Include="src\renderModel\ChunkVertexArrayObject.cpp" />
     <ClCompile Include="src\renderModel\DefaultChunkVao.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="src\rendering\shaderPrograms\VertexGeometryFragmentShaderProgram.h" />
     <ClInclude Include="src\renderModel\AbstractChunkVaoManager.h" />
     <ClInclude Include="src\renderModel\BufferOffsetMacro.h" />
+    <ClInclude Include="src\renderModel\ChunkVaoData.h" />
     <ClInclude Include="src\renderModel\ChunkVaoManager.h" />
     <ClInclude Include="src\renderModel\ChunkVertexArrayObject.h" />
     <ClInclude Include="src\renderModel\DefaultChunkVao.h" />
@@ -305,7 +307,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\source\repos\Voxelcraft_New\x64\Debug\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\source\repos\Voxelcraft_1\x64\Debug\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>NanoVG.lib;EGui.lib;zlib.lib;glfw3.lib;glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>

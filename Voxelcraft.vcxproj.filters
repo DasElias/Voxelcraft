@@ -246,6 +246,9 @@
     <ClCompile Include="..\..\..\..\visual_studio_dependencies\glad\src\glad.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\renderModel\ChunkVaoData.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h">
@@ -486,6 +489,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\system\Main.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderModel\ChunkVaoData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
