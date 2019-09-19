@@ -7,6 +7,8 @@
 
 #include <model/scene/Scene.h>
 #include <model/nodes/Label.h>
+#include "../../rendering/Renderer2D.h"
+#include "..//..//renderModel/SimpleTexture.h"
 
 namespace vc {
 	class IngameState : public State {
@@ -21,11 +23,15 @@ namespace vc {
 		// ----------------------------------------------------------------------
 		private:
 			LevelRenderer& levelRenderer;
+			Renderer2D renderer2D;
 
 			egui::MasterRenderer& eguiRenderer;
 			std::shared_ptr<egui::Label> fpsLabel;
 			std::shared_ptr<egui::Label> autosaveLabel;
-			egui::Scene scene;
+			egui::Scene labelScene;
+
+			SimpleTexture crosshairImage;
+			std::shared_ptr<egui::Label> crosshair;
 
 			FpsProvider& fpsProvider;
 			std::vector<float> fpsArrList = std::vector<float>();
