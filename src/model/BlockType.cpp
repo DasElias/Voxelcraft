@@ -369,6 +369,10 @@ namespace vc {
 		return true;
 	}
 
+	int BlockType::getMaxStackSize() const {
+		return 64;
+	}
+
 	const std::array<tl::optional<TextureFile>, 6>& BlockType::getTextureFiles() const {
 		return textureFiles;
 	}

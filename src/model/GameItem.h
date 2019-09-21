@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace vc {
 	class GameItem {
 		// ----------------------------------------------------------------------
@@ -13,5 +15,7 @@ namespace vc {
 		// ----------------------------------------------------------------------
 		public:
 			virtual bool isBlock() const =0;
+			virtual std::string getName() const =0;
+			virtual int getMaxStackSize() const =0;
 	};
 }

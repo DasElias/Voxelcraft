@@ -126,10 +126,11 @@ namespace vc {
 		public:
 			uint32_t getId() const;
 			const TextureOrientation& getTextureOrientation(Face placedOn = TOP) const;
-			std::string getName() const;
+			std::string getName() const override;
 			bool canBeReplaced() const;
 			bool canPlayerPlace() const;
 			bool isBlock() const override;
+			int getMaxStackSize() const override;
 			const std::array<tl::optional<TextureFile>, 6>& getTextureFiles() const;
 
 			Block* instantiate(const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, Chunk& c, const TextureOrientation& texOrientation, const uint8_t& metadata) const;
