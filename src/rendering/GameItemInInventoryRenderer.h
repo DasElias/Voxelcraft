@@ -1,26 +1,27 @@
 #pragma once
 
-#include "FreePositionableBlockRenderer.h"
+#include "BlockInInventoryRenderer.h"
 
 namespace vc {
-	class BlockInHandRenderer : FreePositionableBlockRenderer, public InHandRenderer {
+	class GameItemInInventoryRenderer {
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
-			TextureArray blockTextureArray;
-
-		// ----------------------------------------------------------------------
-		// -----------------------------CONSTRUCTORS-----------------------------
-		// ----------------------------------------------------------------------
-		public:
-			BlockInHandRenderer(TextureArray blockTextureArray);
-			BlockInHandRenderer(const BlockInHandRenderer&) = delete;
+			BlockInInventoryRenderer blockRenderer;
 
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		public:
-			void render(const std::shared_ptr<BlockType>& type);
+			GameItemInInventoryRenderer() = default;
+			GameItemInInventoryRenderer(const GameItemInInventoryRenderer&) = delete;
+			GameItemInInventoryRenderer& operator=(const GameItemInInventoryRenderer&) = delete;
+
+		// ----------------------------------------------------------------------
+		// -------------------------------METHODS--------------------------------
+		// ----------------------------------------------------------------------
+		public:
+			void render(std::shared_ptr<GameItem> item, TextureArray& blockTextures, float absXMargin, float absYMargin, float width, float height);
 	};
 }

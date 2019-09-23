@@ -11,6 +11,7 @@
 #include "../model/BlockType.h"
 #include "../model/utils/FileUtils.h"
 #include "../model/utils/TimeUtils.h"
+#include <glm\ext\matrix_transform.hpp>
 
 
 
@@ -57,10 +58,11 @@ namespace vc {
 			return TextureArray(texturePaths);
 		}
 	}
-	LevelRenderer::LevelRenderer() :
+	LevelRenderer::LevelRenderer(egui::MasterRenderer& eguiRenderer, egui::EGuiContext& ctx) :
 			blockTextureArray(genTextureArray()),
 			blockRenderer(blockTextureArray),
 			blockInHandRenderer(blockTextureArray),
+			hotbarRenderer(blockTextureArray, eguiRenderer, ctx),
 			multisampleFbo({new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight(), MULTISAMPLES)}),
 			outputFbo({new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight())}),
 			postProcessor(),
@@ -118,11 +120,13 @@ namespace vc {
 
 
 		blockRenderer.render(p_currentLevel->getVisibleChunks(), p_currentLevel);
-		//TODO particle renderer
-		//TODO crosshair
 
 
 		blockInHandRenderer.render(p_currentLevel->getPlayer().getBlockTypeInHand());
+
+		
+
+		hotbarRenderer.renderHotbar(p_currentLevel->getPlayer().getInventory());
 		multisampleFbo->unbind();
 
 	}

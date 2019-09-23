@@ -182,8 +182,7 @@ namespace vc {
 
 		static_init::execute();
 
-		//LevelRenderer levelRenderer(nvgRenderer, ctx);
-		LevelRenderer levelRenderer;
+		LevelRenderer levelRenderer(nvgRenderer, ctx);
 		ChunkVaoManager vaoManager(400);
 		ctpl::thread_pool threadPool(2);
 

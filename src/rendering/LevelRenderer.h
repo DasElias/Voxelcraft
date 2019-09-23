@@ -10,6 +10,8 @@
 #include "../renderModel/FrameBufferObject.h"
 #include "../renderModel/TextureArray.h"
 #include "GaussianBlurPostProcessor.h"
+#include "BlockInInventoryRenderer.h"
+#include "IngameHotbarRenderer.h"
 
 namespace vc {
 	class LevelRenderer : public LevelRendererInterface {
@@ -29,6 +31,8 @@ namespace vc {
 			//ParticleRenderer particleRenderer;
 			BlockInHandRenderer blockInHandRenderer;
 
+			IngameHotbarRenderer hotbarRenderer;
+
 			Level* p_currentLevel = nullptr;
 
 			std::unique_ptr<FrameBufferObject> multisampleFbo;
@@ -43,7 +47,7 @@ namespace vc {
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			LevelRenderer();
+			LevelRenderer(egui::MasterRenderer& eguiRenderer, egui::EGuiContext& ctx);
 			LevelRenderer(const LevelRenderer&) = delete;
 			virtual ~LevelRenderer();
 

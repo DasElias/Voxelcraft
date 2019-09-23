@@ -1,4 +1,4 @@
-const char* blockInHand_vertex = R"(
+const char* freePositionableBlock_vertex = R"(
 #version 410 core
 
 in vec3 position;

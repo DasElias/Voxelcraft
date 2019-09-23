@@ -1,4 +1,4 @@
-const char* blockInHand_fragment = R"(
+const char* freePositionableBlock_fragment = R"(
 #version 410 core
 
 in vec3 pass_texCoords;
