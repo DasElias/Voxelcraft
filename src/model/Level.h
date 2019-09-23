@@ -3,8 +3,8 @@
 #include <ctpl_stl.h>
 #include <model/events/EventManager.h>
 
-#include "../renderModel/AbstractChunkVaoManager.h"
 #include "ChunkIO.h"
+#include "../renderModel/AbstractChunkVaoManager.h"
 #include "LevelMetadata.h"
 #include "events/chunkStack/ChunkStackUnloadEvent.h"
 #include "events/block/BlockBreakEvent.h"
