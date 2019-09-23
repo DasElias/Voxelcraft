@@ -2,7 +2,6 @@
 
 #include <vector>
 #include "../../rendering/LevelRenderer.h"
-#include "FpsProvider.h"
 #include "State.h"
 
 #include <model\scene\Scene.h>

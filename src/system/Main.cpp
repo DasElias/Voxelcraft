@@ -11,6 +11,7 @@
 #include "../model/states/IngameState.h"
 #include "../model/states/MainMenuState.h"
 #include "../model/states/PauseState.h"
+//#include "../model/states/OptionsState.h"
 #include "../model/states/StateManager.h"
 
 #include "../model/utils/FileUtils.h"
@@ -181,17 +182,20 @@ namespace vc {
 
 		static_init::execute();
 
+		//LevelRenderer levelRenderer(nvgRenderer, ctx);
 		LevelRenderer levelRenderer;
 		ChunkVaoManager vaoManager(400);
 		ctpl::thread_pool threadPool(2);
 
 		MainMenuState mainMenuState(stateManager, vaoManager, threadPool, nvgRenderer, ctx);
-		IngameState ingameState(stateManager, levelRenderer, *this, nvgRenderer);
+		IngameState ingameState(stateManager, levelRenderer, nvgRenderer);
 		PauseState pauseState(stateManager, levelRenderer, nvgRenderer, ctx);
+		//OptionsState optionsState(stateManager, nvgRenderer, ctx);
 
 		stateManager.addState("MainMenuState", &mainMenuState);
 		stateManager.addState("IngameState", &ingameState);
 		stateManager.addState("PauseState", &pauseState);
+		//stateManager.addState("OptionsState", &optionsState);
 		stateManager.changeState("MainMenuState");
 		
 		loop();
@@ -204,9 +208,6 @@ namespace vc {
 
 	}
 
-	float Main::getFps() const {
-		return fps;
-	}
 
 	void Main::loop() {
 		long long lastFrameTime = getMilliseconds();

@@ -2,7 +2,6 @@
 
 #include <vector>
 #include "../../rendering/LevelRenderer.h"
-#include "FpsProvider.h"
 #include "State.h"
 
 #include <model/scene/Scene.h>
@@ -33,7 +32,6 @@ namespace vc {
 			SimpleTexture crosshairImage;
 			std::shared_ptr<egui::Label> crosshair;
 
-			FpsProvider& fpsProvider;
 			std::vector<float> fpsArrList = std::vector<float>();
 			float fpsAvg = 0, fpsMin = 0, fpsMax = 0;
 
@@ -41,7 +39,7 @@ namespace vc {
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			IngameState(StateManager& stateManager, LevelRenderer& levelRenderer, FpsProvider& fpsProvider, egui::MasterRenderer& eguiRenderer);
+			IngameState(StateManager& stateManager, LevelRenderer& levelRenderer, egui::MasterRenderer& eguiRenderer);
 
 
 		// ----------------------------------------------------------------------

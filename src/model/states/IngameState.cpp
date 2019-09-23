@@ -12,11 +12,10 @@
 #include "../utils/FileUtils.h"
 
 namespace vc {
-	IngameState::IngameState(StateManager& stateManager, LevelRenderer& levelRenderer, FpsProvider& fpsProvider, egui::MasterRenderer& eguiRenderer) :
+	IngameState::IngameState(StateManager& stateManager, LevelRenderer& levelRenderer, egui::MasterRenderer& eguiRenderer) :
 			State(stateManager),
 			levelRenderer(levelRenderer),
 			renderer2D(),
-			fpsProvider(fpsProvider),
 			eguiRenderer(eguiRenderer), 
 			fpsLabel(new egui::Label("FPS: NaN", 20, false, egui::Text::HorizontalAlignment::LEFT, egui::Text::VerticalAlignment::TOP, {1, 1, 1})),
 			autosaveLabel(new egui::Label("", 0.15f, true, egui::Text::HorizontalAlignment::CENTER, egui::Text::VerticalAlignment::MIDDLE, { 1, 1, 1 })),
@@ -56,9 +55,6 @@ namespace vc {
 
 		fpsArrList.push_back(1.0f / delta);
 
-		if(egui::getInputHandler().isKeyDown(KEY_J)) {
-			std::cout << (1.0f / delta) << std::endl;
-		}
 
 		// render GUI
 		eguiRenderer.beginFrame();
