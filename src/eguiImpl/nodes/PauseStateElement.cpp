@@ -12,11 +12,11 @@ namespace egui {
 	PauseStateElement::PauseStateElement(EGuiContext& ctx) {
 		float const btnHeight = 0.065f;
 
-		backToGameBtn = std::shared_ptr<Button>(new Button("Zurueck zum Spiel"));
+		backToGameBtn = std::shared_ptr<Button>(new Button("Back to Game"));
 		backToGameBtn->setPreferredDimension(1, true, btnHeight, true);
-		optionsBtn = std::shared_ptr<Button>(new Button("Optionen"));
+		optionsBtn = std::shared_ptr<Button>(new Button("Options"));
 		optionsBtn->setPreferredDimension(1, true, btnHeight, true);
-		mainMenuBtn = std::shared_ptr<Button>(new Button("Zum Hauptmenue"));
+		mainMenuBtn = std::shared_ptr<Button>(new Button("Main Menu"));
 		mainMenuBtn->setPreferredDimension(1, true, btnHeight, true);
 
 		std::shared_ptr<VBox> box(new VBox(0.03f, true, {backToGameBtn, optionsBtn, mainMenuBtn}));

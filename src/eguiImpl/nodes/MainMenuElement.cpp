@@ -10,20 +10,20 @@
 namespace egui {
 	MainMenuElement::MainMenuElement(EGuiContext& ctx) {
 		float btnHeight = 0.065f;
-		createGameScoreBtn = std::shared_ptr<Button>(new Button("Neues Spiel erstellen"));
+		createGameScoreBtn = std::shared_ptr<Button>(new Button("Create new world"));
 		createGameScoreBtn->setPreferredDimension(1, true, btnHeight, true);
 
-		loadGameScoreBtn = std::shared_ptr<Button>(new Button("Spielstand laden"));
+		loadGameScoreBtn = std::shared_ptr<Button>(new Button("Load world"));
 		loadGameScoreBtn->setPreferredDimension(1, true, btnHeight, true);
 
 
 
 		// create HBox with third and fourth button
 		float const hBoxSpace = 0.065f;
-		optionsBtn = std::shared_ptr<Button>(new Button("Optionen"));
+		optionsBtn = std::shared_ptr<Button>(new Button("Options"));
 		optionsBtn->setPreferredWidth(0.5f - (hBoxSpace / 2), true);
 
-		exitGameBtn = std::shared_ptr<Button>(new Button("Spiel beenden"));
+		exitGameBtn = std::shared_ptr<Button>(new Button("Exit Game"));
 		exitGameBtn->setPreferredWidth(0.5f - (hBoxSpace / 2), true);
 
 		std::shared_ptr<HBox> hBox(new HBox(hBoxSpace, true, {optionsBtn, exitGameBtn}));
