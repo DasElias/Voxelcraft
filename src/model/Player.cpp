@@ -513,6 +513,14 @@ namespace vc {
 		this->blockInHand = blockInHand;
 	}
 
+	PlayerInventory& Player::getInventory() {
+		return inventory;
+	}
+
+	Slot& Player::getItemClipboard() {
+		return itemClipboard;
+	}
+
 	Frustum& Player::getFrustum() {
 		return frustum;
 	}

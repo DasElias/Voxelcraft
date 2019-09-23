@@ -10,6 +10,8 @@
 #include "MousePicker.h"
 #include "PlayerPosition.h"
 #include "AbstractPlayer.h"
+#include "Slot.h"
+#include "PlayerInventory.h"
 
 namespace vc {
 	class Level;
@@ -56,6 +58,9 @@ namespace vc {
 			bool isButtonToPlaceBlockDown = false, isButtonToDestroyBlockDown = false;
 			int lastFrame_blockBelowPosY = 0;
 			long long time_blockBelowPosYChanged = 0;
+
+			PlayerInventory inventory;
+			Slot itemClipboard;
 
 			egui::EventManager<ItemInHandChangedEvent> itemInHandChangeEventManager;
 
@@ -133,6 +138,8 @@ namespace vc {
 			std::shared_ptr<BlockType> getBlockTypeInHand() const override;
 			void setBlockTypeInHand(const std::shared_ptr<BlockType>& blockInHand) override;
 
+			PlayerInventory& getInventory();
+			Slot& getItemClipboard();
 
 			Frustum& getFrustum();
 			MousePicker& getMousePicker();
