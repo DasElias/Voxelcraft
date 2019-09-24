@@ -11,6 +11,10 @@ namespace vc {
 		return stateManager;
 	}
 
+	void State::resetTimeStateWasEntered() {
+		this->timeStateWasEntered = getMilliseconds();
+	}
+
 	void State::onStateEnter() {
 		this->timeStateWasEntered = getMilliseconds();
 	}

@@ -28,6 +28,7 @@ namespace vc {
 		// ----------------------------------------------------------------------
 		protected:
 			StateManager& getStateMananger();
+			void resetTimeStateWasEntered();
 
 		public:
 			virtual void updateAndRender(float delta) =0;
