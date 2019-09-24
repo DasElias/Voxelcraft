@@ -32,6 +32,7 @@
 #include "..//eguiImpl/themes/VoxelcraftTheme.h"
 #include <themes/ThemeManager.h>
 #include <model\nodes\Button.cpp>
+#include <model/utils/Image.h>
 
 using namespace std;
 using namespace vc;
@@ -175,6 +176,7 @@ namespace vc {
 
 		egui::EGuiContext ctx = {};
 		egui::NvgRenderer nvgRenderer(ctx);
+		egui::Image::setContext(ctx);
 		egui::Font::setDefaultFont(egui::Font::createSystemFont(ctx, "Arial"));
 
 		egui::VoxelcraftTheme theme(ctx);

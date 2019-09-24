@@ -44,7 +44,7 @@ namespace egui {
 		UnorganizedParentElement::addChildElement(versionLabel);
 
 		// set background
-		std::shared_ptr<Image> texture = Image::loadTexture(ctx, vc::getApplicationFolder().append("\\textures\\gui\\mainMenuBackground.png"));
+		std::shared_ptr<Image> texture = Image::loadTexture(vc::getApplicationFolder().append("\\textures\\gui\\mainMenuBackground.png"));
 		std::shared_ptr<Background> texturedBackground(new TexturedBackground(texture));
 		UnorganizedParentElement::setBackground(texturedBackground);
 	}
