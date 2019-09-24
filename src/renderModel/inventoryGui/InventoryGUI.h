@@ -1,27 +1,32 @@
 #pragma once
+#include "../TextureArray.h"
 
-#include "FreePositionableBlockRenderer.h"
-#include "BasicInHandRenderer.h"
+#include "..//..//rendering/GameItemInInventoryRenderer.h"
+#include <rendering\MasterRenderer.h>
 
 namespace vc {
-	class BlockInHandRenderer : FreePositionableBlockRenderer, public BasicInHandRenderer {
+	class Player;
+	class InventoryGUI {
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------
 		// ----------------------------------------------------------------------
-		private:
-			TextureArray blockTextureArray;
+		protected:
+			GameItemInInventoryRenderer itemRenderer;
 
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			BlockInHandRenderer(TextureArray blockTextureArray);
-			BlockInHandRenderer(const BlockInHandRenderer&) = delete;
+			InventoryGUI() = default;
+			InventoryGUI(const InventoryGUI&) = delete;
+			InventoryGUI& operator=(const InventoryGUI&) = delete;
+			virtual ~InventoryGUI() = default;
 
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		public:
-			void render(const std::shared_ptr<BlockType>& type);
+			virtual void render(Player& p, egui::MasterRenderer& eguiRenderer, const TextureArray& texArray) =0;
+			virtual void click(Player& p, float percentX, float percentY) =0;
 	};
 }

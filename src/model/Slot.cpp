@@ -43,7 +43,7 @@ namespace vc {
 		return ((gameItem) ? true : false) && amount != 0;
 	}
 	std::shared_ptr<GameItem> Slot::getGameItem() const {
-		return gameItem;
+		return (hasValue()) ? gameItem : std::shared_ptr<GameItem>(nullptr);
 	}
 	int Slot::getAmount() const {
 		return amount;

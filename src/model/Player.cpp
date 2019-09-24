@@ -7,13 +7,13 @@
 #include "utils/VectorUtils.h"
 #include "utils/TimeUtils.h"
 #include "Block.h"
-#include "Level.h"
 #include <algorithm>
 #include <math.h>
 
 #include "input/IOHandler.h"
 
 #include "utils/MathUtils.h"
+#include "events/player/ItemInHandChangedEvent.h"
 
 using namespace egui;
 
@@ -30,6 +30,7 @@ namespace vc {
 	const int Player::NOT_MOVING_TO_SPRINT_MS = 100;
 	const int Player::BLOCK_PLACE_DELAY_MS = 100;
 
+
 	Player::Player(PlayerPosition playerPos, Level& level) :
 			position(playerPos),
 			yJumpStart(playerPos.y),
@@ -37,7 +38,8 @@ namespace vc {
 			picker(*this),
 			level(level),
 			viewMatrix(1),
-			blockInHand(BlockType::COBBLESTONE) {
+			scrollEventHandler(initScrollEventHandler()),
+			mouseBtnEventHandler(initMouseBtnEventHandler()) {
 
 
 		getInputHandler().getScrollEventManager().addEventHandler(scrollEventHandler);
@@ -49,15 +51,63 @@ namespace vc {
 		getInputHandler().getMouseBtnEventManager().removeEventHandler(mouseBtnEventHandler);
 	}
 
+
+	egui::FunctionWrapper<egui::ScrollEvent> Player::initScrollEventHandler() {
+		return egui::FunctionWrapper<egui::ScrollEvent>([this](egui::ScrollEvent& event) {
+			// if an inventory GUI is active, the selected hotbar item shouldn't change
+			if(isInventoryGUIActive()) return;
+
+			float yOffset = event.getYOffset();
+			if(abs(yOffset) > 0.5) {
+				int newIndex = activeHotbarIndex + 1;
+				if(newIndex >= 9) newIndex = 0;
+
+				ItemInHandChangedEvent event(this, inventory.get(activeHotbarIndex).getGameItem(), inventory.get(newIndex).getGameItem());
+				itemInHandChangeEventManager.fireEvent(event);
+				if(event.isCancelled()) return;
+
+				activeHotbarIndex = newIndex;
+			}
+		});
+	}
+
+	egui::FunctionWrapper<egui::MouseEvent> Player::initMouseBtnEventHandler() {
+		return egui::FunctionWrapper<egui::MouseEvent>([this](egui::MouseEvent& event) {
+			// if an inventory GUI is active, the player doesn't want to place/destroy a block
+			if(isInventoryGUIActive()) return;
+
+			if(event.getMouseButton() == egui::getKeyAssignments().getProperty("PLACE_BLOCK")) isButtonToPlaceBlockDown = event.isBtnDown();
+			else if(event.getMouseButton() == egui::getKeyAssignments().getProperty("BREAK_BLOCK")) isButtonToDestroyBlockDown = event.isBtnDown();
+
+			computePlacingBlocks();
+		});
+	}
+
+
 	void Player::computeMove(float delta) {
-		computeRotation();
+		bool computeMovement = ! isInventoryGUIActive();
 
-		computeMovementXZ(delta);
+		/*
+		 * When an inventory is open, we don't have to compute rotation and movement in XZ-direction
+		 */
+		if(computeMovement) computeRotation();
+		if(computeMovement) computeMovementXZ(delta);
 
-		computeMovementY(delta);
+		/*
+		 * The game shouldn't respond to the player's keypresses while an inventory is open, nevertheless we have to 
+		 * apply the gravity to the player's y-position.
+		 */
+		computeMovementY(delta, computeMovement);
 
+		/*
+		 * We can compute the block placing even though the GUI inventory is active, since we discard
+		 * an click event which is received while an inventory is opened instantly in the event handler.
+		 */
 		computePlacingBlocks();
 		
+		/*
+		 * View matrix has to be recomputed, since the y-position may have changed.
+		 */
 		updateViewMatrix();
 
 		picker.update();
@@ -65,15 +115,21 @@ namespace vc {
 
 	}
 
+	
+
 	void Player::computePlacingBlocks() {
 		Block* p_focusedBlockResult = nullptr;
 
 		if(isButtonToPlaceBlockDown && time_blockPlace + BLOCK_PLACE_DELAY_MS < getMilliseconds()) {
 			tl::optional<Face> focusedFace = level.getIntersectedBlock(6, p_focusedBlockResult);
+			std::shared_ptr<GameItem> gameItemInHand = getItemTypeInHand();
 
-			if(p_focusedBlockResult != nullptr && focusedFace.has_value()) {
+			if(p_focusedBlockResult != nullptr && focusedFace.has_value() && gameItemInHand && gameItemInHand->isBlock()) {
+				std::shared_ptr<BlockType> blockTypeInHand = std::dynamic_pointer_cast<BlockType>(gameItemInHand);
+				if(! blockTypeInHand) throw std::logic_error("isBlock() of GameItem returns true, but in fact, it isn't of type BlockType");
+
 				glm::ivec3 focusedPosition(p_focusedBlockResult->getWorldX(), p_focusedBlockResult->getWorldY(), p_focusedBlockResult->getWorldZ());
-				level.tryToPlaceBlock(focusedPosition, focusedFace.value(), focusedFace.value(), blockInHand, this);
+				level.tryToPlaceBlock(focusedPosition, focusedFace.value(), focusedFace.value(), blockTypeInHand, this);
 				time_blockPlace = getMilliseconds();
 			}
 		} else if (isButtonToDestroyBlockDown && time_blockPlace + BLOCK_PLACE_DELAY_MS < getMilliseconds()) {
@@ -132,7 +188,7 @@ namespace vc {
 		return (b == nullptr) ? -1 : b->getWorldY();
 	}
 
-	void Player::computeMovementY(float delta) {
+	void Player::computeMovementY(float delta, bool respondToKeyPress) {
 		yAcceleration -= GRAVITY * delta;
 
 
@@ -163,7 +219,7 @@ namespace vc {
 
 
 
-		if ((!isInAir || position.y < 0.1) && getInputHandler().isKeyDown(KEY_SPACE)) {
+		if (respondToKeyPress && (!isInAir || position.y < 0.1) && getInputHandler().isKeyDown(KEY_SPACE)) {
 			yAcceleration = JUMP_POWER;
 			yJumpStart = position.y;
 		}
@@ -236,10 +292,10 @@ namespace vc {
 	void Player::computeMovementXZ(float delta) {
 		glm::vec2 planeSpeed(0);
 
-		bool movingForward = getInputHandler().isKeyDown(KEY_W);
-		bool movingBackward = getInputHandler().isKeyDown(KEY_S);
-		bool movingLeft = getInputHandler().isKeyDown(KEY_A);
-		bool movingRight = getInputHandler().isKeyDown(KEY_D);
+		bool movingForward = getInputHandler().isKeyDown(getKeyAssignments().getProperty("MOVE_FORWARD"));
+		bool movingBackward = getInputHandler().isKeyDown(getKeyAssignments().getProperty("MOVE_BACKWARD"));
+		bool movingLeft = getInputHandler().isKeyDown(getKeyAssignments().getProperty("MOVE_LEFT"));
+		bool movingRight = getInputHandler().isKeyDown(getKeyAssignments().getProperty("MOVE_RIGHT"));
 
 		long long timeNotMovingForward = time_notMovingForward - time_movingForward;
 
@@ -501,16 +557,8 @@ namespace vc {
 		return viewMatrix;
 	}
 
-	std::shared_ptr<BlockType> Player::getBlockTypeInHand() const {
-		return blockInHand;
-	}
-
-	void Player::setBlockTypeInHand(const std::shared_ptr<BlockType>& blockInHand) {
-		ItemInHandChangedEvent event(this, this->blockInHand, blockInHand);
-		itemInHandChangeEventManager.fireEvent(event);
-		if(event.isCancelled()) return;
-
-		this->blockInHand = blockInHand;
+	std::shared_ptr<GameItem> Player::getItemTypeInHand() const {
+		return inventory.get(activeHotbarIndex).getGameItem();
 	}
 
 	PlayerInventory& Player::getInventory() {
@@ -519,6 +567,25 @@ namespace vc {
 
 	Slot& Player::getItemClipboard() {
 		return itemClipboard;
+	}
+
+	bool Player::isInventoryGUIActive() const {
+		// we can't use getInventoryGUI()
+		return (displayedInventoryGui) ? true : false;
+	}
+
+	std::shared_ptr<InventoryGUI> Player::getInventoryGUI() {
+		return displayedInventoryGui;
+	}
+
+	void Player::setInventoryGUI(const std::shared_ptr<InventoryGUI>& invGui) {
+		this->displayedInventoryGui = invGui;
+
+		if(invGui) {
+			egui::getInputHandler().setCursorInputMode(CURSOR_NORMAL);
+		} else {
+			egui::getInputHandler().setCursorInputMode(CURSOR_DISABLED);
+		}
 	}
 
 	Frustum& Player::getFrustum() {

@@ -1,4 +1,4 @@
-#include "InHandRenderer.h"
+#include "BasicInHandRenderer.h"
 #include "../model/Frustum.h"
 #include "../model/utils/TimeUtils.h"
 #include "../model/utils/MathUtils.h"
@@ -13,29 +13,29 @@ using namespace vc;
 using namespace egui;
 
 namespace vc {
-	const float InHandRenderer::MODEL_SCALE = 0.02f;
+	const float BasicInHandRenderer::MODEL_SCALE = 0.02f;
 
-	InHandRenderer::InHandRenderer() :
+	BasicInHandRenderer::BasicInHandRenderer() :
 			blockInHandProjectionMatrix(10, Frustum::NEAR_PLANE_DISTANCE, Frustum::FAR_PLANE_DISTANCE){
 
 	}
 
-	InHandRenderer::~InHandRenderer() {
+	BasicInHandRenderer::~BasicInHandRenderer() {
 	}
 
-	void InHandRenderer::onBlockPlaced() {
+	void BasicInHandRenderer::onBlockPlaced() {
 		blockPlacedStartTime = getMilliseconds();
 	}
 
-	void InHandRenderer::onItemChanged() {
+	void BasicInHandRenderer::onItemChanged() {
 		itemInHandChangedTime = getMilliseconds();
 	}
 
-	Level* InHandRenderer::getCurrentLevel() {
+	Level* BasicInHandRenderer::getCurrentLevel() {
 		return p_currentLevel;
 	}
 
-	void InHandRenderer::setCurrentLevel(Level* p_currentLevel) {
+	void BasicInHandRenderer::setCurrentLevel(Level* p_currentLevel) {
 		if(this->p_currentLevel != nullptr) {
 			this->p_currentLevel->getBlockPlaceEventManager().removeEventHandler(blockPlaceEventHandler);
 			this->p_currentLevel->getBlockBreakEventManager().removeEventHandler(blockBreakEventHandler);
@@ -51,7 +51,7 @@ namespace vc {
 		}
 	}
 
-	float InHandRenderer::getBlockPlace_percent() {
+	float BasicInHandRenderer::getBlockPlace_percent() {
 		long long currentTime = getMilliseconds();
 		long long deltaTime = currentTime - blockPlacedStartTime;
 
@@ -66,7 +66,7 @@ namespace vc {
 		}
 	}
 
-	float InHandRenderer::getItemChange_percent() {
+	float BasicInHandRenderer::getItemChange_percent() {
 		long long currentTime = getMilliseconds();
 		long long deltaTime = currentTime - itemInHandChangedTime;
 
@@ -81,7 +81,7 @@ namespace vc {
 		}
 	}
 
-	glm::mat4x4 InHandRenderer::getModelProjectionMatrix() {
+	glm::mat4x4 BasicInHandRenderer::getModelProjectionMatrix() {
 		using namespace glm;
 
 		blockInHandProjectionMatrix.update(10);

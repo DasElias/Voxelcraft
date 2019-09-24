@@ -1,7 +1,7 @@
 #include "BlockInInventoryRenderer.h"
 
 #include "../model/utils/MathUtils.h"
-
+#include "..//model/Frustum.h"
 
 #include <glm/mat4x4.hpp>
 #include <glm/matrix.hpp>

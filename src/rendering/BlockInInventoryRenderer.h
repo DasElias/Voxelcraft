@@ -3,6 +3,7 @@
 #include <memory>
 #include "..//model/BlockType.h"
 #include "FreePositionableBlockRenderer.h"
+#include "../model/ProjectionMatrix.h"
 
 namespace vc {
 	class BlockInInventoryRenderer : FreePositionableBlockRenderer {

@@ -61,8 +61,9 @@ namespace vc {
 	LevelRenderer::LevelRenderer(egui::MasterRenderer& eguiRenderer, egui::EGuiContext& ctx) :
 			blockTextureArray(genTextureArray()),
 			blockRenderer(blockTextureArray),
-			blockInHandRenderer(blockTextureArray),
+			itemInHandRenderer(blockTextureArray),
 			hotbarRenderer(blockTextureArray, eguiRenderer, ctx),
+			eguiRenderer(eguiRenderer),
 			multisampleFbo({new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight(), MULTISAMPLES)}),
 			outputFbo({new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight())}),
 			postProcessor(),
@@ -100,40 +101,50 @@ namespace vc {
 	void LevelRenderer::setCurrentLevel(Level* p_currentLevel) {
 		this->p_currentLevel = p_currentLevel;
 
-		blockInHandRenderer.setCurrentLevel(p_currentLevel);
+		itemInHandRenderer.setCurrentLevel(p_currentLevel);
 	}
 
-	void LevelRenderer::render_impl(float delta, bool updateOutputFbo) {
+	void LevelRenderer::render_impl(float delta, bool updateOutputFbo, FrameBufferObject* resolveTo) {
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 
+		// if the window's dimension has changed, we need to create a new FrameBufferObject
 		if(updateOutputFbo) {
 			multisampleFbo.reset(new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight(), MULTISAMPLES));
 		}
 
 		glm::vec4 backgroundColor = p_currentLevel->getBackgroundColor();
+		Player& player = p_currentLevel->getPlayer();
 
-
+		// bind and clear FBO
 		glActiveTexture(GL_TEXTURE0);
 		multisampleFbo->bind();
 		multisampleFbo->clear(backgroundColor);
 
-
+		// render chunks
 		blockRenderer.render(p_currentLevel->getVisibleChunks(), p_currentLevel);
 
+		// render block in hand
+		itemInHandRenderer.render(player.getItemTypeInHand());	
 
-		blockInHandRenderer.render(p_currentLevel->getPlayer().getBlockTypeInHand());
-
-		
-
-		hotbarRenderer.renderHotbar(p_currentLevel->getPlayer().getInventory());
+		// render hotbar
+		hotbarRenderer.renderHotbar(player.getInventory());
 		multisampleFbo->unbind();
 
+		if(resolveTo == nullptr) {
+			multisampleFbo->resolveToScreen();
+		} else {
+			multisampleFbo->resolveToFbo(* resolveTo);
+		}
+
+		// we don't need the multisampled FBO to render the inventory
+		if(player.isInventoryGUIActive()) {
+			player.getInventoryGUI()->render(player, eguiRenderer, blockTextureArray);
+		}
 	}
 
 	void LevelRenderer::render(float delta) {
-		render_impl(delta, updateFbos());
-		multisampleFbo->resolveToScreen();
+		render_impl(delta, updateFbos(), nullptr);
 	}
 
 	void LevelRenderer::renderWithGaussianBlur(float delta) {
@@ -143,9 +154,8 @@ namespace vc {
 			outputFbo.reset(new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight()));
 		}
 
-		render_impl(delta, updateOutputFbo);
+		render_impl(delta, updateOutputFbo, outputFbo.get());
 
-		multisampleFbo->resolveToFbo(* outputFbo);
 		postProcessor.render(outputFbo->getColorTexture(), updateOutputFbo);
 	}
 

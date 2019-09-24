@@ -1,27 +1,28 @@
 #pragma once
-
-#include "FreePositionableBlockRenderer.h"
-#include "BasicInHandRenderer.h"
+#include "BlockInHandRenderer.h"
+#include "LevelRendererInterface.h"
 
 namespace vc {
-	class BlockInHandRenderer : FreePositionableBlockRenderer, public BasicInHandRenderer {
+	class InHandRendererFacade : public LevelRendererInterface {
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
-			TextureArray blockTextureArray;
+			BlockInHandRenderer blockRenderer;
 
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			BlockInHandRenderer(TextureArray blockTextureArray);
-			BlockInHandRenderer(const BlockInHandRenderer&) = delete;
+			InHandRendererFacade(TextureArray& texArray);
+			InHandRendererFacade(const InHandRendererFacade&) = delete;
+			InHandRendererFacade& operator=(const InHandRendererFacade&) = delete;
 
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
-		public:
-			void render(const std::shared_ptr<BlockType>& type);
+		public:	
+			void render(std::shared_ptr<GameItem> item);
+			void setCurrentLevel(Level* level) override;
 	};
 }

@@ -10,7 +10,7 @@
 #include "../renderModel/FrameBufferObject.h"
 #include "../renderModel/TextureArray.h"
 #include "GaussianBlurPostProcessor.h"
-#include "BlockInInventoryRenderer.h"
+#include "InHandRendererFacade.h"
 #include "IngameHotbarRenderer.h"
 
 namespace vc {
@@ -29,9 +29,11 @@ namespace vc {
 			TextureArray blockTextureArray;
 			BlockRenderer blockRenderer;
 			//ParticleRenderer particleRenderer;
-			BlockInHandRenderer blockInHandRenderer;
+			InHandRendererFacade itemInHandRenderer;
 
 			IngameHotbarRenderer hotbarRenderer;
+
+			egui::MasterRenderer& eguiRenderer;
 
 			Level* p_currentLevel = nullptr;
 
@@ -56,7 +58,7 @@ namespace vc {
 		// ----------------------------------------------------------------------
 		private:
 			bool updateFbos();
-			void render_impl(float delta, bool updateOutputFbo);
+			void render_impl(float delta, bool updateOutputFbo, FrameBufferObject* resolveTo);
 
 
 		public:

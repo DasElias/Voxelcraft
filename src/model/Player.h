@@ -12,6 +12,7 @@
 #include "AbstractPlayer.h"
 #include "Slot.h"
 #include "PlayerInventory.h"
+#include "..//renderModel/inventoryGui/CreativeInventoryGUI.h"
 
 namespace vc {
 	class Level;
@@ -54,53 +55,20 @@ namespace vc {
 			MousePicker picker;
 			Level& level;
 			glm::mat4x4 viewMatrix;
-			std::shared_ptr<BlockType> blockInHand;
 			bool isButtonToPlaceBlockDown = false, isButtonToDestroyBlockDown = false;
 			int lastFrame_blockBelowPosY = 0;
 			long long time_blockBelowPosYChanged = 0;
 
+			std::shared_ptr<InventoryGUI> displayedInventoryGui;
+
 			PlayerInventory inventory;
+			int activeHotbarIndex = 0;
 			Slot itemClipboard;
 
 			egui::EventManager<ItemInHandChangedEvent> itemInHandChangeEventManager;
 
-			egui::FunctionWrapper<egui::ScrollEvent> scrollEventHandler = egui::FunctionWrapper<egui::ScrollEvent>([this](egui::ScrollEvent& event) {
-				float yOffset = event.getYOffset();
-				if (abs(yOffset) > 0.5) {
-					const std::map<int, std::shared_ptr<BlockType>>& allTypes = BlockType::getAll();
-					int currentId = blockInHand->getId();
-
-					// iterator to the BlockType, which is held by the player at the moment
-					std::map<int, std::shared_ptr<BlockType>>::const_iterator startIterator = allTypes.find(currentId);
-
-					// clone iterator
-					std::map<int, std::shared_ptr<BlockType>>::const_iterator it(startIterator);
-					do {
-						// check if it does exist in the map
-						if(it == allTypes.end()) {
-							throw std::logic_error("Element doesn't exist in map!");
-						}
-
-						// get next element
-						it = std::next(it);
-
-						// check if we are at the end of the map
-						if(it == allTypes.end()) {
-							it = allTypes.begin();
-						}
-
-						if(startIterator == it) break;
-					} while(! it->second->canPlayerPlace());
-
-					setBlockTypeInHand(it->second);
-				}
-			});
-			egui::FunctionWrapper<egui::MouseEvent> mouseBtnEventHandler = egui::FunctionWrapper<egui::MouseEvent>([this](egui::MouseEvent& event) {
-				if(event.getMouseButton() == egui::getKeyAssignments().getProperty("PLACE_BLOCK")) isButtonToPlaceBlockDown = event.isBtnDown();
-				else if (event.getMouseButton() == egui::getKeyAssignments().getProperty("BREAK_BLOCK")) isButtonToDestroyBlockDown = event.isBtnDown();
-
-				computePlacingBlocks();
-			});
+			egui::FunctionWrapper<egui::ScrollEvent> scrollEventHandler;
+			egui::FunctionWrapper<egui::MouseEvent> mouseBtnEventHandler;
 
 
 		// ----------------------------------------------------------------------
@@ -112,14 +80,23 @@ namespace vc {
 			Player(const Player&) = delete;
 
 		// ----------------------------------------------------------------------
+		// ---------------------------STATIC-METHODS-----------------------------
+		// ----------------------------------------------------------------------
+		private:
+			
+
+		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
+			egui::FunctionWrapper<egui::ScrollEvent> initScrollEventHandler();
+			egui::FunctionWrapper<egui::MouseEvent> initMouseBtnEventHandler();
+
 			void computePlacingBlocks();
 			void updateViewMatrix();
 			int getBlockUnder();
 			int getPosYOr0(Block* b);
-			void computeMovementY(float delta);
+			void computeMovementY(float delta, bool respondToKeyPress);
 			void computeMovementXZ(float delta);
 			void computeRotation();
 			bool fireToggleSprintingEvent(bool newState);
@@ -135,11 +112,14 @@ namespace vc {
 			glm::vec3 getRotation() const override;
 			void setRotation(glm::vec3 rotation) override;
 			glm::mat4x4 computeViewMatrix() const override;
-			std::shared_ptr<BlockType> getBlockTypeInHand() const override;
-			void setBlockTypeInHand(const std::shared_ptr<BlockType>& blockInHand) override;
+			std::shared_ptr<GameItem> getItemTypeInHand() const override;
 
 			PlayerInventory& getInventory();
 			Slot& getItemClipboard();
+
+			bool isInventoryGUIActive() const;
+			std::shared_ptr<InventoryGUI> getInventoryGUI();
+			void setInventoryGUI(const std::shared_ptr<InventoryGUI>& invGui);
 
 			Frustum& getFrustum();
 			MousePicker& getMousePicker();

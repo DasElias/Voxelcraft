@@ -10,7 +10,7 @@
 
 
 namespace vc {
-	class InHandRenderer : public LevelRendererInterface {
+	class BasicInHandRenderer : public LevelRendererInterface {
 		// ----------------------------------------------------------------------
 		// ----------------------------STATIC-FIELDS-----------------------------
 		// ----------------------------------------------------------------------
@@ -40,9 +40,9 @@ namespace vc {
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			InHandRenderer();
-			InHandRenderer(const InHandRenderer&) = delete;
-			~InHandRenderer();
+			BasicInHandRenderer();
+			BasicInHandRenderer(const BasicInHandRenderer&) = delete;
+			~BasicInHandRenderer();
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------

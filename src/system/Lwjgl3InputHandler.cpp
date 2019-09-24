@@ -8,7 +8,7 @@ namespace vc {
 		static std::map<GLFWwindow*, Lwjgl3InputHandler*> instanceMap;
 
 		void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods) {
-			egui::MouseEvent evt = { button, action == GLFW_PRESS };
+			egui::MouseEvent evt = { button, action == GLFW_PRESS , int(egui::getCursorHandler().getCursorX()), int(egui::getCursorHandler().getCursorY())};
 			instanceMap.at(window)->getMouseBtnEventManager().fireEvent(evt);
 		}
 

@@ -1,8 +1,9 @@
 #pragma once
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
-#include "BlockType.h"
+#include "GameItem.h"
 #include "PlayerPosition.h"
+#include <memory>
 
 namespace vc {
 	class AbstractPlayer {
@@ -28,7 +29,6 @@ namespace vc {
 			virtual glm::vec3 getRotation() const =0;
 			virtual void setRotation(glm::vec3 rotation) =0;
 			virtual glm::mat4x4 computeViewMatrix() const =0;
-			virtual std::shared_ptr<BlockType> getBlockTypeInHand() const =0;
-			virtual void setBlockTypeInHand(const std::shared_ptr<BlockType>& b) =0;
+			virtual std::shared_ptr<GameItem> getItemTypeInHand() const =0;
 	};
 }

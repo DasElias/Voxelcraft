@@ -1,7 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "BlockInHandRenderer.h"
+#include "FreePositionableBlockRenderer.h"
 
 #include <tl/optional.hpp>
 #include <array>

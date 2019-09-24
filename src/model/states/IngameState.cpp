@@ -29,8 +29,26 @@ namespace vc {
 
 
 	void IngameState::updateAndRender(float delta) {
-		if(egui::getInputHandler().isKeyDown(KEY_ESCAPE) && getTimeStateWasEntered() + PRESS_ESC_DELAY < getMilliseconds()) {
+		/*
+		 * If the particular key is pressed and no other inventory GUI is shown, we want to open the player's inventory.
+		 * If the ESCAPE-key is pressed, we want to close the shown inventory.
+		 */
+		 Player& player = stateManager.getCurrentLevel()->getPlayer();
+		if(egui::getInputHandler().isKeyDown(egui::getKeyAssignments().getProperty("OPEN_INVENTORY")) && (! player.isInventoryGUIActive())) {
+			std::shared_ptr<InventoryGUI> creativeInv(new CreativeInventoryGUI());
+			player.setInventoryGUI(creativeInv);
+		}
+
+		if(egui::getInputHandler().isKeyDown(KEY_ESCAPE) && player.isInventoryGUIActive() && getTimeStateWasEntered() + PRESS_ESC_DELAY < getMilliseconds()) {
+			player.setInventoryGUI({ nullptr });
+
+			// since the state shouldn't switch into the pause state in the next frame, we want to reset the timeStateWasEntered to prevent that the
+			// else-condition is true in the next frame
+			// therefore we use resetTimeStateWasEntered()
+			State::resetTimeStateWasEntered();
+		} else if(egui::getInputHandler().isKeyDown(KEY_ESCAPE) && getTimeStateWasEntered() + PRESS_ESC_DELAY < getMilliseconds()) {
 			stateManager.changeState("PauseState");
+
 		}
 
 		levelRenderer.render(delta);

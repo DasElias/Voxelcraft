@@ -17,6 +17,8 @@ namespace vc {
 		save |= setProperty("MOVE_RIGHT", KEY_D, true);
 		save |= setProperty("MOVE_BACKWARD", KEY_S, true);
 
+		save |= setProperty("OPEN_INVENTORY", KEY_E, true);
+
 		save |= setProperty("JUMP", KEY_SPACE, true);
 		save |= setProperty("BREAK_BLOCK", MOUSE_BUTTON_2, true);
 		save |= setProperty("PLACE_BLOCK", MOUSE_BUTTON_1, true);

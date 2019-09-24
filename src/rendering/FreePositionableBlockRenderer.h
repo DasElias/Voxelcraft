@@ -1,7 +1,7 @@
 #pragma once
 
 #include "shaderPrograms/VertexFragmentShaderProgram.h"
-#include "InHandRenderer.h"
+
 #include "../model/BlockType.h"
 #include "../renderModel/TextureArray.h"
 #include "../renderModel/VertexArrayObject.h"

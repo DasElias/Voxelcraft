@@ -3,9 +3,8 @@
 #include <vector>
 #include <queue>
 
-#include "AbstractChunkVaoManager.h"
-#include "ChunkVertexArrayObject.h"
 #include "DefaultChunkVao.h"
+#include "AbstractChunkVaoManager.h"
 
 namespace vc {
 	class ChunkVaoManager : public AbstractChunkVaoManager {

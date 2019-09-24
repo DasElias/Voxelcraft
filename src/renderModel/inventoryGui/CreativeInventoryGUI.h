@@ -1,27 +1,27 @@
 #pragma once
-
-#include "FreePositionableBlockRenderer.h"
-#include "BasicInHandRenderer.h"
+#include "InventoryGUI.h"
+#include <model\scene\Scene.h>
 
 namespace vc {
-	class BlockInHandRenderer : FreePositionableBlockRenderer, public BasicInHandRenderer {
+	class CreativeInventoryGUI : public InventoryGUI {
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
-			TextureArray blockTextureArray;
+			egui::Scene inventoryGUI;
+
 
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			BlockInHandRenderer(TextureArray blockTextureArray);
-			BlockInHandRenderer(const BlockInHandRenderer&) = delete;
+			CreativeInventoryGUI();
 
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		public:
-			void render(const std::shared_ptr<BlockType>& type);
+			void render(Player& p, egui::MasterRenderer& eguiRenderer, const TextureArray& texArray) override;
+			void click(Player& p, float percentX, float percentY) override;
 	};
 }
