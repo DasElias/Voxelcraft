@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Player.h"
+#include "../../AbstractPlayer.h"
 
 namespace vc {
 	class PlayerEvent {
