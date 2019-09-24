@@ -4,8 +4,9 @@
 #include <model/events/EventManager.h>
 
 #include "ChunkIO.h"
-#include "../renderModel/AbstractChunkVaoManager.h"
 #include "LevelMetadata.h"
+
+#include "../renderModel/AbstractChunkVaoManager.h"
 #include "events/chunkStack/ChunkStackUnloadEvent.h"
 #include "events/block/BlockBreakEvent.h"
 #include "events/block/BlockPlaceEvent.h"
