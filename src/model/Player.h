@@ -116,6 +116,7 @@ namespace vc {
 
 			PlayerInventory& getInventory();
 			Slot& getItemClipboard();
+			int getActiveHotbarIndex() const;
 
 			bool isInventoryGUIActive() const;
 			std::shared_ptr<InventoryGUI> getInventoryGUI();

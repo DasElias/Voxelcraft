@@ -9,9 +9,9 @@
 
 #include <model/nodes/Label.h>
 #include <model/nodes/HBox.h>
-#include <model/positioning/RelativePositioningInParent.h>
+#include <model/positioning/RelativePositioningOnScreen.h>
 #include <model/positioning/CenterXInParentWrapper.h>
-#include <model/nodeComponents/background/LinearGradientBackground.h>
+#include <model/nodeComponents/background/TexturedBackground.h>
 
 namespace vc {
 	class IngameHotbarRenderer : public GameItemInInventoryRenderer {
@@ -19,7 +19,12 @@ namespace vc {
 		// ----------------------------STATIC-FIELDS-----------------------------
 		// ----------------------------------------------------------------------
 		private:
-			static int const BOX_DIMENSIONS = 65;
+			static int const WHOLE_IMG_WIDTH = 722;
+			static int const WHOLE_IMG_HEIGHT = 82;
+			static int const WHOLE_IMG_BORDER = 1;
+			static int const SINGLE_BOX_BORDER = 2;
+
+			static int const SINGLE_BOX_DIMENSIONS = (WHOLE_IMG_WIDTH - (2 * WHOLE_IMG_BORDER) - (9 * 2 * SINGLE_BOX_BORDER)) / 9;
 
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------
@@ -27,8 +32,12 @@ namespace vc {
 		private:
 			TextureArray blockTextureArray;
 			
-			egui::Scene scene;
-			std::array<std::shared_ptr<egui::Label>, 9> fields;
+			egui::Scene hotbarBackgroundScene;
+			std::shared_ptr<egui::Image> fieldBackgroundImage;
+
+			egui::Scene selectedElemScene;
+			std::shared_ptr<egui::RelativePositioningOnScreen> selectedElemPositioning;
+			std::shared_ptr<egui::Label> selectedElemLabel;
 
 			egui::MasterRenderer& eguiRenderer;
 			egui::EGuiContext& ctx;
@@ -45,7 +54,7 @@ namespace vc {
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		public:
-			void renderHotbar(PlayerInventory& playerInventory);
+			void renderHotbar(PlayerInventory& playerInventory, int selectedSlot);
 
 	};
 }

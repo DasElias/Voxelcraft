@@ -128,7 +128,7 @@ namespace vc {
 		itemInHandRenderer.render(player.getItemTypeInHand());	
 
 		// render hotbar
-		hotbarRenderer.renderHotbar(player.getInventory());
+		hotbarRenderer.renderHotbar(player.getInventory(), player.getActiveHotbarIndex());
 		multisampleFbo->unbind();
 
 		if(resolveTo == nullptr) {

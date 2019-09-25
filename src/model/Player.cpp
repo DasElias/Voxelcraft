@@ -59,8 +59,9 @@ namespace vc {
 
 			float yOffset = event.getYOffset();
 			if(abs(yOffset) > 0.5) {
-				int newIndex = activeHotbarIndex + 1;
+				int newIndex = activeHotbarIndex + (yOffset < 0 ? -1 : 1);
 				if(newIndex >= 9) newIndex = 0;
+				else if(newIndex < 0) newIndex = 8;
 
 				ItemInHandChangedEvent event(this, inventory.get(activeHotbarIndex).getGameItem(), inventory.get(newIndex).getGameItem());
 				itemInHandChangeEventManager.fireEvent(event);
@@ -567,6 +568,10 @@ namespace vc {
 
 	Slot& Player::getItemClipboard() {
 		return itemClipboard;
+	}
+
+	int Player::getActiveHotbarIndex() const {
+		return activeHotbarIndex;
 	}
 
 	bool Player::isInventoryGUIActive() const {
