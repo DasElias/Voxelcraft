@@ -46,8 +46,9 @@ namespace vc {
 
 	void MainMenuState::changeStateAndLoadLevel(Level* p_l) {
 		unloadLevel();
-		stateManager.changeState("IngameState");
 		stateManager.setCurrentLevel(p_l);
+		stateManager.changeState("IngameState");
+
 	}
 
 	void MainMenuState::onStateEnter() {

@@ -98,6 +98,8 @@ namespace vc {
 	void IngameState::onStateEnter() {
 		State::onStateEnter();
 		egui::getInputHandler().setCursorInputMode(CURSOR_DISABLED);
+
+		stateManager.getCurrentLevel()->getPlayer().setIngameStateActive(true);
 	}
 
 	void IngameState::onCurrentLevelChange(Level* p_oldLevel, Level* p_newLevel) {
@@ -108,6 +110,8 @@ namespace vc {
 	void IngameState::onStateExit() {
 		State::onStateExit();
 		egui::getInputHandler().setCursorInputMode(CURSOR_NORMAL);
+
+		stateManager.getCurrentLevel()->getPlayer().setIngameStateActive(false);
 	}
 
 }

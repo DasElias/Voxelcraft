@@ -65,6 +65,8 @@ namespace vc {
 			int activeHotbarIndex = 0;
 			Slot itemClipboard;
 
+			bool isIngameStateActive_field = false;
+
 			egui::EventManager<ItemInHandChangedEvent> itemInHandChangeEventManager;
 
 			egui::FunctionWrapper<egui::ScrollEvent> scrollEventHandler;
@@ -121,6 +123,9 @@ namespace vc {
 			bool isInventoryGUIActive() const;
 			std::shared_ptr<InventoryGUI> getInventoryGUI();
 			void setInventoryGUI(const std::shared_ptr<InventoryGUI>& invGui);
+
+			void setIngameStateActive(bool flag);
+			bool isIngameStateActive() const;
 
 			Frustum& getFrustum();
 			MousePicker& getMousePicker();

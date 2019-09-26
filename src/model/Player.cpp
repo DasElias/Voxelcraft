@@ -54,8 +54,8 @@ namespace vc {
 
 	egui::FunctionWrapper<egui::ScrollEvent> Player::initScrollEventHandler() {
 		return egui::FunctionWrapper<egui::ScrollEvent>([this](egui::ScrollEvent& event) {
-			// if an inventory GUI is active, the selected hotbar item shouldn't change
-			if(isInventoryGUIActive()) return;
+			// if an inventory GUI is active or the current state is not IngameState, the selected hotbar item shouldn't change
+			if(isInventoryGUIActive() || !isIngameStateActive_field) return;
 
 			float yOffset = event.getYOffset();
 			if(abs(yOffset) > 0.5) {
@@ -74,8 +74,8 @@ namespace vc {
 
 	egui::FunctionWrapper<egui::MouseEvent> Player::initMouseBtnEventHandler() {
 		return egui::FunctionWrapper<egui::MouseEvent>([this](egui::MouseEvent& event) {
-			// if an inventory GUI is active, the player doesn't want to place/destroy a block
-			if(isInventoryGUIActive()) return;
+			// if an inventory GUI is active or the current state isn't IngameState, the player doesn't want to place/destroy a block
+			if(isInventoryGUIActive() || ! isIngameStateActive_field) return;
 
 			if(event.getMouseButton() == egui::getKeyAssignments().getProperty("PLACE_BLOCK")) isButtonToPlaceBlockDown = event.isBtnDown();
 			else if(event.getMouseButton() == egui::getKeyAssignments().getProperty("BREAK_BLOCK")) isButtonToDestroyBlockDown = event.isBtnDown();
@@ -591,6 +591,14 @@ namespace vc {
 		} else {
 			egui::getInputHandler().setCursorInputMode(CURSOR_DISABLED);
 		}
+	}
+
+	void Player::setIngameStateActive(bool flag) {
+		isIngameStateActive_field = flag;
+	}
+
+	bool Player::isIngameStateActive() const {
+		return isIngameStateActive_field;
 	}
 
 	Frustum& Player::getFrustum() {
