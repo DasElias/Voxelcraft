@@ -24,6 +24,12 @@ namespace vc {
 		elem->setOnLoadGameScore({[this](egui::ActionEvent&) {
 			loadGameScore();
 		}});
+		elem->setOnOpenOptions({ [this](egui::ActionEvent&) {
+			openOptions();
+		}});
+		elem->setOnExitGame({ [this](egui::ActionEvent&) {
+			exitGame();
+		}});
 	}
 
 	MainMenuState::~MainMenuState() {
@@ -63,11 +69,11 @@ namespace vc {
 	}
 
 	void MainMenuState::openOptions() {
-		//TODO
+		stateManager.changeState("OptionsState");
 	}
 
 	void MainMenuState::exitGame() {
-		//TODO
+		exit(0);
 	}
 	void MainMenuState::unloadLevel() {
 		if(stateManager.getCurrentLevel() != nullptr) {

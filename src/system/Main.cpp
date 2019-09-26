@@ -11,7 +11,7 @@
 #include "../model/states/IngameState.h"
 #include "../model/states/MainMenuState.h"
 #include "../model/states/PauseState.h"
-//#include "../model/states/OptionsState.h"
+#include "../model/states/OptionsState.h"
 #include "../model/states/StateManager.h"
 
 #include "../model/utils/FileUtils.h"
@@ -191,12 +191,12 @@ namespace vc {
 		MainMenuState mainMenuState(stateManager, vaoManager, threadPool, nvgRenderer, ctx);
 		IngameState ingameState(stateManager, levelRenderer, nvgRenderer);
 		PauseState pauseState(stateManager, levelRenderer, nvgRenderer, ctx);
-		//OptionsState optionsState(stateManager, nvgRenderer, ctx);
+		OptionsState optionsState(stateManager, nvgRenderer, ctx);
 
 		stateManager.addState("MainMenuState", &mainMenuState);
 		stateManager.addState("IngameState", &ingameState);
 		stateManager.addState("PauseState", &pauseState);
-		//stateManager.addState("OptionsState", &optionsState);
+		stateManager.addState("OptionsState", &optionsState);
 		stateManager.changeState("MainMenuState");
 		
 		loop();

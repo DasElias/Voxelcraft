@@ -171,16 +171,10 @@
     <ClCompile Include="src\rendering\shaderPrograms\VertexGeometryFragmentShaderProgram.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\rendering\BlockInHandRenderer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\rendering\BlockRenderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\rendering\GaussianBlurPostProcessor.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rendering\InHandRenderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\rendering\LevelRenderer.cpp">
@@ -247,6 +241,48 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\renderModel\ChunkVaoData.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\Renderer2D.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\Inventory.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\Slot.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\PlayerInventory.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\FreePositionableBlockRenderer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\BlockInHandRenderer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\BlockInInventoryRenderer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\GameItemInInventoryRenderer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\IngameHotbarRenderer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\eguiImpl\nodes\OptionsStateElement.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\states\OptionsState.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderModel\inventoryGui\CreativeInventoryGUI.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\BasicInHandRenderer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\InHandRendererFacade.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -413,16 +449,10 @@
     <ClInclude Include="src\rendering\shaderPrograms\VertexGeometryFragmentShaderProgram.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\rendering\BlockInHandRenderer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\rendering\BlockRenderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\rendering\GaussianBlurPostProcessor.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\rendering\InHandRenderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\rendering\LevelRenderer.h">
@@ -494,12 +524,55 @@
     <ClInclude Include="src\renderModel\ChunkVaoData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\rendering\Renderer2D.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\model\Slot.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\model\Inventory.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\model\PlayerInventory.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\BlockInInventoryRenderer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\FreePositionableBlockRenderer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\BlockInHandRenderer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\GameItemInInventoryRenderer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\IngameHotbarRenderer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\model\states\OptionsState.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\eguiImpl\nodes\OptionsStateElement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderModel\inventoryGui\InventoryGUI.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderModel\inventoryGui\CreativeInventoryGUI.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\BasicInHandRenderer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\InHandRendererFacade.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\rendering\shaderPrograms\shaders\2d_fragment.glsl" />
     <None Include="src\rendering\shaderPrograms\shaders\2d_vertex.glsl" />
-    <None Include="src\rendering\shaderPrograms\shaders\blockInHand_fragment.glsl" />
-    <None Include="src\rendering\shaderPrograms\shaders\blockInHand_vertex.glsl" />
     <None Include="src\rendering\shaderPrograms\shaders\blocks_fragment.glsl" />
     <None Include="src\rendering\shaderPrograms\shaders\blocks_geometry.glsl" />
     <None Include="src\rendering\shaderPrograms\shaders\blocks_vertex.glsl" />
@@ -516,5 +589,7 @@
     <None Include="src\rendering\shaderPrograms\shaders\particle_vertex.glsl" />
     <None Include="src\rendering\shaderPrograms\shaders\skybox_fragment.glsl" />
     <None Include="src\rendering\shaderPrograms\shaders\skybox_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\freePositionableBlock_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\freePositionableBlock_fragment.glsl" />
   </ItemGroup>
 </Project>

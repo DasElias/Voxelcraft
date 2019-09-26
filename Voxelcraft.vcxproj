@@ -23,6 +23,7 @@
     <ClCompile Include="..\..\..\..\visual_studio_dependencies\gzstream\gzstream.cpp" />
     <ClCompile Include="..\..\..\..\visual_studio_dependencies\simplex-noise\SimplexNoise.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\MainMenuElement.cpp" />
+    <ClCompile Include="src\eguiImpl\nodes\OptionsStateElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\PauseStateElement.cpp" />
     <ClCompile Include="src\eguiImpl\themes\VoxelcraftTheme.cpp" />
     <ClCompile Include="src\model\AbstractBlock.cpp" />
@@ -52,16 +53,20 @@
     <ClCompile Include="src\model\Face.cpp" />
     <ClCompile Include="src\model\Frustum.cpp" />
     <ClCompile Include="src\model\GameItem.cpp" />
+    <ClCompile Include="src\model\Inventory.cpp" />
     <ClCompile Include="src\model\Level.cpp" />
     <ClCompile Include="src\model\LevelBuilder.cpp" />
     <ClCompile Include="src\model\LevelIOException.cpp" />
     <ClCompile Include="src\model\LevelMetadata.cpp" />
     <ClCompile Include="src\model\MousePicker.cpp" />
     <ClCompile Include="src\model\Player.cpp" />
+    <ClCompile Include="src\model\PlayerInventory.cpp" />
     <ClCompile Include="src\model\PlayerPosition.cpp" />
     <ClCompile Include="src\model\ProjectionMatrix.cpp" />
+    <ClCompile Include="src\model\Slot.cpp" />
     <ClCompile Include="src\model\states\IngameState.cpp" />
     <ClCompile Include="src\model\states\MainMenuState.cpp" />
+    <ClCompile Include="src\model\states\OptionsState.cpp" />
     <ClCompile Include="src\model\states\PauseState.cpp" />
     <ClCompile Include="src\model\states\State.cpp" />
     <ClCompile Include="src\model\states\StateManager.cpp" />
@@ -72,12 +77,18 @@
     <ClCompile Include="src\model\utils\TimeUtils.cpp" />
     <ClCompile Include="src\model\utils\VectorUtils.cpp" />
     <ClCompile Include="src\rendering\BlockInHandRenderer.cpp" />
+    <ClCompile Include="src\rendering\BlockInInventoryRenderer.cpp" />
+    <ClCompile Include="src\rendering\FreePositionableBlockRenderer.cpp" />
     <ClCompile Include="src\rendering\BlockRenderer.cpp" />
+    <ClCompile Include="src\rendering\GameItemInInventoryRenderer.cpp" />
     <ClCompile Include="src\rendering\GaussianBlurPostProcessor.cpp" />
-    <ClCompile Include="src\rendering\InHandRenderer.cpp" />
+    <ClCompile Include="src\rendering\IngameHotbarRenderer.cpp" />
+    <ClCompile Include="src\rendering\BasicInHandRenderer.cpp" />
+    <ClCompile Include="src\rendering\InHandRendererFacade.cpp" />
     <ClCompile Include="src\rendering\LevelRenderer.cpp" />
     <ClCompile Include="src\rendering\LevelRendererInterface.cpp" />
     <ClCompile Include="src\rendering\PostProcessor.cpp" />
+    <ClCompile Include="src\rendering\Renderer2D.cpp" />
     <ClCompile Include="src\rendering\shaderPrograms\ShaderProgram.cpp" />
     <ClCompile Include="src\rendering\shaderPrograms\VertexFragmentShaderProgram.cpp" />
     <ClCompile Include="src\rendering\shaderPrograms\VertexGeometryFragmentShaderProgram.cpp" />
@@ -89,6 +100,7 @@
     <ClCompile Include="src\renderModel\FrameBufferObject.cpp" />
     <ClCompile Include="src\renderModel\GeneralVertexArrayObject.cpp" />
     <ClCompile Include="src\renderModel\InstancedRenderingVbo.cpp" />
+    <ClCompile Include="src\renderModel\inventoryGui\CreativeInventoryGUI.cpp" />
     <ClCompile Include="src\renderModel\SimpleTexture.cpp" />
     <ClCompile Include="src\renderModel\Texture.cpp" />
     <ClCompile Include="src\renderModel\TextureArray.cpp" />
@@ -99,6 +111,7 @@
     <ClCompile Include="src\system\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\eguiImpl\nodes\OptionsStateElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\PauseStateElement.h" />
     <ClInclude Include="src\eguiImpl\themes\VoxelcraftTheme.h" />
@@ -129,14 +142,21 @@
     <ClInclude Include="src\model\Face.h" />
     <ClInclude Include="src\model\Frustum.h" />
     <ClInclude Include="src\model\GameItem.h" />
+    <ClInclude Include="src\model\Inventory.h" />
+    <ClInclude Include="src\rendering\InHandRendererFacade.h" />
+    <ClInclude Include="src\renderModel\inventoryGui\CreativeInventoryGUI.h" />
+    <ClInclude Include="src\renderModel\inventoryGui\InventoryGUI.h" />
+    <ClInclude Include="src\model\states\OptionsState.h" />
     <ClInclude Include="src\model\Level.h" />
     <ClInclude Include="src\model\LevelBuilder.h" />
     <ClInclude Include="src\model\LevelIOException.h" />
     <ClInclude Include="src\model\LevelMetadata.h" />
     <ClInclude Include="src\model\MousePicker.h" />
     <ClInclude Include="src\model\Player.h" />
+    <ClInclude Include="src\model\PlayerInventory.h" />
     <ClInclude Include="src\model\PlayerPosition.h" />
     <ClInclude Include="src\model\ProjectionMatrix.h" />
+    <ClInclude Include="src\model\Slot.h" />
     <ClInclude Include="src\model\states\FpsProvider.h" />
     <ClInclude Include="src\model\states\IngameState.h" />
     <ClInclude Include="src\model\states\MainMenuState.h" />
@@ -151,13 +171,18 @@
     <ClInclude Include="src\model\utils\TimeUtils.h" />
     <ClInclude Include="src\model\utils\VectorUtils.h" />
     <ClInclude Include="src\rendering\BlockInHandRenderer.h" />
+    <ClInclude Include="src\rendering\FreePositionableBlockRenderer.h" />
+    <ClInclude Include="src\rendering\BlockInInventoryRenderer.h" />
     <ClInclude Include="src\rendering\BlockRenderer.h" />
+    <ClInclude Include="src\rendering\GameItemInInventoryRenderer.h" />
     <ClInclude Include="src\rendering\GaussianBlurPostProcessor.h" />
-    <ClInclude Include="src\rendering\InHandRenderer.h" />
+    <ClInclude Include="src\rendering\IngameHotbarRenderer.h" />
+    <ClInclude Include="src\rendering\BasicInHandRenderer.h" />
     <ClInclude Include="src\rendering\LevelRenderer.h" />
     <ClInclude Include="src\rendering\LevelRendererInterface.h" />
     <ClInclude Include="src\rendering\ParticleRenderer.h" />
     <ClInclude Include="src\rendering\PostProcessor.h" />
+    <ClInclude Include="src\rendering\Renderer2D.h" />
     <ClInclude Include="src\rendering\shaderPrograms\ShaderProgram.h" />
     <ClInclude Include="src\rendering\shaderPrograms\VertexFragmentShaderProgram.h" />
     <ClInclude Include="src\rendering\shaderPrograms\VertexGeometryFragmentShaderProgram.h" />
@@ -184,8 +209,8 @@
   <ItemGroup>
     <None Include="src\rendering\shaderPrograms\shaders\2d_fragment.glsl" />
     <None Include="src\rendering\shaderPrograms\shaders\2d_vertex.glsl" />
-    <None Include="src\rendering\shaderPrograms\shaders\blockInHand_fragment.glsl" />
-    <None Include="src\rendering\shaderPrograms\shaders\blockInHand_vertex.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\freePositionableBlock_fragment.glsl" />
+    <None Include="src\rendering\shaderPrograms\shaders\freePositionableBlock_vertex.glsl" />
     <None Include="src\rendering\shaderPrograms\shaders\blocks_fragment.glsl" />
     <None Include="src\rendering\shaderPrograms\shaders\blocks_geometry.glsl" />
     <None Include="src\rendering\shaderPrograms\shaders\blocks_vertex.glsl" />
@@ -303,6 +328,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -342,12 +368,22 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\include;C:\Users\Elias\visual_studio_dependencies\simpleini;C:\Users\Elias\visual_studio_dependencies\CTPL;C:\Users\Elias\visual_studio_dependencies\optional-master\include;C:\Users\Elias\visual_studio_dependencies\gzstream;C:\Users\Elias\visual_studio_dependencies\simplex-noise;C:\Users\Elias\visual_studio_dependencies\glm;C:\Users\Elias\visual_studio_dependencies\glad\include;C:\Program Files (x86)\GnuWin32\src\zlib\1.2.3\zlib-1.2.3\toProject;C:\Users\Elias\visual_studio_dependencies\static_block;$(SolutionDir)NanoVG;$(SolutionDir)EGui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ShowIncludes>false</ShowIncludes>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\source\repos\Voxelcraft_1\x64\Release\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>NanoVG.lib;EGui.lib;zlib.lib;glfw3.lib;glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
