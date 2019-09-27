@@ -36,7 +36,7 @@ namespace vc {
 			// this position is never reached
 			throw std::logic_error("");
 		};
-		const constructor blockConstructor = [](const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, const int8_t metadata) -> Block* {
+		const constructor blockConstructor = [](const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, const int8_t& metadata) -> Block* {
 			return new Block(inChunkX, inChunkY, inChunkZ, blockType, c, texOrientation, metadata);
 		};
 	}
