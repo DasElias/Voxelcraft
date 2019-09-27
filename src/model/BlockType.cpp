@@ -12,20 +12,24 @@ namespace vc {
 
 	namespace {
 		const std::function<const TextureOrientation&(Face&)> getAllTopTexOrientation = [](Face&) -> const TextureOrientation& {
-			static TextureOrientation TEX_ORIENTATION = TextureOrientation::getTextureOrientation(TOP, TOP, TOP, TOP, TOP, TOP);
+			static const TextureOrientation& TEX_ORIENTATION = TextureOrientation::getTextureOrientation(TOP, TOP, TOP, TOP, TOP, TOP);
 			return TEX_ORIENTATION;
 		};
 		const std::function<const TextureOrientation&(Face&)> getLogTexOrientation = [](Face& placedOn) -> const TextureOrientation& {
+			static const TextureOrientation& TOP_BOTTOM = TextureOrientation::getTextureOrientation(TOP, FRONT, TOP, FRONT, FRONT, FRONT);
+			static const TextureOrientation& LEFT_RIGHT = TextureOrientation::getTextureOrientation(FRONT, FRONT, FRONT, FRONT, TOP, TOP);
+			static const TextureOrientation& FRONT_BACK = TextureOrientation::getTextureOrientation(FRONT, TOP, FRONT, TOP, FRONT, FRONT);
+
 			switch(placedOn) {
 				case TOP:
 				case BOTTOM:
-					return TextureOrientation::getTextureOrientation(TOP, FRONT, TOP, FRONT, FRONT, FRONT);
+					return TOP_BOTTOM;
 				case LEFT:
 				case RIGHT:
-					return TextureOrientation::getTextureOrientation(FRONT, FRONT, FRONT, FRONT, TOP, TOP);
+					return LEFT_RIGHT;
 				case FRONT:
 				case BACK:
-					return TextureOrientation::getTextureOrientation(FRONT, TOP, FRONT, TOP, FRONT, FRONT);
+					return FRONT_BACK;
 
 			}
 
@@ -79,7 +83,8 @@ namespace vc {
 			"grass",
 			blockConstructor,
 			[](Face&) -> const TextureOrientation& {
-				return TextureOrientation::getTextureOrientation(TOP, FRONT, BOTTOM, FRONT, FRONT, FRONT);
+				static const TextureOrientation& TEX = TextureOrientation::getTextureOrientation(TOP, FRONT, BOTTOM, FRONT, FRONT, FRONT);
+				return TEX;
 			},
 			false,
 			true,
