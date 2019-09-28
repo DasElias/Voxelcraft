@@ -88,6 +88,6 @@ namespace vc {
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		public:
-			void render(const std::shared_ptr<BlockType>& type, TextureArray& blockTextureArray, glm::mat4x4 modelProjectionMatrix);
+			void render(const std::shared_ptr<BlockType>& type, const TextureArray& blockTextureArray, glm::mat4x4 modelProjectionMatrix);
 	};
 }

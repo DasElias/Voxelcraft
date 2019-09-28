@@ -236,7 +236,7 @@ namespace vc {
 	// ----------------------------------------------------------------------
 	// -------------------------------METHODS--------------------------------
 	// ----------------------------------------------------------------------
-	void FreePositionableBlockRenderer::render(const std::shared_ptr<BlockType>& type, TextureArray& blockTextureArray, glm::mat4x4 modelProjectionMatrix) {
+	void FreePositionableBlockRenderer::render(const std::shared_ptr<BlockType>& type, const TextureArray& blockTextureArray, glm::mat4x4 modelProjectionMatrix) {
 		glDisable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 

@@ -23,6 +23,6 @@ namespace vc {
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		public:
-			void render(const std::shared_ptr<BlockType>&, TextureArray& blockTextures, float absXMargin, float absYMargin, float width, float height);
+			void render(const std::shared_ptr<BlockType>&, const TextureArray& blockTextures, float absXMargin, float absYMargin, float width, float height);
 	};
 }	

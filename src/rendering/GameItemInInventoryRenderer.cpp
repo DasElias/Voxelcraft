@@ -1,7 +1,7 @@
 #include "GameItemInInventoryRenderer.h"
 
 namespace vc {
-	void GameItemInInventoryRenderer::render(std::shared_ptr<GameItem> item, TextureArray& blockTextures, float absXMargin, float absYMargin, float width, float height) {
+	void GameItemInInventoryRenderer::render(std::shared_ptr<GameItem> item, const TextureArray& blockTextures, float absXMargin, float absYMargin, float width, float height) {
 		if(item == nullptr) return;
 
 		if(item->isBlock()) {
