@@ -22,6 +22,6 @@ namespace vc {
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		public:
-			void render(std::shared_ptr<GameItem> item, const TextureArray& blockTextures, float absXMargin, float absYMargin, float width, float height);
+			void render(std::shared_ptr<GameItem> item, const TextureArray& blockTextures, float absXMargin, float absYMargin, float width, float height, float opacity = 1);
 	};
 }

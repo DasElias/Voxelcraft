@@ -5,10 +5,16 @@ in vec3 pass_texCoords;
 
 out vec4 out_Color;
 
+uniform float opacity;
 uniform sampler2DArray tex;
 
 void main(void) {
-	out_Color = texture(tex, pass_texCoords);
+	vec4 color = texture(tex, pass_texCoords);
+
+	float finalOpacity = min(opacity, color.a);
+
+	color.a = finalOpacity;
+	out_Color = color;
 	
 }
 

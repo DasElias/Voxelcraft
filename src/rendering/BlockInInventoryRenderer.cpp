@@ -12,7 +12,7 @@ namespace vc {
 	BlockInInventoryRenderer::BlockInInventoryRenderer() :
 			blockInInventoryProjectionMatrix(10, Frustum::NEAR_PLANE_DISTANCE, Frustum::FAR_PLANE_DISTANCE) {
 	}
-	void BlockInInventoryRenderer::render(const std::shared_ptr<BlockType>& type, const TextureArray& blockTextures, float absXMargin, float absYMargin, float width, float height) {
+	void BlockInInventoryRenderer::render(const std::shared_ptr<BlockType>& type, const TextureArray& blockTextures, float absXMargin, float absYMargin, float width, float height, float opacity) {
 		using namespace glm;
 		blockInInventoryProjectionMatrix.update(10);
 
@@ -53,6 +53,6 @@ namespace vc {
 		// compute modelProjectionMatrix and render
 		mat4x4 modelProjection = blockInInventoryProjectionMatrix.getProjectionMatrix() * model;
 
-		FreePositionableBlockRenderer::render(type, blockTextures, modelProjection);
+		FreePositionableBlockRenderer::render(type, blockTextures, modelProjection, opacity);
 	}
 }

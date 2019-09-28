@@ -30,7 +30,7 @@ namespace vc {
 		) {
 
 		this->location_projectionMatrix = createUniformLocation("projMatrix");
-
+		this->location_opacity = createUniformLocation("opacity");
 	}
 
 	// ----------------------------------------------------------------------
@@ -38,6 +38,11 @@ namespace vc {
 	// ----------------------------------------------------------------------
 	void FreePositionableBlockRenderer::FreePositionableBlockShader::loadProjectionMatrix(glm::mat4x4 projectionMatrix) {
 		this->loadMatrix4f(location_projectionMatrix, projectionMatrix);
+	}
+
+	void FreePositionableBlockRenderer::FreePositionableBlockShader::loadOpacity(float opacity) {
+		this->loadFloat(location_opacity, opacity);
+
 	}
 
 
@@ -236,12 +241,13 @@ namespace vc {
 	// ----------------------------------------------------------------------
 	// -------------------------------METHODS--------------------------------
 	// ----------------------------------------------------------------------
-	void FreePositionableBlockRenderer::render(const std::shared_ptr<BlockType>& type, const TextureArray& blockTextureArray, glm::mat4x4 modelProjectionMatrix) {
+	void FreePositionableBlockRenderer::render(const std::shared_ptr<BlockType>& type, const TextureArray& blockTextureArray, glm::mat4x4 modelProjectionMatrix, float opacity) {
 		glDisable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 
 		shader.startProgram();
 		shader.loadProjectionMatrix(modelProjectionMatrix);
+		shader.loadOpacity(opacity);
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D_ARRAY, blockTextureArray.getTexId());

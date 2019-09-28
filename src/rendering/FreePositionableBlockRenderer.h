@@ -19,6 +19,7 @@ namespace vc {
 				// ----------------------------------------------------------------------
 				private:
 					int location_projectionMatrix;
+					int location_opacity;
 
 				// ----------------------------------------------------------------------
 				// -----------------------------CONSTRUCTORS-----------------------------
@@ -31,6 +32,7 @@ namespace vc {
 				// ----------------------------------------------------------------------
 				public:
 					void loadProjectionMatrix(glm::mat4x4 projectionMatrix);
+					void loadOpacity(float opacity);
 			};
 
 			class FreePositionableBlockVao : public VertexArrayObject {
@@ -88,6 +90,6 @@ namespace vc {
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		public:
-			void render(const std::shared_ptr<BlockType>& type, const TextureArray& blockTextureArray, glm::mat4x4 modelProjectionMatrix);
+			void render(const std::shared_ptr<BlockType>& type, const TextureArray& blockTextureArray, glm::mat4x4 modelProjectionMatrix, float opacity = 1);
 	};
 }
