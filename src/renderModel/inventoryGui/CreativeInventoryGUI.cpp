@@ -38,8 +38,18 @@ namespace vc {
 	}
 
 	void CreativeInventoryGUI::CreativeInventory::click(int slot, Player& p) {
-		//TODO
+		Slot& itemClipboard = p.getItemClipboard();
+		if(itemClipboard.hasValue()) {
+			// if the player has an item in his clipboard, no operation should be performed in creative inventory
+			return;
+		}
+
+		std::shared_ptr<GameItem> previousInvItem = Inventory::get(slot).getGameItem();
+		int previousInvItemAmount = Inventory::get(slot).getAmount();
+
 		Inventory::click(slot, p);
+
+		Inventory::set(slot, previousInvItem, previousInvItemAmount);
 	}
 
 	CreativeInventoryGUI::CreativeInventoryGUI() {
