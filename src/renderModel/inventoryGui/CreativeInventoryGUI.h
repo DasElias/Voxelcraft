@@ -28,8 +28,8 @@ namespace vc {
 		// ----------------------------STATIC-FIELDS-----------------------------
 		// ----------------------------------------------------------------------
 		private:
-			static int const MARGIN_LEFT = 33;
-			static int const MARGIN_TOP = 69;
+			static int const MARGIN_LEFT = 34;
+			static int const MARGIN_TOP = 70;
 			static int const SLOT_DIMENSIONS = 68;
 			static int const SPACE_BETWEEN_SLOTS = 4;
 			static int const SPACE_TO_HOTBAR = 20;
