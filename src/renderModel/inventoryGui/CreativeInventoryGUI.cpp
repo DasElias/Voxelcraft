@@ -33,22 +33,23 @@ namespace vc {
 
 		// add BlockTypes to inventory
 		for(int counter = 0; counter < blockTypeList.size(); counter++) {
-			Inventory::set(counter, blockTypeList[counter], 1);
+			Inventory::set(Inventory::length() - counter - 1, blockTypeList[counter], 1);
 		}
 	}
 
 	void CreativeInventoryGUI::CreativeInventory::click(int slot, Player& p) {
 		Slot& itemClipboard = p.getItemClipboard();
-		if(itemClipboard.hasValue()) {
-			// if the player has an item in his clipboard, no operation should be performed in creative inventory
-			return;
-		}
 
 		std::shared_ptr<GameItem> previousInvItem = Inventory::get(slot).getGameItem();
 		int previousInvItemAmount = Inventory::get(slot).getAmount();
 
+		bool hasItemClipboradValue = itemClipboard.hasValue();
+
 		Inventory::click(slot, p);
 
+		if(hasItemClipboradValue) {
+			itemClipboard.clear();
+		}
 		Inventory::set(slot, previousInvItem, previousInvItemAmount);
 	}
 
@@ -88,7 +89,7 @@ namespace vc {
 			if(invSlot.hasValue()) {
 				float const slotWidth = endX - beginX;
 				float const slotHeight = endY - beginY;
-				float const factor = 0.1;
+				float const factor = 0.1f;
 				nonStaticInventoryRenderer.render(invSlot.getGameItem(), texArray, beginX + (slotWidth * factor), beginY + (slotHeight * factor), slotWidth - (slotWidth * 2 * factor), slotHeight - (slotHeight * 2 * factor));
 			}
 		});
@@ -127,12 +128,12 @@ namespace vc {
 		float const c_spaceToHotbar = (float(SPACE_TO_HOTBAR) / invElementBackground->getHeight()) * guiHeight;
 
 		float rowYBegin[6] = {
-			guiYMargin + c_marginTop + 5 * c_slotHeight + (4 + 1) * c_ySpaceBetween + c_spaceToHotbar,
-			guiYMargin + c_marginTop + 4 * c_slotHeight + (4 + 1) * c_ySpaceBetween,
-			guiYMargin + c_marginTop + 3 * c_slotHeight + (3 + 1) * c_ySpaceBetween,
-			guiYMargin + c_marginTop + 2 * c_slotHeight + (2 + 1) * c_ySpaceBetween,
-			guiYMargin + c_marginTop + 1 * c_slotHeight + (1 + 1) * c_ySpaceBetween,
-			guiYMargin + c_marginTop + 0 * c_slotHeight + (0 + 1) * c_ySpaceBetween,
+			guiYMargin + c_marginTop + 5 * c_slotHeight + 4 * c_ySpaceBetween + c_spaceToHotbar,
+			guiYMargin + c_marginTop + 4 * c_slotHeight + 4 * c_ySpaceBetween,
+			guiYMargin + c_marginTop + 3 * c_slotHeight + 3 * c_ySpaceBetween,
+			guiYMargin + c_marginTop + 2 * c_slotHeight + 2 * c_ySpaceBetween,
+			guiYMargin + c_marginTop + 1 * c_slotHeight + 1 * c_ySpaceBetween,
+			guiYMargin + c_marginTop + 0 * c_slotHeight + 0 * c_ySpaceBetween,
 		};
 
 		for(int row = 0; row < 6; row++) {
