@@ -84,18 +84,6 @@
     <ClCompile Include="src\model\AbstractBlock.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\model\AbstractChunk.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\model\AbstractChunkSaver.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\model\AbstractChunkStack.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\model\AbstractPlayer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\model\Bedrock.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -126,13 +114,7 @@
     <ClCompile Include="src\model\EdenGenerator.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\model\Face.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\model\Frustum.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\model\GameItem.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\model\Level.cpp">
@@ -180,9 +162,6 @@
     <ClCompile Include="src\rendering\LevelRenderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\rendering\LevelRendererInterface.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\rendering\PostProcessor.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -190,9 +169,6 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\renderModel\ChunkVaoManager.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderModel\ChunkVertexArrayObject.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\renderModel\DefaultChunkVao.cpp">

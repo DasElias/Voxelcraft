@@ -27,10 +27,6 @@
     <ClCompile Include="src\eguiImpl\nodes\PauseStateElement.cpp" />
     <ClCompile Include="src\eguiImpl\themes\VoxelcraftTheme.cpp" />
     <ClCompile Include="src\model\AbstractBlock.cpp" />
-    <ClCompile Include="src\model\AbstractChunk.cpp" />
-    <ClCompile Include="src\model\AbstractChunkSaver.cpp" />
-    <ClCompile Include="src\model\AbstractChunkStack.cpp" />
-    <ClCompile Include="src\model\AbstractPlayer.cpp" />
     <ClCompile Include="src\model\Bedrock.cpp" />
     <ClCompile Include="src\model\Block.cpp" />
     <ClCompile Include="src\model\BlockCreator.cpp" />
@@ -50,9 +46,7 @@
     <ClCompile Include="src\model\events\player\ItemInHandChangedEvent.cpp" />
     <ClCompile Include="src\model\events\player\PlayerEvent.cpp" />
     <ClCompile Include="src\model\events\player\ToggleSprintingEvent.cpp" />
-    <ClCompile Include="src\model\Face.cpp" />
     <ClCompile Include="src\model\Frustum.cpp" />
-    <ClCompile Include="src\model\GameItem.cpp" />
     <ClCompile Include="src\model\Inventory.cpp" />
     <ClCompile Include="src\model\Level.cpp" />
     <ClCompile Include="src\model\LevelBuilder.cpp" />
@@ -86,7 +80,6 @@
     <ClCompile Include="src\rendering\BasicInHandRenderer.cpp" />
     <ClCompile Include="src\rendering\InHandRendererFacade.cpp" />
     <ClCompile Include="src\rendering\LevelRenderer.cpp" />
-    <ClCompile Include="src\rendering\LevelRendererInterface.cpp" />
     <ClCompile Include="src\rendering\PostProcessor.cpp" />
     <ClCompile Include="src\rendering\Renderer2D.cpp" />
     <ClCompile Include="src\rendering\shaderPrograms\ShaderProgram.cpp" />
@@ -95,7 +88,6 @@
     <ClCompile Include="src\renderModel\AbstractChunkVaoManager.cpp" />
     <ClCompile Include="src\renderModel\ChunkVaoData.cpp" />
     <ClCompile Include="src\renderModel\ChunkVaoManager.cpp" />
-    <ClCompile Include="src\renderModel\ChunkVertexArrayObject.cpp" />
     <ClCompile Include="src\renderModel\DefaultChunkVao.cpp" />
     <ClCompile Include="src\renderModel\FrameBufferObject.cpp" />
     <ClCompile Include="src\renderModel\GeneralVertexArrayObject.cpp" />
@@ -329,6 +321,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ShowIncludes>false</ShowIncludes>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -349,12 +342,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN32\include;C:\Users\Elias\visual_studio_dependencies\simpleini;C:\Users\Elias\visual_studio_dependencies\CTPL;C:\Users\Elias\visual_studio_dependencies\optional-master\include;C:\Users\Elias\visual_studio_dependencies\gzstream;C:\Users\Elias\visual_studio_dependencies\simplex-noise;C:\Users\Elias\visual_studio_dependencies\glm;C:\Users\Elias\visual_studio_dependencies\glad\include;C:\Program Files (x86)\GnuWin32\src\zlib\1.2.3\zlib-1.2.3\toProject;C:\Users\Elias\visual_studio_dependencies\static_block;$(SolutionDir)NanoVG;$(SolutionDir)EGui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\source\repos\Voxelcraft_1\Release\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN32\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>NanoVG.lib;EGui.lib;zlib.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -382,7 +379,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\source\repos\Voxelcraft_1\x64\Release\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>NanoVG.lib;EGui.lib;zlib.lib;glfw3.lib;glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>NanoVG.lib;EGui.lib;zlib.lib;glfw3dll.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
