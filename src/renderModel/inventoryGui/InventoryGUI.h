@@ -28,5 +28,7 @@ namespace vc {
 		public:
 			virtual void render(Player& p, egui::MasterRenderer& eguiRenderer, const TextureArray& texArray) =0;
 			virtual void click(Player& p, float percentX, float percentY, bool isDownNow) =0;
+			virtual void onGuiOpen(Player& p);
+			virtual void onGuiClose(Player& p);
 	};
 }

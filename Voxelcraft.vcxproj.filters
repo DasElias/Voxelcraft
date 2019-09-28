@@ -261,6 +261,9 @@
     <ClCompile Include="src\rendering\InHandRendererFacade.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\renderModel\inventoryGui\InventoryGUI.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h">

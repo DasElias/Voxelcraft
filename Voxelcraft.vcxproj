@@ -93,6 +93,7 @@
     <ClCompile Include="src\renderModel\GeneralVertexArrayObject.cpp" />
     <ClCompile Include="src\renderModel\InstancedRenderingVbo.cpp" />
     <ClCompile Include="src\renderModel\inventoryGui\CreativeInventoryGUI.cpp" />
+    <ClCompile Include="src\renderModel\inventoryGui\InventoryGUI.cpp" />
     <ClCompile Include="src\renderModel\SimpleTexture.cpp" />
     <ClCompile Include="src\renderModel\Texture.cpp" />
     <ClCompile Include="src\renderModel\TextureArray.cpp" />
