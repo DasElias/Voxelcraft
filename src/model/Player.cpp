@@ -606,10 +606,13 @@ namespace vc {
 	void Player::setInventoryGUI(const std::shared_ptr<InventoryGUI>& invGui) {
 		this->displayedInventoryGui = invGui;
 
-		if(invGui) {
+		if(invGui != nullptr) {
 			egui::getInputHandler().setCursorInputMode(CURSOR_NORMAL);
 		} else {
 			egui::getInputHandler().setCursorInputMode(CURSOR_DISABLED);
+
+			//TODO drop inventory in slot
+			this->getItemClipboard().clear();
 		}
 	}
 
