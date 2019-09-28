@@ -69,7 +69,11 @@ namespace vc {
 			postProcessor(),
 			lastFrameWindowWidth(egui::getDisplayHandler().getFramebufferWidth()),
 			lastFrameWindowHeight(egui::getDisplayHandler().getFramebufferHeight()),
-			lastTimeResizing(LLONG_MAX - RESIZING_FBO_DELAY_MS) {
+			lastTimeResizing(LLONG_MAX - RESIZING_FBO_DELAY_MS),
+			crosshairImage(getApplicationFolder().append("\\textures\\gui\\crosshair.png")),
+			crosshair(new egui::Label()) {
+
+		crosshair->setPreferredDimension(30, false, 30, false);
 
 	}
 
@@ -140,6 +144,13 @@ namespace vc {
 		// we don't need the multisampled FBO to render the inventory
 		if(player.isInventoryGUIActive()) {
 			player.getInventoryGUI()->render(player, eguiRenderer, blockTextureArray);
+		} else {
+			glActiveTexture(GL_TEXTURE0);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ZERO);
+			glBindTexture(GL_TEXTURE_2D, crosshairImage.getTexId());
+			renderer2D.render(crosshair);
+			glDisable(GL_BLEND);
 		}
 	}
 

@@ -15,16 +15,11 @@ namespace vc {
 	IngameState::IngameState(StateManager& stateManager, LevelRenderer& levelRenderer, egui::MasterRenderer& eguiRenderer) :
 			State(stateManager),
 			levelRenderer(levelRenderer),
-			renderer2D(),
 			eguiRenderer(eguiRenderer), 
 			fpsLabel(new egui::Label("FPS: NaN", 20, false, egui::Text::HorizontalAlignment::LEFT, egui::Text::VerticalAlignment::TOP, {1, 1, 1})),
 			autosaveLabel(new egui::Label("", 0.15f, true, egui::Text::HorizontalAlignment::CENTER, egui::Text::VerticalAlignment::MIDDLE, { 1, 1, 1 })),
-			labelScene(std::shared_ptr<egui::Node>(new egui::UnorganizedParentElement({fpsLabel, autosaveLabel}))),
+			labelScene(std::shared_ptr<egui::Node>(new egui::UnorganizedParentElement({fpsLabel, autosaveLabel}))) {
 
-			crosshairImage(getApplicationFolder().append("\\textures\\gui\\crosshair.png")),
-			crosshair(new egui::Label()) {
-
-		crosshair->setPreferredDimension(30, false, 30, false);
 	}
 
 
@@ -84,13 +79,6 @@ namespace vc {
 
 		labelScene.render(eguiRenderer);
 		eguiRenderer.endFrame();
-		
-		glActiveTexture(GL_TEXTURE0);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ZERO);
-		glBindTexture(GL_TEXTURE_2D, crosshairImage.getTexId());
-		renderer2D.render(crosshair);
-		glDisable(GL_BLEND);
 		
 		
 	}

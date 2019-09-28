@@ -22,15 +22,13 @@ namespace vc {
 		// ----------------------------------------------------------------------
 		private:
 			LevelRenderer& levelRenderer;
-			Renderer2D renderer2D;
 
 			egui::MasterRenderer& eguiRenderer;
 			std::shared_ptr<egui::Label> fpsLabel;
 			std::shared_ptr<egui::Label> autosaveLabel;
 			egui::Scene labelScene;
 
-			SimpleTexture crosshairImage;
-			std::shared_ptr<egui::Label> crosshair;
+
 
 			std::vector<float> fpsArrList = std::vector<float>();
 			float fpsAvg = 0, fpsMin = 0, fpsMax = 0;

@@ -8,10 +8,15 @@
 
 #include "../model/Level.h"
 #include "../renderModel/FrameBufferObject.h"
+#include "../renderModel/SimpleTexture.h"
 #include "../renderModel/TextureArray.h"
 #include "GaussianBlurPostProcessor.h"
 #include "InHandRendererFacade.h"
 #include "IngameHotbarRenderer.h"
+#include "Renderer2D.h"
+
+
+#include <model/nodes/Label.h>
 
 namespace vc {
 	class LevelRenderer : public LevelRendererInterface {
@@ -30,6 +35,7 @@ namespace vc {
 			BlockRenderer blockRenderer;
 			//ParticleRenderer particleRenderer;
 			InHandRendererFacade itemInHandRenderer;
+			Renderer2D renderer2D;
 
 			IngameHotbarRenderer hotbarRenderer;
 
@@ -44,6 +50,9 @@ namespace vc {
 			int lastFrameWindowWidth;
 			int lastFrameWindowHeight;
 			long long lastTimeResizing;
+
+			SimpleTexture crosshairImage;
+			std::shared_ptr<egui::Label> crosshair;
 
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------
