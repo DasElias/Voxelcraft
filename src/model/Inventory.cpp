@@ -53,6 +53,7 @@ namespace vc {
 			} else {
 				// slot doesn't contain items, but the clipboard does so
 				this->set(p.getItemClipboard());
+				p.getItemClipboard().clear();
 			}
 		} else if(this->hasValue()) {
 			// item clipboard has no value, but this slot has one
@@ -94,6 +95,7 @@ namespace vc {
 	}
 
 	const Inventory::InventorySlot& Inventory::get(int slot) const {
+		if(slot >= items.size()) throw std::runtime_error("Cannot access slot " + std::to_string(slot) + ", when inventory size is " + std::to_string(items.size()));
 		return items.at(slot);
 	}
 
