@@ -82,6 +82,24 @@ namespace vc {
 				nonStaticInventoryRenderer.render(invSlot.getGameItem(), texArray, beginX + (slotWidth * factor), beginY + (slotHeight * factor), slotWidth - (slotWidth * 2 * factor), slotHeight - (slotHeight * 2 * factor));
 			}
 		});
+
+		if(p.getItemClipboard().hasValue()) {
+			float const guiWidth = invElement->getComputedWidth();
+			float const guiHeight = invElement->getComputedHeight();
+			float const slotWidth = (float(SLOT_DIMENSIONS) / invElementBackground->getWidth()) * guiWidth;
+			float const slotHeight = (float(SLOT_DIMENSIONS) / invElementBackground->getHeight()) * guiHeight;
+			float const absXMargin = x_pixelToPercent(egui::getCursorHandler().getCursorX());
+			float const absYMargin = y_pixelToPercent(egui::getCursorHandler().getCursorY());
+
+			float const factor = 0.1f;
+			float finalWidth = slotWidth * (1 - 2 * factor);
+			float finalHeight = slotHeight * (1 - 2 * factor);
+			float finalXMargin = absXMargin - finalWidth / 2;
+			float finalYMargin = absYMargin - finalHeight / 2;
+			
+
+			inInventoryRenderer.render(p.getItemClipboard().getGameItem(), texArray, finalXMargin, finalYMargin, finalWidth, finalHeight, 0.5f);
+		}
 	}
 
 	void vc::CreativeInventoryGUI::iterateOverSlots(std::function<void(int, float, float, float, float)> callback) {
