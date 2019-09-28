@@ -19,22 +19,17 @@ namespace vc {
 
 		// get map with all block types
 		const std::map<int, std::shared_ptr<BlockType>>& allBlockTypes = BlockType::getAll();
-		std::vector<std::shared_ptr<BlockType>> blockTypeList;
+
+		int counter = 0;
 
 		// convert values into list
 		for(auto& pair : allBlockTypes) {
-			blockTypeList.push_back(pair.second);
+			if(! pair.second->canPlayerPlace()) continue;
+			Inventory::set(Inventory::length() - counter - 1, pair.second, 1);
+			counter++;
 		}
 
-		// sort list
-		std::sort(blockTypeList.begin(), blockTypeList.end(), [](std::shared_ptr<BlockType>& a, std::shared_ptr<BlockType>& b) {
-			return a->getId() < b->getId();
-		});
-
-		// add BlockTypes to inventory
-		for(int counter = 0; counter < blockTypeList.size(); counter++) {
-			Inventory::set(Inventory::length() - counter - 1, blockTypeList[counter], 1);
-		}
+		
 	}
 
 	void CreativeInventoryGUI::CreativeInventory::click(int slot, Player& p) {
