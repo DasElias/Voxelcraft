@@ -16,7 +16,15 @@
 #include "utils/MathUtils.h"
 
 namespace vc {
-
+	namespace {
+		int fast_atoi(const char* str) {
+			int val = 0;
+			while(*str) {
+				val = val * 10 + (*str++ - '0');
+			}
+			return val;
+		}
+	}
 	void ChunkSaver::lexer(std::string data, LexerResult& result_lexerResult) {
 		std::string labelTarget = "";
 		std::string contentTarget = "";
@@ -34,11 +42,12 @@ namespace vc {
 					if(contentTarget.length() == 0) {
 						arrData.push_back(-1);
 					} else {
-						arrData.push_back(std::stoi(contentTarget));
+						arrData.push_back(fast_atoi(contentTarget.c_str()));
 						contentTarget.clear();
 					}
 				} else {
-					contentTarget.append(std::string(1, c));
+					contentTarget += c;
+					//contentTarget.append(std::string(1, c));
 				}
 			} else if(c == '[') {
 				appendToArray = true;
