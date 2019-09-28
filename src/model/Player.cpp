@@ -74,8 +74,12 @@ namespace vc {
 
 	egui::FunctionWrapper<egui::MouseEvent> Player::initMouseBtnEventHandler() {
 		return egui::FunctionWrapper<egui::MouseEvent>([this](egui::MouseEvent& event) {
-			// if an inventory GUI is active or the current state isn't IngameState, the player doesn't want to place/destroy a block
-			if(isInventoryGUIActive() || ! isIngameStateActive_field) return;
+			// if the current state isn't IngameState, the player doesn't want to place/destroy a block
+			if(! isIngameStateActive_field) return;
+			if(isInventoryGUIActive()) {
+				getInventoryGUI()->click(*this, event.getScreenX_percent(), event.getScreenY_percent(), event.isBtnDown());
+				return;
+			}
 
 			if(event.getMouseButton() == egui::getKeyAssignments().getProperty("PLACE_BLOCK")) isButtonToPlaceBlockDown = event.isBtnDown();
 			else if(event.getMouseButton() == egui::getKeyAssignments().getProperty("BREAK_BLOCK")) isButtonToDestroyBlockDown = event.isBtnDown();
