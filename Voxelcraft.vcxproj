@@ -362,7 +362,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\include;C:\Users\Elias\visual_studio_dependencies\simpleini;C:\Users\Elias\visual_studio_dependencies\CTPL;C:\Users\Elias\visual_studio_dependencies\optional-master\include;C:\Users\Elias\visual_studio_dependencies\gzstream;C:\Users\Elias\visual_studio_dependencies\simplex-noise;C:\Users\Elias\visual_studio_dependencies\glm;C:\Users\Elias\visual_studio_dependencies\glad\include;C:\Program Files (x86)\GnuWin32\src\zlib\1.2.3\zlib-1.2.3\toProject;C:\Users\Elias\visual_studio_dependencies\static_block;$(SolutionDir)NanoVG;$(SolutionDir)EGui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -378,8 +378,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\source\repos\Voxelcraft_1\x64\Release\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>NanoVG.lib;EGui.lib;zlib.lib;glfw3dll.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\source\repos\Voxelcraft_1\x64\Release\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\lib-vc2019Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vcruntime.lib;bufferoverflowU.lib;ucrt.lib;;NanoVG.lib;EGui.lib;zlib.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
