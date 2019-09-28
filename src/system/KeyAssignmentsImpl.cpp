@@ -19,6 +19,16 @@ namespace vc {
 
 		save |= setProperty("OPEN_INVENTORY", KEY_E, true);
 
+		save |= setProperty("SLOT1", KEY_1, true);
+		save |= setProperty("SLOT2", KEY_2, true);
+		save |= setProperty("SLOT3", KEY_3, true);
+		save |= setProperty("SLOT4", KEY_4, true);
+		save |= setProperty("SLOT5", KEY_5, true);
+		save |= setProperty("SLOT6", KEY_6, true);
+		save |= setProperty("SLOT7", KEY_7, true);
+		save |= setProperty("SLOT8", KEY_8, true);
+		save |= setProperty("SLOT9", KEY_9, true);
+
 		save |= setProperty("JUMP", KEY_SPACE, true);
 		save |= setProperty("BREAK_BLOCK", MOUSE_BUTTON_2, true);
 		save |= setProperty("PLACE_BLOCK", MOUSE_BUTTON_1, true);

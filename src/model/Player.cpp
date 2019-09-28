@@ -92,11 +92,27 @@ namespace vc {
 	void Player::computeMove(float delta) {
 		bool computeMovement = ! isInventoryGUIActive();
 
+		/**
+		* When an inventory is open, the player doesn't want to change the active inventory slot.
+		*/
+		if(computeMovement) {
+			for(int counter = 0; counter < 9; counter++) {
+				if(egui::getInputHandler().isKeyDown(egui::getKeyAssignments().getProperty("SLOT" + std::to_string(counter + 1)))) {
+					ItemInHandChangedEvent event(this, inventory.get(activeHotbarIndex).getGameItem(), inventory.get(counter).getGameItem());
+					itemInHandChangeEventManager.fireEvent(event);
+					if(event.isCancelled()) return;
+
+					activeHotbarIndex = counter;
+				}
+			}
+		}
+
 		/*
 		 * When an inventory is open, we don't have to compute rotation and movement in XZ-direction
 		 */
 		if(computeMovement) computeRotation();
 		if(computeMovement) computeMovementXZ(delta);
+
 
 		/*
 		 * The game shouldn't respond to the player's keypresses while an inventory is open, nevertheless we have to 
