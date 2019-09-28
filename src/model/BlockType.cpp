@@ -303,10 +303,10 @@ namespace vc {
 	}
 
 	const std::shared_ptr<BlockType>& BlockType::getBlockTypeById(int id) {
-		if(ALL_VALUES.find(id) == BlockType::ALL_VALUES.end()) {
-			throw std::runtime_error("this id doesn't exist");
-		} else {
+		try {
 			return ALL_VALUES.at(id);
+		} catch(std::out_of_range ex) {
+			throw std::runtime_error("this id doesn't exist");
 		}
 	}
 
