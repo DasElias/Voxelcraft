@@ -29,6 +29,7 @@ namespace vc {
 			Inventory(int slotAmount);
 			Inventory(const Inventory&) = delete;
 			Inventory& operator=(const Inventory&) = delete;
+			virtual ~Inventory() = default;
 
 
 		// ----------------------------------------------------------------------
