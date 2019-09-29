@@ -36,6 +36,7 @@ namespace vc {
 			//ParticleRenderer particleRenderer;
 			InHandRendererFacade itemInHandRenderer;
 			Renderer2D renderer2D;
+			Renderer2D renderer2D_discardTransparentFragments;
 
 			IngameHotbarRenderer hotbarRenderer;
 

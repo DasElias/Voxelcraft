@@ -4,6 +4,8 @@
 
 #include "GameItemInInventoryRenderer.h"
 #include "../model/PlayerInventory.h"
+#include "Renderer2D.h"
+#include "..//renderModel/SimpleTexture.h"
 
 #include <model\scene\Scene.h>
 
@@ -19,12 +21,17 @@ namespace vc {
 		// ----------------------------STATIC-FIELDS-----------------------------
 		// ----------------------------------------------------------------------
 		private:
-			static int const WHOLE_IMG_WIDTH = 722;
-			static int const WHOLE_IMG_HEIGHT = 82;
-			static int const WHOLE_IMG_BORDER = 1;
-			static int const SINGLE_BOX_BORDER = 2;
+			static int const SPRITESHEET_DIMENSIONS = 1024;
 
-			static int const SINGLE_BOX_DIMENSIONS = (WHOLE_IMG_WIDTH - (2 * WHOLE_IMG_BORDER) - (9 * 2 * SINGLE_BOX_BORDER)) / 9;
+			static int const HOTBAR_SPRITE_WIDTH = 722;
+			static int const HOTBAR_SPRITE_HEIGHT = 82;
+			static int const HOTBAR_SPRITE_BORDER = 1;
+			static int const HOTBAR_BOX_BORDER = 2;
+			static int const HOTBAR_BOX_DIMENSIONS = (HOTBAR_SPRITE_WIDTH - (2 * HOTBAR_SPRITE_BORDER) - (9 * 2 * HOTBAR_BOX_BORDER)) / 9;
+
+			static int const ACTIVEELEM_MARGINY = 90;
+			static int const ACTIVEELEM_SPRITE_DIMENSIONS = 80;
+
 
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------
@@ -32,21 +39,22 @@ namespace vc {
 		private:
 			TextureArray blockTextureArray;
 			
-			egui::Scene hotbarBackgroundScene;
-			std::shared_ptr<egui::Image> fieldBackgroundImage;
+			std::shared_ptr<egui::Label> hotbarElement;
+			SimpleTexture hotbarTextureSheet;
 
-			egui::Scene selectedElemScene;
 			std::shared_ptr<egui::RelativePositioningOnScreen> selectedElemPositioning;
 			std::shared_ptr<egui::Label> selectedElemLabel;
 
 			egui::MasterRenderer& eguiRenderer;
 			egui::EGuiContext& ctx;
 
+			Renderer2D& renderer2D;
+
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			IngameHotbarRenderer(TextureArray arr, egui::MasterRenderer& renderer, egui::EGuiContext& ctx);
+			IngameHotbarRenderer(TextureArray arr, Renderer2D& renderer2D, egui::MasterRenderer& renderer, egui::EGuiContext& ctx);
 			IngameHotbarRenderer(const IngameHotbarRenderer&) = delete;
 			IngameHotbarRenderer& operator=(const IngameHotbarRenderer&) = delete;
 

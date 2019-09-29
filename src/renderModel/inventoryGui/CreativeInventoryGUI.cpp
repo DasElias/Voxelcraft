@@ -65,7 +65,7 @@ namespace vc {
 
 
 		invElement->setMaxDimension(0.8f, true, 0.8f, true);
-		invElement->setOwnPositioning(std::shared_ptr<Positioning>(new egui::CenterAllInParentWrapper(std::shared_ptr<Positioning>(new RelativePositioningInParent(0, 0)))));
+		invElement->setOwnPositioning(std::shared_ptr<Positioning>(new egui::CenterAllInParentWrapper()));
 		inventoryGUI.setRootElement(invElement);
 	}
 

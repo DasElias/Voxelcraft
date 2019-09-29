@@ -13,6 +13,7 @@
 #include "../model/utils/TimeUtils.h"
 #include <glm\ext\matrix_transform.hpp>
 
+#include <model/positioning/CenterAllInParentWrapper.h>
 
 
 namespace vc {
@@ -62,7 +63,9 @@ namespace vc {
 			blockTextureArray(genTextureArray()),
 			blockRenderer(blockTextureArray),
 			itemInHandRenderer(blockTextureArray),
-			hotbarRenderer(blockTextureArray, eguiRenderer, ctx),
+			renderer2D(false),
+			renderer2D_discardTransparentFragments(true),
+			hotbarRenderer(blockTextureArray, renderer2D, eguiRenderer, ctx),
 			eguiRenderer(eguiRenderer),
 			multisampleFbo({new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight(), MULTISAMPLES)}),
 			outputFbo({new FrameBufferObject(egui::getDisplayHandler().getFramebufferWidth(), egui::getDisplayHandler().getFramebufferHeight())}),
@@ -72,7 +75,8 @@ namespace vc {
 			lastTimeResizing(LLONG_MAX - RESIZING_FBO_DELAY_MS),
 			crosshairImage(getApplicationFolder().append("\\textures\\gui\\crosshair.png")),
 			crosshair(new egui::Label()) {
-
+			
+		crosshair->setOwnPositioning(std::shared_ptr<egui::Positioning>(new egui::CenterAllInParentWrapper()));
 		crosshair->setPreferredDimension(30, false, 30, false);
 
 	}
@@ -149,7 +153,7 @@ namespace vc {
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ZERO);
 			glBindTexture(GL_TEXTURE_2D, crosshairImage.getTexId());
-			renderer2D.render(crosshair);
+			renderer2D_discardTransparentFragments.render(crosshair);
 			glDisable(GL_BLEND);
 		}
 	}

@@ -3,20 +3,20 @@
 #include "../model/utils/FileUtils.h"
 #include <model/utils/PositioningUtils.h>
 #include "..//model/Player.h"
-
+#include "..//renderModel/SimpleTexture.h"
 #include <model/positioning/RelativePositioningInParent.h>
 
 
 namespace vc {
-	IngameHotbarRenderer::IngameHotbarRenderer(TextureArray arr, egui::MasterRenderer& eguiRenderer, egui::EGuiContext& ctx) :
+	IngameHotbarRenderer::IngameHotbarRenderer(TextureArray arr, Renderer2D& renderer2D, egui::MasterRenderer& eguiRenderer, egui::EGuiContext& ctx) :
 			blockTextureArray(arr),
+			hotbarTextureSheet(vc::getApplicationFolder().append("\\textures\\gui\\hotbar.png")),
 			eguiRenderer(eguiRenderer),
-			ctx(ctx) {
+			ctx(ctx),
+			renderer2D(renderer2D) {
 
 		// set label for selected element
 		this->selectedElemLabel = std::shared_ptr<egui::Label>(new egui::Label());
-		this->selectedElemScene.setRootElement(selectedElemLabel);
-
 		this->selectedElemPositioning = std::shared_ptr<egui::RelativePositioningOnScreen>(new egui::RelativePositioningOnScreen(0, 0));
 
 		// set dimensions and positioning
@@ -24,29 +24,14 @@ namespace vc {
 		selectedElemLabel->setPreferredHeight(0, false);
 		selectedElemLabel->setOwnPositioning(selectedElemPositioning);
 
-		// load background image for selected element
-		std::shared_ptr<egui::Image> selectedElemBg = egui::Image::loadTexture(vc::getApplicationFolder().append("\\textures\\gui\\selectedSlot.png"));
-		selectedElemLabel->setBackground(std::shared_ptr<egui::Background> (
-			new egui::TexturedBackground(
-				selectedElemBg
-			)
-		));
+
+
 
 
 		// set label for hotbar background
-		std::shared_ptr<egui::Label> hotbarElem(new egui::Label());
-		this->hotbarBackgroundScene.setRootElement(hotbarElem);
-		hotbarElem->setPreferredDimension(WHOLE_IMG_WIDTH, false, WHOLE_IMG_HEIGHT, false);
+		this->hotbarElement = std::shared_ptr<egui::Label>(new egui::Label());
+		hotbarElement->setPreferredDimension(HOTBAR_SPRITE_WIDTH, false, HOTBAR_SPRITE_HEIGHT, false);
 
-
-		// set background for hotbar 
-		fieldBackgroundImage = egui::Image::loadTexture(vc::getApplicationFolder().append("\\textures\\gui\\hotbar.png"));
-		std::shared_ptr<egui::Background> bg(
-			new egui::TexturedBackground(
-				fieldBackgroundImage
-			)
-		);
-		hotbarElem->setBackground(bg);
 
 		// set positioning of hotbar
 		class HotbarPositioning : public egui::RelativePositioningInParent {
@@ -70,29 +55,43 @@ namespace vc {
 		};
 
 		std::shared_ptr<egui::Positioning> pos(new egui::CenterXInParentWrapper(std::shared_ptr<egui::Positioning>(new HotbarPositioning(0,1))));
-		hotbarElem->setOwnPositioning(pos);
+		hotbarElement->setOwnPositioning(pos);
 	}
 
 	void IngameHotbarRenderer::renderHotbar(PlayerInventory& playerInventory, int selectedSlot) {
-		eguiRenderer.beginFrame();
-		hotbarBackgroundScene.render(eguiRenderer);
-		eguiRenderer.endFrame();
+		glActiveTexture(GL_TEXTURE0);
 
-		double const imgWidth = fieldBackgroundImage->getWidth();
-		double const imgHeight = fieldBackgroundImage->getHeight();
-		double const elemWidth = hotbarBackgroundScene.getRootElement()->getComputedWidth();
-		double const elemHeight = hotbarBackgroundScene.getRootElement()->getComputedHeight();
-		double const elemMarginX = hotbarBackgroundScene.getRootElement()->getAbsXMargin();
-		double const elemMarginY = hotbarBackgroundScene.getRootElement()->getAbsYMargin();
+		/*
+		 * Render Background of hotbar.
+		 */
+		glBindTexture(GL_TEXTURE_2D, hotbarTextureSheet.getTexId());
+		renderer2D.render(
+			this->hotbarElement,
+			true,
+			{0, 0},
+			{float(HOTBAR_SPRITE_WIDTH) / hotbarTextureSheet.getWidth(), 0},
+			{float(HOTBAR_SPRITE_WIDTH) / hotbarTextureSheet.getWidth(), float(HOTBAR_SPRITE_HEIGHT) / hotbarTextureSheet.getHeight()},
+			{0, float(HOTBAR_SPRITE_HEIGHT) / hotbarTextureSheet.getHeight()}
+		);
 
-		double const imgBorderWidth = (WHOLE_IMG_BORDER / imgWidth) * elemWidth;
-		double const imgBorderHeight = (WHOLE_IMG_BORDER / imgHeight) * elemHeight;
+		/*
+		 * Render items in hotbar.
+		 */
+		double const imgWidth = HOTBAR_SPRITE_WIDTH;
+		double const imgHeight = HOTBAR_SPRITE_HEIGHT;
+		double const elemWidth = hotbarElement->getComputedWidth();
+		double const elemHeight = hotbarElement->getComputedHeight();
+		double const elemMarginX = hotbarElement->getAbsXMargin();
+		double const elemMarginY = hotbarElement->getAbsYMargin();
 
-		double const slotBorderWidth = (SINGLE_BOX_BORDER / imgWidth) * elemWidth;
-		double const slotBorderHeight = (SINGLE_BOX_BORDER / imgHeight) * elemHeight;
+		double const imgBorderWidth = (HOTBAR_SPRITE_BORDER / imgWidth) * elemWidth;
+		double const imgBorderHeight = (HOTBAR_SPRITE_BORDER / imgHeight) * elemHeight;
 
-		double const slotWidth = (SINGLE_BOX_DIMENSIONS / imgWidth) * elemWidth;
-		double const slotHeight = (SINGLE_BOX_DIMENSIONS / imgHeight) * elemHeight;
+		double const slotBorderWidth = (HOTBAR_BOX_BORDER / imgWidth) * elemWidth;
+		double const slotBorderHeight = (HOTBAR_BOX_BORDER / imgHeight) * elemHeight;
+
+		double const slotWidth = (HOTBAR_BOX_DIMENSIONS / imgWidth) * elemWidth;
+		double const slotHeight = (HOTBAR_BOX_DIMENSIONS / imgHeight) * elemHeight;
 
 		for(int counter = 0; counter < 9; counter++) {
 			const Slot& invSlot = playerInventory.get(counter);
@@ -108,30 +107,51 @@ namespace vc {
 			double absXMargin = elemMarginX + imgBorderWidth + horizontalSlotBorderAmount * slotBorderWidth + counter * slotWidth;
 			double absYMargin = elemMarginY + imgBorderHeight + slotBorderHeight;
 
-			GameItemInInventoryRenderer::render(
+			/*GameItemInInventoryRenderer::render(
 				invSlot.getGameItem(),
 				blockTextureArray,
 				absXMargin + (0.1 * slotWidth),
 				absYMargin + (0.1 * slotHeight),
 				slotWidth - (0.2 * slotWidth),
 				slotHeight - (0.2 * slotHeight)
-			);
+			);*/
 		}
 
 		// render marker for active element
-		int horizontalSlotBorderAmount = 2 * selectedSlot;
-		double absXMargin = elemMarginX + imgBorderWidth + horizontalSlotBorderAmount * slotBorderWidth + selectedSlot * slotWidth;
-		double absYMargin = elemMarginY + imgBorderHeight + slotBorderHeight;
+		
 
-		double width = slotWidth + 2 * slotBorderHeight;
-		double height = slotHeight + 2 * slotBorderHeight;
+		/*
+		 * Render pointer for selected element.
+		 */
+		{
+			// set positioning
+			int horizontalSlotBorderAmount = 2 * selectedSlot;
+			double absXMargin = elemMarginX + imgBorderWidth + horizontalSlotBorderAmount * slotBorderWidth + selectedSlot * slotWidth;
+			double absYMargin = elemMarginY + imgBorderHeight + slotBorderHeight;
 
-		selectedElemLabel->setPreferredDimension(width, true, height, true);
-		selectedElemPositioning->setX(absXMargin);
-		selectedElemPositioning->setY(absYMargin);
+			double width = slotWidth + 2 * slotBorderHeight;
+			double height = slotHeight + 2 * slotBorderHeight;
 
-		eguiRenderer.beginFrame();
-		selectedElemScene.render(eguiRenderer);
-		eguiRenderer.endFrame();
+			selectedElemLabel->setPreferredDimension(width, true, height, true);
+			selectedElemPositioning->setX(absXMargin);
+			selectedElemPositioning->setY(absYMargin);
+		}
+		{
+			// compute tex coords
+			double xMargin = 0;
+			double yMargin = float(ACTIVEELEM_MARGINY) / hotbarTextureSheet.getHeight();
+			double width = float(ACTIVEELEM_SPRITE_DIMENSIONS) / hotbarTextureSheet.getWidth();
+			double height = float(ACTIVEELEM_SPRITE_DIMENSIONS) / hotbarTextureSheet.getHeight();
+
+			glBindTexture(GL_TEXTURE_2D, hotbarTextureSheet.getTexId());
+			renderer2D.render(
+				this->selectedElemLabel,
+				true,
+				{xMargin, yMargin},
+				{xMargin + width, yMargin},
+				{xMargin + width, yMargin + height},
+				{xMargin, yMargin + height}
+			);
+		}
 	}
 }
