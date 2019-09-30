@@ -318,13 +318,21 @@ namespace vc {
 		bool movingLeft = getInputHandler().isKeyDown(getKeyAssignments().getProperty("MOVE_LEFT"));
 		bool movingRight = getInputHandler().isKeyDown(getKeyAssignments().getProperty("MOVE_RIGHT"));
 
+		// the player wasn't pressing the key MOVE_FORWARD for x milliseconds
 		long long timeNotMovingForward = time_notMovingForward - time_movingForward;
 
+		
 		if (movingForward && (timeNotMovingForward > 0 && timeNotMovingForward < NOT_MOVING_TO_SPRINT_MS)) {
+			/*
+			 * Fire the ToggleSprintingEvent. If the event wasn't cancelled, the flag for sprinting should be set.
+			 */
 			if(fireToggleSprintingEvent(true)) isSprinting = true;
 		}
 
 		if ((! (movingForward || movingBackward || movingLeft || movingRight)) && isSprinting) {
+			/*
+			 * Fire the ToggleSprintingEvent. If the event wasn't cancelled, the flag for sprinting should be unset.
+			 */
 			if(fireToggleSprintingEvent(false)) isSprinting = false;
 		}
 
@@ -363,157 +371,109 @@ namespace vc {
 			planeSpeed.y += computedZ;
 		}
 
+		// if the player is moving in any direction
 		if(glm::length(planeSpeed) != 0) {
+			// we normalize the vector since the player shouldn't move faster if he presses two keys
 			planeSpeed = glm::normalize(planeSpeed);
 
+			// scale the vector
 			if(isSprinting) planeSpeed *= (SPRINTING_SPEED * delta);
 			else planeSpeed *= (BASIC_SPEED * delta);
 
-			if (level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y), vcround(position.z)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y
-							+ 1), vcround(position.z)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z)) == nullptr
-					&&
+			// @formatter:off
+			if (level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y), vcround(position.z)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y + 1), vcround(position.z)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y + 2 - 0.2f), vcround(position.z)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x + planeSpeed.x
-							+ COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x + planeSpeed.x
-							- COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y), vcround(position.z
-							+ COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y + 1), vcround(position.z
-							+ COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z + COLLISION_TOLERANCE)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y), vcround(position.z + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y + 1), vcround(position.z + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y + 2 - 0.2f), vcround(position.z + COLLISION_TOLERANCE)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y), vcround(position.z
-							- COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y + 1), vcround(position.z
-							- COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z - COLLISION_TOLERANCE)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y), vcround(position.z - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y + 1), vcround(position.z - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x), vcroundY(position.y + 2 - 0.2f), vcround(position.z - COLLISION_TOLERANCE)) == nullptr &&
+					
 
 					// diagonal
-					level.getBlockAt(vcround(position.x + planeSpeed.x
-							- COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z + COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z + COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z + COLLISION_TOLERANCE)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z + COLLISION_TOLERANCE)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x + planeSpeed.x
-							+ COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z + COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z + COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z + COLLISION_TOLERANCE)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z + COLLISION_TOLERANCE)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x + planeSpeed.x
-							- COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z - COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z - COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z - COLLISION_TOLERANCE)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x - COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z - COLLISION_TOLERANCE)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x + planeSpeed.x
-							+ COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z - COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z - COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z - COLLISION_TOLERANCE)) == nullptr) {
+					level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + planeSpeed.x + COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z - COLLISION_TOLERANCE)) == nullptr) {
 				position.x += planeSpeed.x;
 			}
 
-			if (level.getBlockAt(vcround(position.x), vcroundY(position.y), vcround(position.z + planeSpeed.y)) == nullptr
-					&& level.getBlockAt(vcround(position.x), vcroundY(position.y + 1), vcround(position.z
-							+ planeSpeed.y)) == nullptr
-					&& level.getBlockAt(vcround(position.x), vcroundY(position.y + 2 - 0.2f), vcround(position.z
-							+ planeSpeed.y)) == nullptr
-					&&
+			if (level.getBlockAt(vcround(position.x), vcroundY(position.y), vcround(position.z + planeSpeed.y)) == nullptr && 
+					level.getBlockAt(vcround(position.x), vcroundY(position.y + 1), vcround(position.z + planeSpeed.y)) == nullptr &&
+					level.getBlockAt(vcround(position.x), vcroundY(position.y + 2 - 0.2f), vcround(position.z + planeSpeed.y)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x), vcroundY(position.y), vcround(position.z + planeSpeed.y
-							+ COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x), vcroundY(position.y + 1), vcround(position.z + planeSpeed.y
-							+ COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x), vcroundY(position.y + 2 - 0.2f), vcround(position.z
-							+ planeSpeed.y + COLLISION_TOLERANCE)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x), vcroundY(position.y), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x), vcroundY(position.y + 1), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x), vcroundY(position.y + 2 - 0.2f), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x), vcroundY(position.y), vcround(position.z + planeSpeed.y
-							- COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x), vcroundY(position.y + 1), vcround(position.z + planeSpeed.y
-							- COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x), vcroundY(position.y + 2 - 0.2f), vcround(position.z
-							+ planeSpeed.y - COLLISION_TOLERANCE)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x), vcroundY(position.y), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x), vcroundY(position.y + 1), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x), vcroundY(position.y + 2 - 0.2f), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z
-							+ planeSpeed.y)) == nullptr
-					&& level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z + planeSpeed.y)) == nullptr
-					&& level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z + planeSpeed.y)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z + planeSpeed.y)) == nullptr &&
+					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z + planeSpeed.y)) == nullptr &&
+					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z + planeSpeed.y)) == nullptr &&
 
-					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z
-							+ planeSpeed.y)) == nullptr
-					&& level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z + planeSpeed.y)) == nullptr
-					&& level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z + planeSpeed.y)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z + planeSpeed.y)) == nullptr &&
+					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z + planeSpeed.y)) == nullptr &&
+					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z + planeSpeed.y)) == nullptr &&
+					
 
 					// diagonal
-					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z
-							+ planeSpeed.y - COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z
-							+ planeSpeed.y - COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z + planeSpeed.y - COLLISION_TOLERANCE)) == nullptr &&
+					
 
-					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z
-							+ planeSpeed.y + COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr
-					&&
+					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x + COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr &&
 
-					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z
-							+ planeSpeed.y + COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y
-							+ 1), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr
-					&& level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y + 2
-							- 0.2f), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr) {
+					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y + 1), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr &&
+					level.getBlockAt(vcround(position.x - COLLISION_TOLERANCE), vcroundY(position.y + 2 - 0.2f), vcround(position.z + planeSpeed.y + COLLISION_TOLERANCE)) == nullptr) {
 				position.z += planeSpeed.y;
 			}
+			// @formatter:on
+
 		}
 	}
 
@@ -612,6 +572,7 @@ namespace vc {
 			egui::getInputHandler().setCursorInputMode(CURSOR_DISABLED);
 
 			//TODO drop inventory in slot
+			// when we close the inventory, we want to drop the item in the player's clipboard
 			this->getItemClipboard().clear();
 		}
 	}
