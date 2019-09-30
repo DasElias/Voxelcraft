@@ -107,14 +107,14 @@ namespace vc {
 			double absXMargin = elemMarginX + imgBorderWidth + horizontalSlotBorderAmount * slotBorderWidth + counter * slotWidth;
 			double absYMargin = elemMarginY + imgBorderHeight + slotBorderHeight;
 
-			/*GameItemInInventoryRenderer::render(
+			GameItemInInventoryRenderer::render(
 				invSlot.getGameItem(),
 				blockTextureArray,
 				absXMargin + (0.1 * slotWidth),
 				absYMargin + (0.1 * slotHeight),
 				slotWidth - (0.2 * slotWidth),
 				slotHeight - (0.2 * slotHeight)
-			);*/
+			);
 		}
 
 		// render marker for active element
@@ -129,7 +129,7 @@ namespace vc {
 			double absXMargin = elemMarginX + imgBorderWidth + horizontalSlotBorderAmount * slotBorderWidth + selectedSlot * slotWidth;
 			double absYMargin = elemMarginY + imgBorderHeight + slotBorderHeight;
 
-			double width = slotWidth + 2 * slotBorderHeight;
+			double width = slotWidth + 2 * slotBorderWidth;
 			double height = slotHeight + 2 * slotBorderHeight;
 
 			selectedElemLabel->setPreferredDimension(width, true, height, true);
@@ -144,6 +144,7 @@ namespace vc {
 			double height = float(ACTIVEELEM_SPRITE_DIMENSIONS) / hotbarTextureSheet.getHeight();
 
 			glBindTexture(GL_TEXTURE_2D, hotbarTextureSheet.getTexId());
+			glDisable(GL_DEPTH_TEST);
 			renderer2D.render(
 				this->selectedElemLabel,
 				true,
@@ -152,6 +153,7 @@ namespace vc {
 				{xMargin + width, yMargin + height},
 				{xMargin, yMargin + height}
 			);
+			glEnable(GL_DEPTH_TEST);
 		}
 	}
 }
