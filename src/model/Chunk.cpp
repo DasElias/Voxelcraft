@@ -37,38 +37,39 @@ namespace vc {
 
 	void Chunk::createBlock(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, std::vector<ChunkVaoData>& data) {
 		const TextureOrientation& orientation = p_block->getTexOrientation();
+		Block& dereferencedBlock = *p_block;
 
 		//left
 		if ((inChunkX == 0 && chunkStack.getLeftNeighbor() == nullptr) || (inChunkX == 0 && chunkStack.getLeftNeighbor()->getChunk(chunkCoords.y)->getBlock(CHUNK_SIZE - 1, inChunkY, inChunkZ) == nullptr) || (inChunkX > 0 && getBlock(inChunkX - 1, inChunkY, inChunkZ) == nullptr)) {
-			addToDataArray(data, p_block, LEFT, orientation.getLeft());
+			addToDataArray(data, dereferencedBlock, LEFT, orientation.getLeft());
 		}
 		//right
 		if ((inChunkX == (CHUNK_SIZE - 1) && chunkStack.getRightNeighbor() == nullptr) || (inChunkX == (CHUNK_SIZE - 1) && chunkStack.getRightNeighbor()->getChunk(chunkCoords.y)->getBlock(0, inChunkY, inChunkZ) == nullptr) || (inChunkX < (CHUNK_SIZE - 1) && getBlock(inChunkX + 1, inChunkY, inChunkZ) == nullptr)) {
-			addToDataArray(data, p_block, RIGHT, orientation.getRight());
+			addToDataArray(data, dereferencedBlock, RIGHT, orientation.getRight());
 		}
 		//bottom
 		if ((inChunkY == 0 && chunkCoords.y == 0) || (inChunkY == 0 && chunkCoords.y > 0 && chunkStack.getChunk(chunkCoords.y - 1)->getBlock(inChunkX, CHUNK_SIZE - 1, inChunkZ) == nullptr) || (inChunkY > 0 && getBlock(inChunkX, inChunkY - 1, inChunkZ) == nullptr)) {
-			addToDataArray(data, p_block, BOTTOM, orientation.getBottom());
+			addToDataArray(data, dereferencedBlock, BOTTOM, orientation.getBottom());
 		}
 		//top
 		if ((inChunkY == (CHUNK_SIZE - 1) && chunkCoords.y < (ChunkStack::AMOUNT_OF_CHUNKS - 1) && chunkStack.getChunk(chunkCoords.y + 1)->getBlock(inChunkX, 0, inChunkZ) == nullptr) || (inChunkY < (CHUNK_SIZE - 1) && getBlock(inChunkX, inChunkY + 1, inChunkZ) == nullptr)) {
-			addToDataArray(data, p_block, TOP, orientation.getTop());
+			addToDataArray(data, dereferencedBlock, TOP, orientation.getTop());
 		}
 		//front
 		if ((inChunkZ == 0 && chunkStack.getFrontNeighbor() == nullptr) || (inChunkZ == 0 && chunkStack.getFrontNeighbor()->getChunk(chunkCoords.y)->getBlock(inChunkX, inChunkY, CHUNK_SIZE - 1) == nullptr) || (inChunkZ > 0 && getBlock(inChunkX, inChunkY, inChunkZ - 1) == nullptr)) {
-			addToDataArray(data, p_block, FRONT, orientation.getFront());
+			addToDataArray(data, dereferencedBlock, FRONT, orientation.getFront());
 		}
 		//back
 		if ((inChunkZ == (CHUNK_SIZE - 1) && chunkStack.getBackNeighbor() == nullptr) || (inChunkZ == (CHUNK_SIZE - 1) && chunkStack.getBackNeighbor()->getChunk(chunkCoords.y)->getBlock(inChunkX, inChunkY, 0) == nullptr) || (inChunkZ < (CHUNK_SIZE - 1) && getBlock(inChunkX, inChunkY, inChunkZ + 1) == nullptr)) {
-			addToDataArray(data, p_block, BACK, orientation.getBack());
+			addToDataArray(data, dereferencedBlock, BACK, orientation.getBack());
 		}
 	}
 
 
-	void Chunk::addToDataArray(std::vector<ChunkVaoData>& data, Block* p_block, std::int8_t facing, std::int8_t tex) {
+	void Chunk::addToDataArray(std::vector<ChunkVaoData>& data, Block& block, std::int8_t facing, std::int8_t tex) {
 		data.push_back({
-			float(p_block->getWorldX()), float(p_block->getWorldY()), float(p_block->getWorldZ()), 
-			short(((p_block->getBlockType().getTextureFiles()[tex])->getGlobalTextureId() << 3) | facing)
+			float(block.getWorldX()), float(block.getWorldY()), float(block.getWorldZ()),
+			short(((block.getBlockType().getTextureFiles()[tex])->getGlobalTextureId() << 3) | facing)
 		});
 	}
 

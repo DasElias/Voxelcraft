@@ -55,7 +55,7 @@ namespace vc {
 		// ----------------------------------------------------------------------
 		private:
 			void createBlock(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, std::vector<ChunkVaoData>& data);
-			void addToDataArray(std::vector<ChunkVaoData>& data, Block* p_block, std::int8_t facing, std::int8_t tex);
+			void addToDataArray(std::vector<ChunkVaoData>& data, Block& block, std::int8_t facing, std::int8_t tex);
 
 		public:
 			bool wasLastTimeVisible() const override;
