@@ -549,13 +549,13 @@ namespace vc {
 	}
 
 	bool Player::doesPlayerCollidateWithBlock(int worldX, int worldY, int worldZ) const {
-		if(worldX == position.getIntX() && worldZ == position.getIntZ() && (worldY == position.getIntY() || worldY == position.getIntY() + 1 || worldY == position.getIntY() + 2)) {
+		if(worldX == position.getIntX() && worldZ == position.getIntZ() && (worldY == position.getIntY() || worldY == position.getIntY() + 1)) {
 			return true;
 		}
 
 		if(position.x < worldX + 1.0 + COLLISION_TOLERANCE && position.x > worldX - COLLISION_TOLERANCE &&
 			position.z < worldZ + 1.0 + COLLISION_TOLERANCE && position.z > worldZ - COLLISION_TOLERANCE &&
-			(worldY == position.getIntY() || worldY == position.getIntY() + 1 || worldY == position.getIntY() + 2)) {
+			(worldY == position.getIntY() || worldY == position.getIntY() + 1)) {
 			return true;
 		}
 
