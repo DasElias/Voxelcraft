@@ -57,6 +57,7 @@ namespace vc {
 			IngameHotbarRenderer(TextureArray arr, Renderer2D& renderer2D, egui::MasterRenderer& renderer, egui::EGuiContext& ctx);
 			IngameHotbarRenderer(const IngameHotbarRenderer&) = delete;
 			IngameHotbarRenderer& operator=(const IngameHotbarRenderer&) = delete;
+			~IngameHotbarRenderer();
 
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------

@@ -61,6 +61,7 @@ namespace vc {
 		public:
 			LevelRenderer(egui::MasterRenderer& eguiRenderer, egui::EGuiContext& ctx);
 			LevelRenderer(const LevelRenderer&) = delete;
+			LevelRenderer& operator=(const LevelRenderer&) = delete;
 			virtual ~LevelRenderer();
 
 		// ----------------------------------------------------------------------

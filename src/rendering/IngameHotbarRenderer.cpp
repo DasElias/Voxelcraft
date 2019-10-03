@@ -3,7 +3,6 @@
 #include "../model/utils/FileUtils.h"
 #include <model/utils/PositioningUtils.h>
 #include "..//model/Player.h"
-#include "..//renderModel/SimpleTexture.h"
 #include <model/positioning/RelativePositioningInParent.h>
 
 
@@ -56,6 +55,10 @@ namespace vc {
 
 		std::shared_ptr<egui::Positioning> pos(new egui::CenterXInParentWrapper(std::shared_ptr<egui::Positioning>(new HotbarPositioning(0,1))));
 		hotbarElement->setOwnPositioning(pos);
+	}
+
+	IngameHotbarRenderer::~IngameHotbarRenderer() {
+		hotbarTextureSheet.cleanUp();
 	}
 
 	void IngameHotbarRenderer::renderHotbar(PlayerInventory& playerInventory, int selectedSlot) {

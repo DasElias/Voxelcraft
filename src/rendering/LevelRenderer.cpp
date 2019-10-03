@@ -83,6 +83,7 @@ namespace vc {
 
 	LevelRenderer::~LevelRenderer() {
 		blockTextureArray.cleanUp();
+		crosshairImage.cleanUp();
 	}
 
 	bool LevelRenderer::updateFbos() {
