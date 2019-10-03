@@ -10,6 +10,7 @@
 #include <model/positioning/RelativePositioningInParent.h>
 #include "../../model/Player.h"
 
+#include <rendering/MasterRenderer.h>
 
 using namespace egui;
 
@@ -64,7 +65,7 @@ namespace vc {
 		));
 
 
-		invElement->setMaxDimension(0.8f, true, 0.8f, true);
+		invElement->setMaxDimension(0.8f, egui::RelativityMode::RELATIVE_IN_PARENT, 0.8f, egui::RelativityMode::RELATIVE_IN_PARENT);
 		invElement->setOwnPositioning(std::shared_ptr<Positioning>(new egui::CenterAllInParentWrapper()));
 		inventoryGUI.setRootElement(invElement);
 	}

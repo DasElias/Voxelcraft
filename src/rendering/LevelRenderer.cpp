@@ -77,7 +77,7 @@ namespace vc {
 			crosshair(new egui::Label()) {
 			
 		crosshair->setOwnPositioning(std::shared_ptr<egui::Positioning>(new egui::CenterAllInParentWrapper()));
-		crosshair->setPreferredDimension(30, false, 30, false);
+		crosshair->setPreferredDimension(30, egui::RelativityMode::ABSOLUTE_VALUE, 30, egui::RelativityMode::ABSOLUTE_VALUE);
 
 	}
 

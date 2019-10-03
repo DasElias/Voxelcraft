@@ -20,8 +20,8 @@ namespace vc {
 		this->selectedElemPositioning = std::shared_ptr<egui::RelativePositioningOnScreen>(new egui::RelativePositioningOnScreen(0, 0));
 
 		// set dimensions and positioning
-		selectedElemLabel->setPreferredWidth(0, false);
-		selectedElemLabel->setPreferredHeight(0, false);
+		selectedElemLabel->setPreferredWidth(0, egui::RelativityMode::NULLVALUE);
+		selectedElemLabel->setPreferredHeight(0, egui::RelativityMode::NULLVALUE);
 		selectedElemLabel->setOwnPositioning(selectedElemPositioning);
 
 
@@ -30,7 +30,7 @@ namespace vc {
 
 		// set label for hotbar background
 		this->hotbarElement = std::shared_ptr<egui::Label>(new egui::Label());
-		hotbarElement->setPreferredDimension(HOTBAR_SPRITE_WIDTH, false, HOTBAR_SPRITE_HEIGHT, false);
+		hotbarElement->setPreferredDimension(HOTBAR_SPRITE_WIDTH, egui::RelativityMode::ABSOLUTE_VALUE, HOTBAR_SPRITE_HEIGHT, egui::RelativityMode::ABSOLUTE_VALUE);
 
 
 		// set positioning of hotbar
@@ -132,7 +132,7 @@ namespace vc {
 			double width = slotWidth + 2 * slotBorderWidth;
 			double height = slotHeight + 2 * slotBorderHeight;
 
-			selectedElemLabel->setPreferredDimension(width, true, height, true);
+			selectedElemLabel->setPreferredDimension(width, egui::RelativityMode::RELATIVE_IN_PARENT, height, egui::RelativityMode::RELATIVE_IN_PARENT);
 			selectedElemPositioning->setX(absXMargin);
 			selectedElemPositioning->setY(absYMargin);
 		}
