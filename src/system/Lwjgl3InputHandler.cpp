@@ -2,6 +2,7 @@
 #include "model/events/ScrollEvent.h"
 
 #include <map>
+#include <stdexcept>
 
 namespace vc {
 	namespace {
@@ -18,6 +19,13 @@ namespace vc {
 				instanceMap.at(window)->getScrollEventManager().fireEvent(evt);
 			}
 		}
+
+		void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+			std::string keyName = instanceMap.at(window)->getKeyName(key, scancode);
+			egui::KeyEvent evt(key, keyName, scancode, action == GLFW_PRESS);
+
+			instanceMap.at(window)->getKeyEventManager().fireEvent(evt);
+		}
 	}
 
 
@@ -27,6 +35,7 @@ namespace vc {
 		instanceMap.insert(std::make_pair(window, this));
 		glfwSetScrollCallback(window, scrollCallback);
 		glfwSetMouseButtonCallback(window, mouseBtnCallback);
+		glfwSetKeyCallback(window, keyCallback);
 	}
 
 	Lwjgl3InputHandler::~Lwjgl3InputHandler() {
@@ -46,12 +55,164 @@ namespace vc {
 		glfwSetInputMode(window, GLFW_CURSOR, cursorMode);
 	}
 
+	std::string Lwjgl3InputHandler::getKeyName(int key, int scanCode) {
+		// filter non-printable keys
+		switch(key) {
+			case KEY_SPACE:
+				return "SPACE";
+			case KEY_ENTER:
+				return "ENTER";
+			case KEY_ESCAPE:
+				return "ESCAPE";
+			case KEY_TAB:
+				return "TAB";
+			case KEY_BACKSPACE:
+				return "BACKSPACE";
+			case KEY_INSERT:
+				return "INSERT";
+			case KEY_DELETE:
+				return "DELETE";
+			case KEY_RIGHT:
+				return "RIGHT";
+			case KEY_LEFT:
+				return "LEFT";
+			case KEY_DOWN:
+				return "DOWN";
+			case KEY_UP:
+				return "UP";
+			case KEY_PAGE_UP:
+				return "PAGE_UP";
+			case KEY_PAGE_DOWN:
+				return "PAGE_DOWN";
+			case KEY_HOME:
+				return "HOME";
+			case KEY_END:
+				return "END";
+			case KEY_CAPS_LOCK:
+				return "CAPS_LOCK";
+			case KEY_SCROLL_LOCK:
+				return "SCROLL_LOCK";
+			case KEY_NUM_LOCK:
+				return "NUM_LOCK";
+			case KEY_PRINT_SCREEN:
+				return "PRINT_SCREEN";
+			case KEY_PAUSE:
+				return "PAUSE";
+			case KEY_F1:
+				return "F1";
+			case KEY_F2:
+				return "F2";
+			case KEY_F3:
+				return "F3";
+			case KEY_F4:
+				return "F4";
+			case KEY_F5:
+				return "F5";
+			case KEY_F6:
+				return "F6";
+			case KEY_F7:
+				return "F7";
+			case KEY_F8:
+				return "F8";
+			case KEY_F9:
+				return "F9";
+			case KEY_F10:
+				return "F10";
+			case KEY_F11:
+				return "F11";
+			case KEY_F12:
+				return "F12";
+			case KEY_F13:
+				return "F13";
+			case KEY_F14:
+				return "F14";
+			case KEY_F15:
+				return "F15";
+			case KEY_F16:
+				return "F16";
+			case KEY_F17:
+				return "F17";
+			case KEY_F18:
+				return "F18";
+			case KEY_F19:
+				return "F19";
+			case KEY_F21:
+				return "F21";
+			case KEY_F22:
+				return "F22";
+			case KEY_F23:
+				return "F23";
+			case KEY_F24:
+				return "F24";
+			case KEY_F25:
+				return "F25";
+			case KEY_KP_1:
+				return "KEYPAD 1";
+			case KEY_KP_2:
+				return "KEYPAD 2";
+			case KEY_KP_3:
+				return "KEYPAD 3";
+			case KEY_KP_4:
+				return "KEYPAD 4";
+			case KEY_KP_5:
+				return "KEYPAD 5";
+			case KEY_KP_6:
+				return "KEYPAD 6";
+			case KEY_KP_7:
+				return "KEYPAD 7";
+			case KEY_KP_8:
+				return "KEYPAD 8";
+			case KEY_KP_9:
+				return "KEYPAD 9";
+			case KEY_KP_DECIMAL:
+				return "KEYPAD DECIMAL";
+			case KEY_KP_DIVIDE:
+				return "KEYPAD DIVIDE";
+			case KEY_KP_MULTIPLY:
+				return "KEYPAD MULTIPLY";
+			case KEY_KP_SUBTRACT:
+				return "KEYPAD SUBTRACT";
+			case KEY_KP_ADD:
+				return "KEYPAD ADD";
+			case KEY_KP_ENTER:
+				return "KEYPAD ENTER";
+			case KEY_KP_EQUAL:
+				return "KEYPAD EQUAL";
+			case KEY_LEFT_SHIFT:
+				return "LEFT SHIFT";
+			case KEY_LEFT_CONTROL:
+				return "LEFT CTRL";
+			case KEY_LEFT_ALT:
+				return "LEFT ALT";
+			case KEY_LEFT_SUPER:
+				return "LEFT SUPER";
+			case KEY_RIGHT_SHIFT:
+				return "RIGHT SHIFT";
+			case KEY_RIGHT_CONTROL:
+				return "RIGHT CTRL";
+			case KEY_RIGHT_ALT:
+				return "RIGHT ALT";
+			case KEY_RIGHT_SUPER:
+				return "RIGHT SUPER";
+			case KEY_MENU:
+				return "MENU";
+		}
+
+		const char* stringPtr = glfwGetKeyName(key, scanCode);
+		if(stringPtr == nullptr) return "UNKNOWN KEY! " + key;
+		return std::string(stringPtr);
+	}
+
 	egui::EventManager<egui::ScrollEvent>& Lwjgl3InputHandler::getScrollEventManager() {
 		return scrollEventManager;
 	}
 
 	egui::EventManager<egui::MouseEvent>& Lwjgl3InputHandler::getMouseBtnEventManager() {
 		return mouseBtnEventManager;
+	}
+
+	egui::EventManager<egui::KeyEvent>& Lwjgl3InputHandler::getKeyEventManager() {
+		return keyEventManager;
 	}
 
 }
