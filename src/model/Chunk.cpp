@@ -133,7 +133,7 @@ namespace vc {
 	}
 
 	void Chunk::placeBlockWithoutUpdateAndEvent(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ) {
-		Block* p_replacedBlock = getBlock(inChunkZ, inChunkY, inChunkX);
+		Block* p_replacedBlock = getBlock(inChunkX, inChunkY, inChunkZ);
 
 		if(p_replacedBlock == nullptr && p_block != nullptr) placedBlockCounter++;
 		else if (p_replacedBlock != nullptr && p_block == nullptr) placedBlockCounter--;
