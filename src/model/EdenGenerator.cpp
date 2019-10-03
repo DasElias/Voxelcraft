@@ -35,9 +35,11 @@ namespace vc {
 				int worldX = convertChunkToWorldValue(chunkStackCoordinates.x, x);
 				int worldZ = convertChunkToWorldValue(chunkStackCoordinates.y, z);
 
+				float perlin = (perlinNoise(worldX, worldZ, level.getSeed()) + 2);
+
 				// we are allowed to do this conversion here since height will never be greater than INT_MAX.
-				height[x][z] = int(roundf(20 * (perlinNoise(worldX, worldZ, level.getSeed()) + 2)));
-				bedrockHeight[x][z] = int(roundf(2 * (perlinNoise(worldX, worldZ, level.getSeed()) + 2)));
+				height[x][z] = int(roundf(20 * perlin));
+				bedrockHeight[x][z] = int(roundf(2 * perlin));
 
 			}
 		}
@@ -58,13 +60,11 @@ namespace vc {
 					}
 
 					for(int inChunkY = 0; inChunkY < toPlace; inChunkY++) {
-						int worldX = convertChunkToWorldValue(chunkStackCoordinates.x, inChunkX);
 						int worldY = convertChunkToWorldValue(chunkCoordinateY, inChunkY);
-						int worldZ = convertChunkToWorldValue(chunkStackCoordinates.y, inChunkZ);
 
 						const std::shared_ptr<BlockType>& blockTypeToPlace = (worldY <= bedrockHeight[inChunkX][inChunkZ]) ? BlockType::BEDROCK : BlockType::GRASS;
 
-						Block* block = getBlock(worldX, worldY, worldZ, blockTypeToPlace, *chunk);
+						Block* block = getBlock_inChunk(inChunkX, inChunkY, inChunkZ, blockTypeToPlace, *chunk);
 						chunk->placeBlockWithoutUpdateAndEvent(block, inChunkX, inChunkY, inChunkZ);
 					}
 				}
