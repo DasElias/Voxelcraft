@@ -2,6 +2,9 @@
 
 #include <model/nodes/HBox.h>
 #include <model/nodes/Button.h>
+
+#include <model/nodes/Slider.h>
+
 #include <model/nodes/Label.h>
 
 
@@ -11,7 +14,7 @@ namespace egui {
 		// --------------------------------FIELDS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
-			std::shared_ptr<Button> fovSlider;
+			std::shared_ptr<Slider> fovSlider;
 			std::shared_ptr<Button> renderDistanceSlider;
 			std::shared_ptr<Button> maxFramerateSlider;
 			std::shared_ptr<Button> useVSyncBtn;

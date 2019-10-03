@@ -11,28 +11,28 @@ namespace egui {
 	MainMenuElement::MainMenuElement(EGuiContext& ctx) {
 		float btnHeight = 0.065f;
 		createGameScoreBtn = std::shared_ptr<Button>(new Button("Create new world"));
-		createGameScoreBtn->setPreferredDimension(1, true, btnHeight, true);
+		createGameScoreBtn->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
 
 		loadGameScoreBtn = std::shared_ptr<Button>(new Button("Load world"));
-		loadGameScoreBtn->setPreferredDimension(1, true, btnHeight, true);
+		loadGameScoreBtn->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
 
 
 
 		// create HBox with third and fourth button
 		float const hBoxSpace = 0.065f;
 		optionsBtn = std::shared_ptr<Button>(new Button("Options"));
-		optionsBtn->setPreferredWidth(0.5f - (hBoxSpace / 2), true);
+		optionsBtn->setPreferredWidth(0.5f - (hBoxSpace / 2), RelativityMode::RELATIVE_IN_PARENT);
 
 		exitGameBtn = std::shared_ptr<Button>(new Button("Exit Game"));
-		exitGameBtn->setPreferredWidth(0.5f - (hBoxSpace / 2), true);
+		exitGameBtn->setPreferredWidth(0.5f - (hBoxSpace / 2), RelativityMode::RELATIVE_IN_PARENT);
 
-		std::shared_ptr<HBox> hBox(new HBox(hBoxSpace, true, {optionsBtn, exitGameBtn}));
-		hBox->setPreferredHeight(btnHeight, true);
+		std::shared_ptr<HBox> hBox(new HBox(hBoxSpace, RelativityMode::RELATIVE_IN_PARENT, {optionsBtn, exitGameBtn}));
+		hBox->setPreferredHeight(btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
 		hBox->setConsiderElemStretchFlag(false);
 
-		std::shared_ptr<VBox> buttonPanel(new VBox(0.03f, true, {createGameScoreBtn, loadGameScoreBtn, hBox}));
-		buttonPanel->setPreferredWidth(0.3f, true);
-		buttonPanel->setMinWidth(300, false);
+		std::shared_ptr<VBox> buttonPanel(new VBox(0.03f, RelativityMode::RELATIVE_IN_PARENT, {createGameScoreBtn, loadGameScoreBtn, hBox}));
+		buttonPanel->setPreferredWidth(0.3f, RelativityMode::RELATIVE_IN_PARENT);
+		buttonPanel->setMinWidth(300, egui::RelativityMode::ABSOLUTE_VALUE);
 		std::shared_ptr<CenterXInParentWrapper> rootPositioning(new CenterXInParentWrapper(std::shared_ptr<Positioning>(new RelativePositioningInParent(0, 0.6f))));
 		buttonPanel->setOwnPositioning(rootPositioning);
 

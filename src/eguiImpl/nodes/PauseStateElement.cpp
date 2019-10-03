@@ -13,15 +13,15 @@ namespace egui {
 		float const btnHeight = 0.065f;
 
 		backToGameBtn = std::shared_ptr<Button>(new Button("Back to Game"));
-		backToGameBtn->setPreferredDimension(1, true, btnHeight, true);
+		backToGameBtn->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
 		optionsBtn = std::shared_ptr<Button>(new Button("Options"));
-		optionsBtn->setPreferredDimension(1, true, btnHeight, true);
+		optionsBtn->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
 		mainMenuBtn = std::shared_ptr<Button>(new Button("Main Menu"));
-		mainMenuBtn->setPreferredDimension(1, true, btnHeight, true);
+		mainMenuBtn->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
 
-		std::shared_ptr<VBox> box(new VBox(0.03f, true, {backToGameBtn, optionsBtn, mainMenuBtn}));
-		box->setPreferredWidth(0.3, true);
-		box->setMinWidth(300, false);
+		std::shared_ptr<VBox> box(new VBox(0.03f, RelativityMode::RELATIVE_IN_PARENT, {backToGameBtn, optionsBtn, mainMenuBtn}));
+		box->setPreferredWidth(0.3, RelativityMode::RELATIVE_IN_PARENT);
+		box->setMinWidth(300, egui::RelativityMode::ABSOLUTE_VALUE);
 		std::shared_ptr<CenterXInParentWrapper> rootPositioning(new CenterXInParentWrapper(std::shared_ptr<Positioning>(new RelativePositioningInParent(0, 0.3f))));
 		box->setOwnPositioning(rootPositioning);
 
