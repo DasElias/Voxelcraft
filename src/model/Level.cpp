@@ -348,18 +348,20 @@ namespace vc {
 	}
 
 	ChunkStack* Level::getChunkStackAt(const glm::ivec2& chunkStackCoordinates) {
-		if(allChunkStacks.find(chunkStackCoordinates) == allChunkStacks.end()) {
+		auto it = allChunkStacks.find(chunkStackCoordinates);
+		if(it == allChunkStacks.end()) {
 			return chunkLoader.loadImmediately(chunkStackCoordinates);
 		} else {
-			return allChunkStacks.at(chunkStackCoordinates);
+			return it->second;
 		}
 	}
 
 	ChunkStack* Level::getChunkStackWithoutLoading(const glm::ivec2& chunkStackCoordinates) const {
-		if(allChunkStacks.find(chunkStackCoordinates) == allChunkStacks.end()) {
+		auto it = allChunkStacks.find(chunkStackCoordinates);
+		if(it == allChunkStacks.end()) {
 			return nullptr;
 		} else {
-			return allChunkStacks.at(chunkStackCoordinates);
+			return it->second;
 		}
 	}
 
@@ -408,6 +410,8 @@ namespace vc {
 	}
 
 	void Level::tryToPlaceBlock(glm::ivec3 worldPosition, Face placedOnFace, const std::shared_ptr<BlockType>& toPlace, Player* p_triggeringPlayer) {
+		if(worldPosition.y >= Chunk::CHUNK_SIZE * ChunkStack::AMOUNT_OF_CHUNKS) return;
+
 		Block* p_current = getBlockAt(worldPosition);
 		Chunk* p_chunk = getChunkAt(convertWorldToChunkCoordinates(worldPosition));
 
