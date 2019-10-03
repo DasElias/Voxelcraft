@@ -14,7 +14,7 @@ namespace vc {
 		std::uint8_t inChunkX = convertWorldToInChunkValue(float(worldX));
 		std::uint8_t inChunkY = convertWorldToInChunkValue(float(worldY));
 		std::uint8_t inChunkZ = convertWorldToInChunkValue(float(worldZ));
-		return getBlock(inChunkX, inChunkY, inChunkZ, type, chunk, placedOn, metadata);
+		return getBlock_inChunk(inChunkX, inChunkY, inChunkZ, type, chunk, placedOn, metadata);
 	}
 
 	Block* getBlock(const int& worldX, const int& worldY, const int& worldZ, const std::shared_ptr<BlockType>& type, const TextureOrientation& texOrientation, Chunk& chunk, std::int8_t metadata) {
