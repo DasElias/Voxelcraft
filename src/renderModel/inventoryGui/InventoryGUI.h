@@ -2,10 +2,14 @@
 #include "../TextureArray.h"
 
 #include "..//..//rendering/GameItemInInventoryRenderer.h"
-#include <rendering\MasterRenderer.h>
+
+namespace egui {
+	class MasterRenderer;
+}
 
 namespace vc {
 	class Player;
+
 	class InventoryGUI {
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------

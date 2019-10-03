@@ -11,6 +11,9 @@
 #include <model/nodeComponents/background/TexturedBackground.h>
 #include "../utils/FileUtils.h"
 
+#include "..//..//renderModel/inventoryGui/CreativeInventoryGUI.h"
+#include <rendering/MasterRenderer.h>
+
 namespace vc {
 	IngameState::IngameState(StateManager& stateManager, LevelRenderer& levelRenderer, egui::MasterRenderer& eguiRenderer) :
 			State(stateManager),
