@@ -14,6 +14,8 @@
 
 #include "utils/MathUtils.h"
 #include "events/player/ItemInHandChangedEvent.h"
+#include "..//renderModel/inventoryGui/CreativeInventoryGUI.h"
+
 
 using namespace egui;
 

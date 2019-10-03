@@ -12,8 +12,8 @@
 #include "AbstractPlayer.h"
 #include "Slot.h"
 #include "PlayerInventory.h"
-#include "..//renderModel/inventoryGui/CreativeInventoryGUI.h"
 
+#include "..//renderModel/inventoryGui/InventoryGUI.h"
 namespace vc {
 	class Level;
 	class Block;
