@@ -219,4 +219,12 @@ namespace vc {
 	void Block::onDestroy(BlockBreakEvent& evt) {
 	}
 
+	void Block::onFocusUpdate() {
+		// empty method body
+	}
+
+	void Block::onUpdate() {
+		// empty method body
+	}
+
 }
