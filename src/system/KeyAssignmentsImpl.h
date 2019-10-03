@@ -23,10 +23,11 @@ namespace vc {
 		private:
 			std::string getFile();
 			void save();
+			bool setProperty_impl(std::string key, int value, bool preventReplace = false);
 
 		public:
-			int getProperty(std::string key) override;
-			bool setProperty(std::string key, int value, bool preventReplace);
+			int getProperty(std::string key) override;	
+			void setProperty(std::string key, int value) override;
 
 	};
 

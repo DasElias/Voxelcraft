@@ -12,26 +12,26 @@ namespace vc {
 
 		bool save = false;
 
-		save |= setProperty("MOVE_FORWARD", KEY_W, true);
-		save |= setProperty("MOVE_LEFT", KEY_A, true);
-		save |= setProperty("MOVE_RIGHT", KEY_D, true);
-		save |= setProperty("MOVE_BACKWARD", KEY_S, true);
+		save |= setProperty_impl("MOVE_FORWARD", KEY_W, true);
+		save |= setProperty_impl("MOVE_LEFT", KEY_A, true);
+		save |= setProperty_impl("MOVE_RIGHT", KEY_D, true);
+		save |= setProperty_impl("MOVE_BACKWARD", KEY_S, true);
 
-		save |= setProperty("OPEN_INVENTORY", KEY_E, true);
+		save |= setProperty_impl("OPEN_INVENTORY", KEY_E, true);
 
-		save |= setProperty("SLOT1", KEY_1, true);
-		save |= setProperty("SLOT2", KEY_2, true);
-		save |= setProperty("SLOT3", KEY_3, true);
-		save |= setProperty("SLOT4", KEY_4, true);
-		save |= setProperty("SLOT5", KEY_5, true);
-		save |= setProperty("SLOT6", KEY_6, true);
-		save |= setProperty("SLOT7", KEY_7, true);
-		save |= setProperty("SLOT8", KEY_8, true);
-		save |= setProperty("SLOT9", KEY_9, true);
+		save |= setProperty_impl("SLOT1", KEY_1, true);
+		save |= setProperty_impl("SLOT2", KEY_2, true);
+		save |= setProperty_impl("SLOT3", KEY_3, true);
+		save |= setProperty_impl("SLOT4", KEY_4, true);
+		save |= setProperty_impl("SLOT5", KEY_5, true);
+		save |= setProperty_impl("SLOT6", KEY_6, true);
+		save |= setProperty_impl("SLOT7", KEY_7, true);
+		save |= setProperty_impl("SLOT8", KEY_8, true);
+		save |= setProperty_impl("SLOT9", KEY_9, true);
 
-		save |= setProperty("JUMP", KEY_SPACE, true);
-		save |= setProperty("BREAK_BLOCK", MOUSE_BUTTON_2, true);
-		save |= setProperty("PLACE_BLOCK", MOUSE_BUTTON_1, true);
+		save |= setProperty_impl("JUMP", KEY_SPACE, true);
+		save |= setProperty_impl("BREAK_BLOCK", MOUSE_BUTTON_2, true);
+		save |= setProperty_impl("PLACE_BLOCK", MOUSE_BUTTON_1, true);
 
 		if(save) {
 			properties.SaveFile(getFile().c_str());
@@ -57,7 +57,12 @@ namespace vc {
 		} else return int(fromProperties);
 	}
 
-	bool KeyAssignmentsImpl::setProperty(std::string key, int value, bool preventReplace = false) {
+	void KeyAssignmentsImpl::setProperty(std::string key, int value) {
+		setProperty_impl(key, value);
+		save();
+	}
+
+	bool KeyAssignmentsImpl::setProperty_impl(std::string key, int value, bool preventReplace) {
 		bool shouldInsert = true;
 		if(preventReplace && properties.GetLongValue("voxelcraft", key.c_str(), -1) != -1) {
 			shouldInsert = false;
