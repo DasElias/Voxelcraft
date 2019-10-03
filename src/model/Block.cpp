@@ -101,6 +101,8 @@ namespace vc {
 		vec3 directionVector = chunk.getLevel().getPlayer().getMousePicker().getRay();
 
 		std::vector<std::pair<float, Face>> intersectionDistances;
+		intersectionDistances.reserve(6);
+
 		vec3 supportVector;
 		vec3 spanVector1;
 		vec3 spanVector2;
