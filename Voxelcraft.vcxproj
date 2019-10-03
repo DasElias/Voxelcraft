@@ -25,6 +25,7 @@
     <ClCompile Include="src\eguiImpl\nodes\MainMenuElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\OptionsStateElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\PauseStateElement.cpp" />
+    <ClCompile Include="src\eguiImpl\nodes\KeyBindingsElement.cpp" />
     <ClCompile Include="src\eguiImpl\themes\VoxelcraftTheme.cpp" />
     <ClCompile Include="src\model\AbstractBlock.cpp" />
     <ClCompile Include="src\model\Bedrock.cpp" />
@@ -43,6 +44,7 @@
     <ClCompile Include="src\model\events\Cancellable.cpp" />
     <ClCompile Include="src\model\events\chunkStack\ChunkStackEvent.cpp" />
     <ClCompile Include="src\model\events\chunkStack\ChunkStackUnloadEvent.cpp" />
+    <ClCompile Include="src\model\states\KeyBindingsState.cpp" />
     <ClCompile Include="src\model\events\player\ItemInHandChangedEvent.cpp" />
     <ClCompile Include="src\model\events\player\PlayerEvent.cpp" />
     <ClCompile Include="src\model\events\player\ToggleSprintingEvent.cpp" />
@@ -107,6 +109,7 @@
     <ClInclude Include="src\eguiImpl\nodes\OptionsStateElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\PauseStateElement.h" />
+    <ClInclude Include="src\eguiImpl\nodes\KeyBindingsElement.h" />
     <ClInclude Include="src\eguiImpl\themes\VoxelcraftTheme.h" />
     <ClInclude Include="src\model\AbstractBlock.h" />
     <ClInclude Include="src\model\AbstractChunk.h" />
@@ -129,6 +132,7 @@
     <ClInclude Include="src\model\events\Cancellable.h" />
     <ClInclude Include="src\model\events\chunkStack\ChunkStackEvent.h" />
     <ClInclude Include="src\model\events\chunkStack\ChunkStackUnloadEvent.h" />
+    <ClInclude Include="src\model\states\KeyBindingsState.h" />
     <ClInclude Include="src\model\events\player\ItemInHandChangedEvent.h" />
     <ClInclude Include="src\model\events\player\PlayerEvent.h" />
     <ClInclude Include="src\model\events\player\ToggleSprintingEvent.h" />
@@ -371,8 +375,9 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <FloatingPointModel>Precise</FloatingPointModel>
-      <ShowIncludes>false</ShowIncludes>
+      <ShowIncludes>true</ShowIncludes>
       <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -380,8 +385,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\source\repos\Voxelcraft_1\x64\Release\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\lib-vc2019Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>vcruntime.lib;bufferoverflowU.lib;ucrt.lib;;NanoVG.lib;EGui.lib;zlib.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>bufferoverflowU.lib;ucrt.lib;;NanoVG.lib;EGui.lib;zlib.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

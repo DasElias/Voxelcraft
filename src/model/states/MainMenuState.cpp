@@ -70,7 +70,7 @@ namespace vc {
 	}
 
 	void MainMenuState::openOptions() {
-		stateManager.changeState("OptionsState");
+		stateManager.changeState("KeyBindingsState");
 	}
 
 	void MainMenuState::exitGame() {

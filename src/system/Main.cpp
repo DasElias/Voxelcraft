@@ -9,6 +9,7 @@
 #include <stdexcept>
 
 #include "../model/states/IngameState.h"
+#include "../model/states/KeyBindingsState.h"
 #include "../model/states/MainMenuState.h"
 #include "../model/states/PauseState.h"
 #include "../model/states/OptionsState.h"
@@ -134,7 +135,7 @@ namespace vc {
 		glfwDefaultWindowHints();
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 		glfwWindowHint(GLFW_DEPTH_BITS, 24);
-		glfwWindowHint(GLFW_SAMPLES, 2);
+		//glfwWindowHint(GLFW_SAMPLES, 2);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -192,11 +193,13 @@ namespace vc {
 		IngameState ingameState(stateManager, levelRenderer, nvgRenderer);
 		PauseState pauseState(stateManager, levelRenderer, nvgRenderer, ctx);
 		OptionsState optionsState(stateManager, nvgRenderer, ctx);
+		KeyBindingsState keyBindingsState(stateManager, nvgRenderer, ctx);
 
 		stateManager.addState("MainMenuState", &mainMenuState);
 		stateManager.addState("IngameState", &ingameState);
 		stateManager.addState("PauseState", &pauseState);
 		stateManager.addState("OptionsState", &optionsState);
+		stateManager.addState("KeyBindingsState", &keyBindingsState);
 		stateManager.changeState("MainMenuState");
 		
 		loop();
