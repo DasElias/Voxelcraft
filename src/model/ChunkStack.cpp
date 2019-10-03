@@ -137,6 +137,11 @@ namespace vc {
 		return computeDistanceToPoint(point.x, point.y);
 	}
 
+	bool ChunkStack::isInside(int x, int z) const {
+		return x >= convertChunkToWorldValue(chunkStackCoords.x, 0) && x < convertChunkToWorldValue(chunkStackCoords.x + 1, 0) &&
+			z >= convertChunkToWorldValue(chunkStackCoords.y, 0) && z < convertChunkToWorldValue(chunkStackCoords.y + 1, 0);
+	}
+
 
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <unordered_map>
 #include <ctpl_stl.h>
 #include <model/events/EventManager.h>
 
@@ -59,7 +60,7 @@ namespace vc {
 			std::string const levelFolder;
 			//ParticleList particles;
 			Player player;
-			std::map<glm::ivec2, ChunkStack*, vec2i_compareType> allChunkStacks;
+			std::unordered_map<glm::ivec2, ChunkStack*, vec2i_hashType, vec2i_equalsType> allChunkStacks;
 			std::vector<Chunk*> visibleChunks;
 			ChunkIO chunkLoader;
 			AbstractChunkVaoManager& vaoManager;

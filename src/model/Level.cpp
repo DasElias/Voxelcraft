@@ -24,7 +24,7 @@ namespace vc {
 	Level::Level(std::unique_ptr<LevelMetadata> metadata, std::string levelFolder, AbstractChunkVaoManager& vaoManager, ctpl::thread_pool& helperThreadPool) :
 			levelMetadata(std::move(metadata)),
 			levelFolder(levelFolder),
-			allChunkStacks(VECTOR2I_COMPARE),
+			allChunkStacks(23, VECTOR2I_HASH, VECTOR2I_EQUAL),
 			player({0, 100, 0}, *this),
 			chunkLoader(*this, {}, {}, helperThreadPool),
 			vaoManager(vaoManager),
@@ -273,15 +273,32 @@ namespace vc {
 
 	tl::optional<Face> Level::getIntersectedBlock(float range, Block*& result_block) {
 		PlayerPosition playerPos = player.getPosition();
+		
+		ChunkStack* playerChunkStack = getChunkStackWithoutLoading({ convertWorldToChunkValue(playerPos.x), convertWorldToChunkValue(playerPos.z) });
+		ChunkStack* chunkStacksToCheck[5] = { playerChunkStack, playerChunkStack->getLeftNeighbor(), playerChunkStack->getRightNeighbor(), playerChunkStack->getFrontNeighbor(), playerChunkStack->getRightNeighbor() };
+
 		int rangeInt = int(ceilf(range));
 
 		std::vector<Intersection> intersections;
 		for(int y = playerPos.getIntY() - rangeInt; y < playerPos.getIntY() + rangeInt; y++) {
 			if(y < 0 || y >= Chunk::CHUNK_SIZE * ChunkStack::AMOUNT_OF_CHUNKS) continue;
 
+			int chunkY = convertWorldToChunkValue(y);
+			int inChunkY = convertWorldToInChunkValue(y);
+
 			for(int x = playerPos.getIntX() - rangeInt; x < playerPos.getIntX() + rangeInt; x++) {
+				int inChunkX = convertWorldToInChunkValue(x);
+
 				for(int z = playerPos.getIntZ() - rangeInt; z < playerPos.getIntZ() + rangeInt; z++) {
-					Block* p_b = getBlockAt(x, y, z);
+					int inChunkZ = convertWorldToInChunkValue(z);
+
+					Block* p_b = nullptr;
+					for(auto& chunkStack : chunkStacksToCheck) {
+						if(chunkStack == nullptr || (! chunkStack->isInside(x, z))) continue;
+
+						p_b = chunkStack->getChunk(chunkY)->getBlock(inChunkX, inChunkY, inChunkZ);
+						break;
+					}
 
 					if(p_b == nullptr || ! (p_b->isInFrustum())) continue;
 					tl::optional<std::pair<float, Face>> r = p_b->checkIntersectionAndGetFace();

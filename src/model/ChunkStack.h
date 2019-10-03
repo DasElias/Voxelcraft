@@ -85,6 +85,8 @@ namespace vc {
 			bool isDisabled() const override;
 			float computeDistanceToPoint(float x, float z) const override;
 			float computeDistanceToPoint(const glm::vec2& point) const override;
+
+			bool isInside(int x, int z) const;
 	};
 
 }
