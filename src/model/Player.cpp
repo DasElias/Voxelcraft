@@ -142,9 +142,10 @@ namespace vc {
 
 	void Player::computePlacingBlocks() {
 		Block* p_focusedBlockResult = nullptr;
+		
+		tl::optional<Face> focusedFace = level.getIntersectedBlock(4, p_focusedBlockResult);
 
 		if(isButtonToPlaceBlockDown && time_blockPlace + BLOCK_PLACE_DELAY_MS < getMilliseconds()) {
-			tl::optional<Face> focusedFace = level.getIntersectedBlock(6, p_focusedBlockResult);
 			std::shared_ptr<GameItem> gameItemInHand = getItemTypeInHand();
 
 			if(p_focusedBlockResult != nullptr && focusedFace.has_value() && gameItemInHand && gameItemInHand->isBlock()) {
@@ -156,13 +157,15 @@ namespace vc {
 				time_blockPlace = getMilliseconds();
 			}
 		} else if (isButtonToDestroyBlockDown && time_blockPlace + BLOCK_PLACE_DELAY_MS < getMilliseconds()) {
-			level.getIntersectedBlock(6, p_focusedBlockResult);
-
 			if(p_focusedBlockResult != nullptr) {
 				glm::ivec3 focusedPosition(p_focusedBlockResult->getWorldX(), p_focusedBlockResult->getWorldY(), p_focusedBlockResult->getWorldZ());
 				level.putBlockWithUpdate(nullptr, focusedPosition, this);
 				time_blockPlace = getMilliseconds();
 			}
+		}
+
+		if(p_focusedBlockResult != nullptr) {
+			p_focusedBlockResult->onFocusUpdate();
 		}
 	}
 
