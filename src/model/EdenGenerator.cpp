@@ -28,48 +28,47 @@ namespace vc {
 	ChunkStack* EdenGenerator::generateChunkStack(Level& level, glm::ivec2 chunkStackCoordinates) {
 		ChunkStack* chunkStack = new ChunkStack(chunkStackCoordinates, level);
 
-		array<array<int, Chunk::CHUNK_SIZE>, Chunk::CHUNK_SIZE> height;
-		array<array<int, Chunk::CHUNK_SIZE>, Chunk::CHUNK_SIZE> bedrockHeight;
-		for(int x = 0; x < Chunk::CHUNK_SIZE; x++) {
-			for(int z = 0; z < Chunk::CHUNK_SIZE; z++) { 
-				int worldX = convertChunkToWorldValue(chunkStackCoordinates.x, x);
-				int worldZ = convertChunkToWorldValue(chunkStackCoordinates.y, z);
-
-				float perlin = (perlinNoise(worldX, worldZ, level.getSeed()) + 2);
-
-				// we are allowed to do this conversion here since height will never be greater than INT_MAX.
-				height[x][z] = int(roundf(20 * perlin));
-				bedrockHeight[x][z] = int(roundf(2 * perlin));
-
-			}
+		// create Chunk objects
+		for(int chunkY = 0; chunkY < ChunkStack::AMOUNT_OF_CHUNKS; chunkY++) {
+			Chunk* chunk = new Chunk(glm::ivec3(chunkStackCoordinates.x, chunkY, chunkStackCoordinates.y), level, *chunkStack);
+			chunkStack->placeChunk(chunkY, chunk);
 		}
 
-		for(int chunkCoordinateY = 0; chunkCoordinateY < ChunkStack::AMOUNT_OF_CHUNKS; chunkCoordinateY++) {
-			Chunk* chunk = new Chunk(glm::ivec3(chunkStackCoordinates.x, chunkCoordinateY, chunkStackCoordinates.y), level, *chunkStack);
-			chunkStack->placeChunk(chunkCoordinateY, chunk);
+		for(int inChunkX = 0; inChunkX < Chunk::CHUNK_SIZE; inChunkX++) {
+			int worldX = convertChunkToWorldValue(chunkStackCoordinates.x, inChunkX);
 
-			for(int inChunkX = 0; inChunkX < Chunk::CHUNK_SIZE; inChunkX++) {
-				for(int inChunkZ = 0; inChunkZ < Chunk::CHUNK_SIZE; inChunkZ++) {
+			for(int inChunkZ = 0; inChunkZ < Chunk::CHUNK_SIZE; inChunkZ++) {
+				int worldZ = convertChunkToWorldValue(chunkStackCoordinates.y, inChunkZ);
+				float const perlin = (perlinNoise(worldX, worldZ, level.getSeed()) + 2);
+				
+				int terrainHeight = int(roundf(20 * perlin));
+				int bedrockHeight = int(roundf(2 * perlin));
+
+				for(int chunkY = 0; chunkY < ChunkStack::AMOUNT_OF_CHUNKS; chunkY++) {
 					int toPlace;
-					if(height[inChunkX][inChunkZ] >= Chunk::CHUNK_SIZE) {
-						height[inChunkX][inChunkZ] -= Chunk::CHUNK_SIZE;
+					if(terrainHeight >= Chunk::CHUNK_SIZE) {
+						terrainHeight -= Chunk::CHUNK_SIZE;
 						toPlace = Chunk::CHUNK_SIZE;
 					} else {
-						toPlace = height[inChunkX][inChunkZ];
-						height[inChunkX][inChunkZ] = 0;
+						toPlace = terrainHeight;
+						terrainHeight = 0;
 					}
 
+					Chunk* p_chunk = chunkStack->getChunk(chunkY);
+
 					for(int inChunkY = 0; inChunkY < toPlace; inChunkY++) {
-						int worldY = convertChunkToWorldValue(chunkCoordinateY, inChunkY);
+						int worldY = convertChunkToWorldValue(chunkY, inChunkY);
 
-						const std::shared_ptr<BlockType>& blockTypeToPlace = (worldY <= bedrockHeight[inChunkX][inChunkZ]) ? BlockType::BEDROCK : BlockType::GRASS;
-
-						Block* block = getBlock_inChunk(inChunkX, inChunkY, inChunkZ, blockTypeToPlace, *chunk);
-						chunk->placeBlockWithoutUpdateAndEvent(block, inChunkX, inChunkY, inChunkZ);
+						const std::shared_ptr<BlockType>& blockTypeToPlace = (worldY <= bedrockHeight) ? BlockType::BEDROCK : BlockType::GRASS;
+						BlockType* blockTypePtr = blockTypeToPlace.get();
+						
+						Block* block = getBlock_inChunk(inChunkX, inChunkY, inChunkZ, blockTypeToPlace, *p_chunk);
+						p_chunk->placeBlockWithoutUpdateAndEvent(block, inChunkX, inChunkY, inChunkZ);
 					}
 				}
 			}
 		}
+
 
 		chunkStack->clearShouldSaveFlag();
 		return chunkStack;
