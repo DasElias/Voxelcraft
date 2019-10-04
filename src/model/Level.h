@@ -130,7 +130,7 @@ namespace vc {
 
 			void putBlockWithoutUpdate(Block* p_block, glm::ivec3 worldPosition, Player* p_triggeringPlayer);
 			void putBlockWithUpdate(Block* p_block, glm::ivec3 worldPosition, Player* p_triggeringPlayer);
-			void tryToPlaceBlock(glm::ivec3 motherWorldPosition, Face face, Face placedOnFace, const std::shared_ptr<BlockType>& toPlace, Player* p_triggeringPlayer);
-			void tryToPlaceBlock(glm::ivec3 worldPosition, Face placedOnFace, const std::shared_ptr<BlockType>& toPlace, Player* p_triggeringPlayer);
+			bool tryToPlaceBlock(glm::ivec3 motherWorldPosition, Face face, Face placedOnFace, const std::shared_ptr<BlockType>& toPlace, Player* p_triggeringPlayer);
+			bool tryToPlaceBlock(glm::ivec3 worldPosition, Face placedOnFace, const std::shared_ptr<BlockType>& toPlace, Player* p_triggeringPlayer);
 	};
 }

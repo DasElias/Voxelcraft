@@ -142,7 +142,7 @@ namespace vc {
 
 	void Player::computePlacingBlocks() {
 		Block* p_focusedBlockResult = nullptr;
-		
+		bool wasBlockPlaced = false;
 		tl::optional<Face> focusedFace = level.getIntersectedBlock(4, p_focusedBlockResult);
 
 		if(isButtonToPlaceBlockDown && time_blockPlace + BLOCK_PLACE_DELAY_MS < getMilliseconds()) {
@@ -153,7 +153,7 @@ namespace vc {
 				if(! blockTypeInHand) throw std::logic_error("isBlock() of GameItem returns true, but in fact, it isn't of type BlockType");
 
 				glm::ivec3 focusedPosition(p_focusedBlockResult->getWorldX(), p_focusedBlockResult->getWorldY(), p_focusedBlockResult->getWorldZ());
-				level.tryToPlaceBlock(focusedPosition, focusedFace.value(), focusedFace.value(), blockTypeInHand, this);
+				wasBlockPlaced = level.tryToPlaceBlock(focusedPosition, focusedFace.value(), focusedFace.value(), blockTypeInHand, this);
 				time_blockPlace = getMilliseconds();
 			}
 		} else if (isButtonToDestroyBlockDown && time_blockPlace + BLOCK_PLACE_DELAY_MS < getMilliseconds()) {
@@ -165,7 +165,7 @@ namespace vc {
 		}
 
 		if(p_focusedBlockResult != nullptr) {
-			p_focusedBlockResult->onFocusUpdate();
+			p_focusedBlockResult->onFocusUpdate(wasBlockPlaced);
 		}
 	}
 

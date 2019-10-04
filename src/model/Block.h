@@ -56,7 +56,7 @@ namespace vc {
 			int getWorldZ() const override;
 
 			virtual void onDestroy(BlockBreakEvent& evt);
-			virtual void onFocusUpdate();
+			virtual void onFocusUpdate(bool wasBlockPlaced);
 			virtual void onUpdate();
 	};
 }

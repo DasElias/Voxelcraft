@@ -399,7 +399,7 @@ namespace vc {
 
 	}
 
-	void Level::tryToPlaceBlock(glm::ivec3 motherWorldPosition, Face face, Face placedOnFace, const std::shared_ptr<BlockType>& toPlace, Player* p_triggeringPlayer) {
+	bool Level::tryToPlaceBlock(glm::ivec3 motherWorldPosition, Face face, Face placedOnFace, const std::shared_ptr<BlockType>& toPlace, Player* p_triggeringPlayer) {
 		switch(face) {
 			case FRONT:
 				motherWorldPosition.z--;
@@ -423,18 +423,20 @@ namespace vc {
 				throw std::logic_error("invalid facing");
 		}
 
-		tryToPlaceBlock(motherWorldPosition, placedOnFace, toPlace, p_triggeringPlayer);
+		return tryToPlaceBlock(motherWorldPosition, placedOnFace, toPlace, p_triggeringPlayer);
 	}
 
-	void Level::tryToPlaceBlock(glm::ivec3 worldPosition, Face placedOnFace, const std::shared_ptr<BlockType>& toPlace, Player* p_triggeringPlayer) {
-		if(worldPosition.y >= Chunk::CHUNK_SIZE * ChunkStack::AMOUNT_OF_CHUNKS) return;
+	bool Level::tryToPlaceBlock(glm::ivec3 worldPosition, Face placedOnFace, const std::shared_ptr<BlockType>& toPlace, Player* p_triggeringPlayer) {
+		if(worldPosition.y >= Chunk::CHUNK_SIZE * ChunkStack::AMOUNT_OF_CHUNKS) return false;
 
 		Block* p_current = getBlockAt(worldPosition);
 		Chunk* p_chunk = getChunkAt(convertWorldToChunkCoordinates(worldPosition));
 
 		if(! player.doesPlayerCollidateWithBlock(worldPosition) && (p_current == nullptr || p_current->getBlockType().canBeReplaced())) {
 			putBlockWithUpdate(getBlock(worldPosition.x, worldPosition.y, worldPosition.z, toPlace, *p_chunk, placedOnFace), worldPosition, p_triggeringPlayer);
+			return true;
 		}
+		return false;
 	}
 
 }
