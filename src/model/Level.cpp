@@ -16,9 +16,9 @@
 namespace vc {
 	const glm::vec4 Level::DAY_SKY_COLOR = {0.494f, 0.671f, 1, 1};
 	const glm::vec4 Level::NIGHT_SKY_COLOR = {0, 0, 0, 1};
-	const long Level::AUTOSAVE_INTERVAL = 5 * 60;
+	const long Level::AUTOSAVE_INTERVAL = 2 * 60;
 	const int Level::RENDER_RANGE = 5;
-	const int Level::DELETE_RANGE = RENDER_RANGE + 2;
+	const int Level::DELETE_RANGE = RENDER_RANGE + 1;
 	const float Level::DAY_NIGHT_LENGTH = 1 * 60;
 
 	Level::Level(std::unique_ptr<LevelMetadata> metadata, std::string levelFolder, AbstractChunkVaoManager& vaoManager, ctpl::thread_pool& helperThreadPool) :
@@ -275,7 +275,7 @@ namespace vc {
 		PlayerPosition playerPos = player.getPosition();
 		
 		ChunkStack* playerChunkStack = getChunkStackWithoutLoading({ convertWorldToChunkValue(playerPos.x), convertWorldToChunkValue(playerPos.z) });
-		ChunkStack* chunkStacksToCheck[5] = { playerChunkStack, playerChunkStack->getLeftNeighbor(), playerChunkStack->getRightNeighbor(), playerChunkStack->getFrontNeighbor(), playerChunkStack->getRightNeighbor() };
+		ChunkStack* chunkStacksToCheck[5] = { playerChunkStack, playerChunkStack->getLeftNeighbor(), playerChunkStack->getRightNeighbor(), playerChunkStack->getFrontNeighbor(), playerChunkStack->getBackNeighbor() };
 
 		int rangeInt = int(ceilf(range));
 
