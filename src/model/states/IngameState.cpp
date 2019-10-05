@@ -53,7 +53,7 @@ namespace vc {
 		stateManager.getCurrentLevel()->update(delta);
 
 		// compute fps avg
-		if(fpsArrList.size() == 5) {
+		if(fpsArrList.size() == 30) {
 			fpsAvg = 0;
 			fpsMin = 0;
 			fpsMax = 0;
@@ -76,7 +76,8 @@ namespace vc {
 		eguiRenderer.beginFrame();
 		fpsLabel->setText("FPSAvg: " + std::to_string(fpsAvg) + 
 						"\nFPSmin: " + std::to_string(fpsMin) + 
-						"\nFPSmax: " + std::to_string(fpsMax));
+						"\nBPS: " + std::to_string(BlockType::blockPool.size()) +
+						"x: " + std::to_string(player.getPosition().getIntX()) + " y: " + std::to_string(player.getPosition().getIntY()) + " z: " + std::to_string(player.getPosition().getIntZ()));
 		float secondsUntilAutosave = stateManager.getCurrentLevel()->getSecondsUntilAutosave();
 		autosaveLabel->setText((secondsUntilAutosave > 10) ? "" : std::to_string(int(secondsUntilAutosave)));
 
