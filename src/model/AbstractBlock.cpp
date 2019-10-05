@@ -8,6 +8,16 @@ namespace vc {
 			inChunkZ(inChunkZ) {
 	}
 
+	AbstractBlock::AbstractBlock() :
+			AbstractBlock(0, 0, 0) {
+	}
+
+
+	void AbstractBlock::initAbstractBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ) {
+		this->inChunkX = inChunkX;
+		this->inChunkY = inChunkY;
+		this->inChunkZ = inChunkZ;
+	}
 
 	uint8_t AbstractBlock::getInChunkX() const {
 		return inChunkX;

@@ -560,6 +560,9 @@
     <ClInclude Include="src\model\states\KeyBindingsState.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\model\ObjectPool.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\rendering\shaderPrograms\shaders\2d_fragment.glsl" />

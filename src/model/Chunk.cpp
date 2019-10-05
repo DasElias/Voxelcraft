@@ -31,7 +31,8 @@ namespace vc {
 		level.getVaoManager().returnVao(*p_chunkVaoObject);
 
 		for(auto& b : blocks) {
-			delete b;
+			if(b == nullptr) continue;
+			b->cleanUp();
 		}
 	}
 
@@ -138,7 +139,7 @@ namespace vc {
 		if(p_replacedBlock == nullptr && p_block != nullptr) placedBlockCounter++;
 		else if (p_replacedBlock != nullptr && p_block == nullptr) placedBlockCounter--;
 
-		if(p_replacedBlock != nullptr) delete p_replacedBlock;
+		if(p_replacedBlock != nullptr) p_replacedBlock->cleanUp();
 
 		blocks[inChunkX + CHUNK_SIZE * inChunkY + CHUNK_SIZE_SQUARED * inChunkZ] = p_block;
 		chunkStack.setShouldSaveFlag();

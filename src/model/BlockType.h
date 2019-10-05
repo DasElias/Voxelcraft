@@ -14,13 +14,14 @@
 #include <iostream>
 
 #include <static_init.h>
-
+#include "ObjectPool.h"
 
 namespace vc {
 	class Block;
 	class BlockType;
 	class Chunk;
 	typedef std::function<Block*(const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, const int8_t& metadata)> constructor;
+	typedef std::function<void(Block*)> destructor;
 
 	// ----------------------------------------------------------------------
 	// -----------------------------CHILD-CLASS------------------------------
@@ -89,6 +90,9 @@ namespace vc {
 			static std::shared_ptr<BlockType> const ACACIA_LOG;
 			static std::shared_ptr<BlockType> const ACACIA_PLANKS;
 
+
+			static ObjectPool<Block> blockPool;
+
 		// ----------------------------------------------------------------------
 		// ---------------------------STATIC-METHODS-----------------------------
 		// ----------------------------------------------------------------------
@@ -107,6 +111,7 @@ namespace vc {
 			bool field_canPlayerPlace;
 
 			constructor field_constructorFunction;
+			destructor field_destructorFunction;
 			std::function<const TextureOrientation&(Face&)> field_getTexOrientation;
 			std::array<tl::optional<TextureFile>, 6> textureFiles;
 
@@ -114,8 +119,8 @@ namespace vc {
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			BlockType(uint32_t id, std::string name, constructor constructorFunction, std::function<const TextureOrientation&(Face&)> getTexOrientation, bool canBeReplaced, bool canPlayerPlace, tl::optional<TextureFile> top, tl::optional<TextureFile> front, tl::optional<TextureFile> bottom = {}, tl::optional<TextureFile> back = {}, tl::optional<TextureFile> left = {}, tl::optional<TextureFile> right = {});
-			BlockType(uint32_t id, std::string name, constructor constructorFunction, std::function<const TextureOrientation&(Face&)> getTexOrientation, bool canBeReplaced, bool canPlayerPlace, TextureFile top);
+			BlockType(uint32_t id, std::string name, constructor constructorFunction, destructor destructorFunction, std::function<const TextureOrientation&(Face&)> getTexOrientation, bool canBeReplaced, bool canPlayerPlace, tl::optional<TextureFile> top, tl::optional<TextureFile> front, tl::optional<TextureFile> bottom = {}, tl::optional<TextureFile> back = {}, tl::optional<TextureFile> left = {}, tl::optional<TextureFile> right = {});
+			BlockType(uint32_t id, std::string name, constructor constructorFunction, destructor destructorFunction, std::function<const TextureOrientation&(Face&)> getTexOrientation, bool canBeReplaced, bool canPlayerPlace, TextureFile top);
 			BlockType(const BlockType&) = delete;
 			BlockType& operator=(const BlockType&) = delete;
 			DECLARE_STATIC_INIT(BlockType);
@@ -134,6 +139,7 @@ namespace vc {
 			const std::array<tl::optional<TextureFile>, 6>& getTextureFiles() const;
 
 			Block* instantiate(const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, Chunk& c, const TextureOrientation& texOrientation, const uint8_t& metadata) const;
+			void destruct(Block* p_b) const;
 	};
 
 

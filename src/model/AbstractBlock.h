@@ -9,14 +9,15 @@ namespace vc {
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------
 		// ----------------------------------------------------------------------
-		protected:
-			uint8_t const inChunkX, inChunkY, inChunkZ;
+		private:
+			uint8_t inChunkX, inChunkY, inChunkZ;
 
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		protected:
 			AbstractBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ);
+			AbstractBlock();
 
 		public:
 			AbstractBlock(const AbstractBlock&) = delete;
@@ -25,9 +26,10 @@ namespace vc {
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
+		protected:
+			void initAbstractBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ);
+
 		public:
-
-
 			uint8_t getInChunkY() const;
 			uint8_t getInChunkZ() const;
 			uint8_t getInChunkX() const;

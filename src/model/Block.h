@@ -15,9 +15,9 @@ namespace vc {
 		// --------------------------------FIELDS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
-			const BlockType* blockType;
-			const TextureOrientation& texOrientation;
-			Chunk& chunk;
+			const BlockType* blockType = nullptr;
+			const TextureOrientation* texOrientation = nullptr;
+			Chunk* chunk = nullptr;
 
 		protected:
 			int8_t metadata;
@@ -28,6 +28,7 @@ namespace vc {
 		// ----------------------------------------------------------------------
 		public:
 			Block(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, int8_t metadata);
+			Block();
 			Block(const Block&) = delete;
 			virtual ~Block() = default;
 
@@ -41,6 +42,7 @@ namespace vc {
 			void setMetadata(int8_t metadata);
 
 		public:
+			void initBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, int8_t metadata);
 			int8_t getMetadata() const override;
 			const BlockType& getBlockType() const override;
 			float getWidth() const override;
@@ -58,5 +60,7 @@ namespace vc {
 			virtual void onDestroy(BlockBreakEvent& evt);
 			virtual void onFocusUpdate(bool wasBlockPlaced);
 			virtual void onUpdate();
+
+			void cleanUp();
 	};
 }

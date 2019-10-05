@@ -24,9 +24,12 @@ namespace vc {
 	Block::Block(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, int8_t metadata) :
 		AbstractBlock(inChunkX, inChunkY, inChunkZ),
 		blockType(blockType),
-		texOrientation(texOrientation),
-		chunk(c),
-		metadata(metadata) {
+		texOrientation(&texOrientation),
+		chunk(&c) {
+	}
+
+	Block::Block() :
+			AbstractBlock(1, 1, 1) {
 	}
 
 	// ----------------------------------------------------------------------
@@ -66,6 +69,13 @@ namespace vc {
 		this->metadata = metadata;
 	}
 
+	void Block::initBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, int8_t metadata) {
+		this->blockType = blockType;
+		this->chunk = &c;
+		this->texOrientation = &texOrientation;
+		AbstractBlock::initAbstractBlock(inChunkX, inChunkY, inChunkZ);
+	}
+
 	int8_t Block::getMetadata() const {
 		return metadata;
 	}
@@ -91,14 +101,14 @@ namespace vc {
 	}
 
 	const TextureOrientation& Block::getTexOrientation() const {
-		return texOrientation;
+		return *texOrientation;
 	}
 
 	tl::optional<std::pair<float, Face>> Block::checkIntersectionAndGetFace() const {
 		using namespace glm;
 
-		vec3 startVector = chunk.getLevel().getPlayer().getMousePicker().getRayStart();
-		vec3 directionVector = chunk.getLevel().getPlayer().getMousePicker().getRay();
+		vec3 startVector = chunk->getLevel().getPlayer().getMousePicker().getRayStart();
+		vec3 directionVector = chunk->getLevel().getPlayer().getMousePicker().getRay();
 
 		std::vector<std::pair<float, Face>> intersectionDistances;
 		intersectionDistances.reserve(6);
@@ -198,24 +208,24 @@ namespace vc {
 	}
 
 	bool Block::isInFrustum() const {
-		glm::ivec3 chunkPosition = chunk.getChunkCoordinates();
+		glm::ivec3 chunkPosition = chunk->getChunkCoordinates();
 
-		float worldX = float(convertChunkToWorldValue(chunkPosition.x, inChunkX));
-		float worldY = float(convertChunkToWorldValue(chunkPosition.y, inChunkY));
-		float worldZ = float(convertChunkToWorldValue(chunkPosition.z, inChunkZ));
-		return chunk.getLevel().getPlayer().getFrustum().isInFrustum_aabb(worldX, worldY, worldZ, getWidth(), getHeight(), getDepth());
+		float worldX = float(convertChunkToWorldValue(chunkPosition.x, getInChunkX()));
+		float worldY = float(convertChunkToWorldValue(chunkPosition.y, getInChunkY()));
+		float worldZ = float(convertChunkToWorldValue(chunkPosition.z, getInChunkZ()));
+		return chunk->getLevel().getPlayer().getFrustum().isInFrustum_aabb(worldX, worldY, worldZ, getWidth(), getHeight(), getDepth());
 	}
 
 	int Block::getWorldX() const {
-		return convertChunkToWorldValue(chunk.getChunkCoordinates().x, inChunkX);
+		return convertChunkToWorldValue(chunk->getChunkCoordinates().x, getInChunkX());
 	}
 
 	int Block::getWorldY() const {
-		return convertChunkToWorldValue(chunk.getChunkCoordinates().y, inChunkY);
+		return convertChunkToWorldValue(chunk->getChunkCoordinates().y, getInChunkY());
 	}
 
 	int Block::getWorldZ() const {
-		return convertChunkToWorldValue(chunk.getChunkCoordinates().z, inChunkZ);
+		return convertChunkToWorldValue(chunk->getChunkCoordinates().z, getInChunkZ());
 	}
 
 	void Block::onDestroy(BlockBreakEvent& evt) {
@@ -227,6 +237,10 @@ namespace vc {
 
 	void Block::onUpdate() {
 		// empty method body
+	}
+
+	void Block::cleanUp() {
+		this->blockType->destruct(this);
 	}
 
 }

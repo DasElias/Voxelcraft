@@ -132,6 +132,7 @@
     <ClInclude Include="src\model\events\Cancellable.h" />
     <ClInclude Include="src\model\events\chunkStack\ChunkStackEvent.h" />
     <ClInclude Include="src\model\events\chunkStack\ChunkStackUnloadEvent.h" />
+    <ClInclude Include="src\model\ObjectPool.h" />
     <ClInclude Include="src\model\states\KeyBindingsState.h" />
     <ClInclude Include="src\model\events\player\ItemInHandChangedEvent.h" />
     <ClInclude Include="src\model\events\player\PlayerEvent.h" />
