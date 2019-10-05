@@ -107,7 +107,7 @@ namespace vc {
 
 					const std::shared_ptr<BlockType>& blockType = BlockType::getBlockTypeById(blockId);
 					const TextureOrientation& texOrientation = TextureOrientation::getStoredTextureOrientation(texValue);
-					Block* p_createdBlock = getBlock(worldX, worldY, worldZ, blockType, texOrientation, *p_singleChunk, metadata);
+					Block* p_createdBlock = createBlock(worldX, worldY, worldZ, blockType, texOrientation, *p_singleChunk, metadata);
 					p_singleChunk->placeBlockWithoutUpdateAndEvent(p_createdBlock, inChunkX, inChunkY, inChunkZ);
 				}
 

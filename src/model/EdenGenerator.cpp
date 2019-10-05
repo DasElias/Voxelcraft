@@ -62,7 +62,7 @@ namespace vc {
 						const std::shared_ptr<BlockType>& blockTypeToPlace = (worldY <= bedrockHeight) ? BlockType::BEDROCK : BlockType::GRASS;
 						BlockType* blockTypePtr = blockTypeToPlace.get();
 						
-						Block* block = getBlock_inChunk(inChunkX, inChunkY, inChunkZ, blockTypeToPlace, *p_chunk);
+						Block* block = createBlock_inChunk(inChunkX, inChunkY, inChunkZ, blockTypeToPlace, *p_chunk);
 						p_chunk->placeBlockWithoutUpdateAndEvent(block, inChunkX, inChunkY, inChunkZ);
 					}
 				}

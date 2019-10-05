@@ -433,7 +433,7 @@ namespace vc {
 		Chunk* p_chunk = getChunkAt(convertWorldToChunkCoordinates(worldPosition));
 
 		if(! player.doesPlayerCollidateWithBlock(worldPosition) && (p_current == nullptr || p_current->getBlockType().canBeReplaced())) {
-			putBlockWithUpdate(getBlock(worldPosition.x, worldPosition.y, worldPosition.z, toPlace, *p_chunk, placedOnFace), worldPosition, p_triggeringPlayer);
+			putBlockWithUpdate(createBlock(worldPosition.x, worldPosition.y, worldPosition.z, toPlace, *p_chunk, placedOnFace), worldPosition, p_triggeringPlayer);
 			return true;
 		}
 		return false;
