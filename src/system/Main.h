@@ -11,6 +11,7 @@ namespace vc {
 		private:
 			static int const START_WIDTH = 1800;
 			static int const START_HEIGHT = 800;
+			static int const VSYNC = 1;
 
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------

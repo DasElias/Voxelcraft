@@ -161,7 +161,7 @@ namespace vc {
 		glfwSetWindowPos(p_window, 20, 20);
 		glfwFocusWindow(p_window);
 
-		glfwSwapInterval(1);
+		glfwSwapInterval(VSYNC);
 
 		glDebugMessageCallback( MessageCallback, 0 );
 		glEnable( GL_DEBUG_OUTPUT );
@@ -235,7 +235,7 @@ namespace vc {
 			stateManager.updateAndRender(deltaSeconds);
 
 
-			glfwSwapInterval(1);
+			glfwSwapInterval(VSYNC);
 			glfwSwapBuffers(p_window);
 			glfwPollEvents();
 		}
