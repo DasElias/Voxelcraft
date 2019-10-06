@@ -31,7 +31,7 @@ namespace vc {
 		std::string* currentTarget = &labelTarget;
 
 		bool appendToArray = false;
-		std::vector<int> arrData;
+		std::vector<std::string> arrData;
 		bool arrData_hasValue = false;
 
 		for(char& c : data) {
@@ -40,9 +40,9 @@ namespace vc {
 			} else if(appendToArray) {
 				if(c == ',') {
 					if(contentTarget.length() == 0) {
-						arrData.push_back(-1);
+						arrData.push_back("-1");
 					} else {
-						arrData.push_back(fast_atoi(contentTarget.c_str()));
+						arrData.push_back(contentTarget);
 						contentTarget.clear();
 					}
 				} else {
@@ -87,7 +87,7 @@ namespace vc {
 
 			std::string propertyName = "data";
 			propertyName.append(std::to_string(chunkCoordY));
-			std::vector<int> data = lexedGroup.arrayProperties.at(propertyName);
+			std::vector<std::string> data = lexedGroup.arrayProperties.at(propertyName);
 
 			uint8_t inChunkX = 0;
 			uint8_t inChunkY = 0;
@@ -95,17 +95,17 @@ namespace vc {
 
 			unsigned int counter = 0;
 			while(counter < data.size()) {
-				int blockId = data[counter++];
+				std::string blockIdString = data[counter++];
 
-				if(blockId != -1) {
-					int texValue = data[counter++];
-					int8_t metadata = data[counter++];
+				if(blockIdString != "-1") {
+					int texValue = fast_atoi(data[counter++].c_str());
+					std::string metadata = data[counter++];
 
 					int worldX = convertChunkToWorldValue(chunkStackCoordinates.x, inChunkX);
 					int worldY = convertChunkToWorldValue(chunkCoordY, inChunkY);
 					int worldZ = convertChunkToWorldValue(chunkStackCoordinates.y, inChunkZ);
 
-					const std::shared_ptr<BlockType>& blockType = BlockType::getBlockTypeById(blockId);
+					const std::shared_ptr<BlockType>& blockType = BlockType::getBlockTypeById(fast_atoi(blockIdString.c_str()));
 					const TextureOrientation& texOrientation = TextureOrientation::getStoredTextureOrientation(texValue);
 					Block* p_createdBlock = createBlock(worldX, worldY, worldZ, blockType, texOrientation, *p_singleChunk, metadata);
 					p_singleChunk->placeBlockWithoutUpdateAndEvent(p_createdBlock, inChunkX, inChunkY, inChunkZ);
@@ -147,7 +147,7 @@ namespace vc {
 						else {
 							str << p_b->getBlockType().getId() << ",";
 							str << p_b->getTexOrientation().getValue() << ",";
-							str << (+p_b->getMetadata()) << ",";
+							str << (p_b->getMetadata()) << ",";
 						}
 					}
 				}

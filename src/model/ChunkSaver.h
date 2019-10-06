@@ -13,7 +13,7 @@ namespace vc {
 		private:
 			struct LexerResult {
 				std::unordered_map<std::string, std::string> stringProperties;
-				std::unordered_map<std::string, std::vector<int>> arrayProperties;
+				std::unordered_map<std::string, std::vector<std::string>> arrayProperties;
 			};
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------

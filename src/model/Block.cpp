@@ -21,7 +21,7 @@ namespace vc {
 	// ----------------------------------------------------------------------
 	// -----------------------------CONSTRUCTORS-----------------------------
 	// ----------------------------------------------------------------------
-	Block::Block(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, int8_t metadata) :
+	Block::Block(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation) :
 		AbstractBlock(inChunkX, inChunkY, inChunkZ),
 		blockType(blockType),
 		texOrientation(&texOrientation),
@@ -65,19 +65,15 @@ namespace vc {
 		return std::numeric_limits<float>::infinity();
 	}
 
-	void Block::setMetadata(int8_t metadata) {
-		this->metadata = metadata;
-	}
-
-	void Block::initBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, int8_t metadata) {
+	void Block::initBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation) {
 		this->blockType = blockType;
 		this->chunk = &c;
 		this->texOrientation = &texOrientation;
 		AbstractBlock::initAbstractBlock(inChunkX, inChunkY, inChunkZ);
 	}
 
-	int8_t Block::getMetadata() const {
-		return metadata;
+	std::string Block::getMetadata() const {
+		return "";
 	}
 
 	const BlockType& Block::getBlockType() const {

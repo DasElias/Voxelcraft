@@ -10,7 +10,7 @@ namespace vc {
 
 	std::map<std::string, int> TextureFile::allTextureIds = {};
 
-	ObjectPool<Block> BlockType::blockPool{ 15000000 };
+	ObjectPool<Block> BlockType::blockPool{ 0 };
 
 	namespace {
 		const std::function<const TextureOrientation& (Face&)> getAllTopTexOrientation = [](Face&) -> const TextureOrientation & {
@@ -38,17 +38,18 @@ namespace vc {
 			// this position is never reached
 			throw std::logic_error("");
 		};
-		Block* blockConstructor(const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, const int8_t& metadata) {
-			Block* p_b = BlockType::blockPool.getElement();
-			p_b->initBlock(inChunkX, inChunkY, inChunkZ, blockType, c, texOrientation, metadata);
-			return p_b;
-			//return new Block(inChunkX, inChunkY, inChunkZ, blockType, c, texOrientation, metadata);
+		Block* blockConstructor(const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, const std::string& metadata) {
+			/*Block* p_b = BlockType::blockPool.getElement();
+			p_b->initBlock(inChunkX, inChunkY, inChunkZ, blockType, c, texOrientation);
+			return p_b;*/
+			return new Block(inChunkX, inChunkY, inChunkZ, blockType, c, texOrientation);
 		}
 		/*const constructor blockConstructor = [](const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, const int8_t& metadata) -> Block * {
 			
 		};*/
 		const destructor blockDestructor = [](Block* p_b) {
-			BlockType::blockPool.returnElement(p_b);
+		//	BlockType::blockPool.returnElement(p_b);
+			delete p_b;
 		};
 	}
 	const std::shared_ptr<BlockType> BlockType::COBBLESTONE(new BlockType(
@@ -74,8 +75,8 @@ namespace vc {
 	const std::shared_ptr<BlockType> BlockType::BEDROCK(new BlockType(
 		2,
 		"bedrock",
-		[](const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, const int8_t& metadata) -> Block* {
-			return new Bedrock(inChunkX, inChunkY, inChunkZ, c, texOrientation, metadata);
+		[](const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, const std::string& metadata) -> Block* {
+			return new Bedrock(inChunkX, inChunkY, inChunkZ, c, texOrientation);
 		},
 		[](Block* p_b) {
 			delete p_b;
@@ -420,7 +421,7 @@ namespace vc {
 	}
 
 
-	Block* BlockType::instantiate(const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, Chunk& c, const TextureOrientation& texOrientation, const uint8_t& metadata) const {
+	Block* BlockType::instantiate(const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, Chunk& c, const TextureOrientation& texOrientation, const std::string& metadata) const {
 		return field_constructorFunction(inChunkX, inChunkY, inChunkZ, this, c, texOrientation, metadata);
 	}
 

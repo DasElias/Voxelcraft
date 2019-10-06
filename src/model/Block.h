@@ -19,15 +19,12 @@ namespace vc {
 			const TextureOrientation* texOrientation = nullptr;
 			Chunk* chunk = nullptr;
 
-		protected:
-			int8_t metadata;
-
 
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			Block(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, int8_t metadata);
+			Block(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation);
 			Block();
 			Block(const Block&) = delete;
 			virtual ~Block() = default;
@@ -38,12 +35,9 @@ namespace vc {
 		private:
 			float checkIntersectionForPlane(const glm::vec3& position, const glm::vec3& spanVector1, const glm::vec3& spanVector2, const glm::vec3& rayStartVector, const glm::vec3& rayDirectionVector) const;
 
-		protected:
-			void setMetadata(int8_t metadata);
-
 		public:
-			void initBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, int8_t metadata);
-			int8_t getMetadata() const override;
+			void initBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation);
+			std::string getMetadata() const override;
 			const BlockType& getBlockType() const override;
 			float getWidth() const override;
 			float getHeight() const override;

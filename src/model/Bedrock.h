@@ -8,7 +8,7 @@ namespace vc {
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			Bedrock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, Chunk& c, const TextureOrientation& texOrientation, int8_t metadata);
+			Bedrock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, Chunk& c, const TextureOrientation& texOrientation);
 
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------

@@ -38,7 +38,7 @@ namespace vc {
 			virtual int getWorldY() const =0;
 			virtual int getWorldZ() const =0;
 
-			virtual int8_t getMetadata() const =0;
+			virtual std::string getMetadata() const =0;
 			virtual const BlockType& getBlockType() const =0;
 			virtual const TextureOrientation& getTexOrientation() const =0;
 			virtual float getWidth() const =0;

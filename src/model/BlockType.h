@@ -20,7 +20,7 @@ namespace vc {
 	class Block;
 	class BlockType;
 	class Chunk;
-	typedef std::function<Block*(const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, const int8_t& metadata)> constructor;
+	typedef std::function<Block*(const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, const BlockType* blockType, Chunk& c, const TextureOrientation& texOrientation, const std::string& metadata)> constructor;
 	typedef std::function<void(Block*)> destructor;
 
 	// ----------------------------------------------------------------------
@@ -138,7 +138,7 @@ namespace vc {
 			int getMaxStackSize() const override;
 			const std::array<tl::optional<TextureFile>, 6>& getTextureFiles() const;
 
-			Block* instantiate(const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, Chunk& c, const TextureOrientation& texOrientation, const uint8_t& metadata) const;
+			Block* instantiate(const uint8_t& inChunkX, const uint8_t& inChunkY, const uint8_t& inChunkZ, Chunk& c, const TextureOrientation& texOrientation, const std::string& metadata) const;
 			void destruct(Block* p_b) const;
 	};
 
