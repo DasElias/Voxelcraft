@@ -21,7 +21,7 @@ namespace vc {
 		// ----------------------------STATIC-FIELDS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			static int const CHUNK_SIZE = 40;
+			static int const CHUNK_SIZE = 35;
 			static float const CHUNK_SIZE_FLOAT;
 			static int const CHUNK_SIZE_SQUARED = CHUNK_SIZE * CHUNK_SIZE;
 
@@ -33,7 +33,7 @@ namespace vc {
 			Level& level;
 			ChunkStack& chunkStack;
 
-			std::array<Block*, CHUNK_SIZE* CHUNK_SIZE* CHUNK_SIZE> blocks = {};
+			std::array<Block*, CHUNK_SIZE* CHUNK_SIZE* CHUNK_SIZE>* blocks;
 			int placedBlockCounter = 0;
 			ChunkVertexArrayObject* p_chunkVaoObject;
 			int maxHeight = 0;

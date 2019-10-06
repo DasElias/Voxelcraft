@@ -24,22 +24,25 @@ namespace vc {
 		chunkCoords(chunkCoords),
 		level(lvl),
 		chunkStack(chunkStack),
+		blocks(new std::array<Block*, CHUNK_SIZE* CHUNK_SIZE* CHUNK_SIZE>()),
 		p_chunkVaoObject(level.getVaoManager().getNewVao()) {
 	}
 
 	Chunk::~Chunk() {
 		level.getVaoManager().returnVao(*p_chunkVaoObject);
-
-		for(auto& b : blocks) {
-			if(b == nullptr) continue;
-			b->cleanUp();
-		}
+		std::array<Block*, CHUNK_SIZE* CHUNK_SIZE* CHUNK_SIZE>* blocks = this->blocks;
+		level.getThreadPool().push([blocks](int) {
+			for(int counter = 0; counter < blocks->size(); counter++) {
+				Block* p_b = blocks->at(counter);
+				delete p_b;
+			}
+		});
 	}
 
 	void Chunk::createBlock(Block* p_block, uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ, std::vector<ChunkVaoData>& data) {
 		const TextureOrientation& orientation = p_block->getTexOrientation();
 		Block& dereferencedBlock = *p_block;
-
+		
 		//left
 		if ((inChunkX == 0 && chunkStack.getLeftNeighbor() == nullptr) || (inChunkX == 0 && chunkStack.getLeftNeighbor()->getChunk(chunkCoords.y)->getBlock(CHUNK_SIZE - 1, inChunkY, inChunkZ) == nullptr) || (inChunkX > 0 && getBlock(inChunkX - 1, inChunkY, inChunkZ) == nullptr)) {
 			addToDataArray(data, dereferencedBlock, LEFT, orientation.getLeft());
@@ -141,7 +144,7 @@ namespace vc {
 
 		if(p_replacedBlock != nullptr) p_replacedBlock->cleanUp();
 
-		blocks[inChunkX + CHUNK_SIZE * inChunkY + CHUNK_SIZE_SQUARED * inChunkZ] = p_block;
+		(*blocks)[inChunkX + CHUNK_SIZE * inChunkY + CHUNK_SIZE_SQUARED * inChunkZ] = p_block;
 		chunkStack.setShouldSaveFlag();
 	}
 
@@ -233,7 +236,7 @@ namespace vc {
 	}
 
 	Block* const Chunk::getBlock(uint8_t inChunkX, uint8_t inChunkY, uint8_t inChunkZ) {
-		return blocks[inChunkX + CHUNK_SIZE * inChunkY + CHUNK_SIZE_SQUARED * inChunkZ];
+		return (*blocks)[inChunkX + CHUNK_SIZE * inChunkY + CHUNK_SIZE_SQUARED * inChunkZ];
 	}
 
 	Level& Chunk::getLevel() {
