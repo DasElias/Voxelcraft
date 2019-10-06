@@ -162,6 +162,7 @@ namespace vc {
 				level.putBlockWithUpdate(nullptr, focusedPosition, this);
 				time_blockPlace = getMilliseconds();
 			}
+			p_focusedBlockResult = nullptr;
 		}
 
 		if(p_focusedBlockResult != nullptr) {
