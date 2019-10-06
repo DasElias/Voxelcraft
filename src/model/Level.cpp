@@ -277,7 +277,10 @@ namespace vc {
 		ChunkStack* playerChunkStack = getChunkStackWithoutLoading({ convertWorldToChunkValue(playerPos.x), convertWorldToChunkValue(playerPos.z) });
 		ChunkStack* chunkStacksToCheck[5] = { playerChunkStack, playerChunkStack->getLeftNeighbor(), playerChunkStack->getRightNeighbor(), playerChunkStack->getFrontNeighbor(), playerChunkStack->getBackNeighbor() };
 
-		int rangeInt = int(ceilf(range));
+		int const rangeInt = int(ceilf(range));
+		int const playerPosIntX = int(ceilf(playerPos.x));
+		int const playerPosIntZ = int(ceilf(playerPos.z));
+
 
 		std::vector<Intersection> intersections;
 		for(int y = playerPos.getIntY() - rangeInt; y < playerPos.getIntY() + rangeInt; y++) {
@@ -286,10 +289,10 @@ namespace vc {
 			int chunkY = convertWorldToChunkValue(y);
 			int inChunkY = convertWorldToInChunkValue(y);
 
-			for(int x = playerPos.getIntX() - rangeInt; x < playerPos.getIntX() + rangeInt; x++) {
+			for(int x = playerPosIntX - rangeInt - 1; x < playerPosIntX + rangeInt; x++) {
 				int inChunkX = convertWorldToInChunkValue(x);
 
-				for(int z = playerPos.getIntZ() - rangeInt; z < playerPos.getIntZ() + rangeInt; z++) {
+				for(int z = playerPosIntZ - rangeInt - 1; z < playerPosIntZ + rangeInt; z++) {
 					int inChunkZ = convertWorldToInChunkValue(z);
 
 					Block* p_b = nullptr;
