@@ -1,11 +1,12 @@
 #pragma once
+
+#include "ChunkIO.h"
+#include "LevelMetadata.h"
+
 #include <map>
 #include <unordered_map>
 #include <ctpl_stl.h>
 #include <model/events/EventManager.h>
-
-#include "ChunkIO.h"
-#include "LevelMetadata.h"
 
 #include "../renderModel/AbstractChunkVaoManager.h"
 #include "events/chunkStack/ChunkStackUnloadEvent.h"
