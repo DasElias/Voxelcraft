@@ -30,7 +30,7 @@ namespace vc {
 			counter++;
 		}
 
-		
+			
 	}
 
 	void CreativeInventoryGUI::CreativeInventory::click(int slot, Player& p) {
@@ -67,7 +67,14 @@ namespace vc {
 
 		invElement->setMaxDimension(0.8f, egui::RelativityMode::RELATIVE_IN_PARENT, 0.8f, egui::RelativityMode::RELATIVE_IN_PARENT);
 		invElement->setOwnPositioning(std::shared_ptr<Positioning>(new egui::CenterAllInParentWrapper()));
-		inventoryGUI.setRootElement(invElement);
+
+		std::shared_ptr<UnorganizedParentElement> backgroundElement(new UnorganizedParentElement({invElement}));
+		backgroundElement->setBackground(std::shared_ptr<Background>(
+			new ColoredBackground(
+				Color(0, 0, 0, 0.8f)
+			)
+		));
+		inventoryGUI.setRootElement(backgroundElement);
 	}
 
 	void CreativeInventoryGUI::render(Player& p, egui::MasterRenderer& eguiRenderer, const TextureArray& texArray) {
