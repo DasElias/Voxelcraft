@@ -3,14 +3,12 @@
 #include <unordered_map>
 #include "Bedrock.h"
 #include "Block.h"
-#include "ObjectPool.h"
+
 
 namespace vc {
 	std::map<int, std::shared_ptr<BlockType>> BlockType::ALL_VALUES = {};
 
 	std::map<std::string, int> TextureFile::allTextureIds = {};
-
-	ObjectPool<Block> BlockType::blockPool{ 0 };
 
 	namespace {
 		const std::function<const TextureOrientation& (Face&)> getAllTopTexOrientation = [](Face&) -> const TextureOrientation & {

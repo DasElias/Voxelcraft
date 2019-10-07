@@ -14,7 +14,6 @@
 #include <iostream>
 
 #include <static_init.h>
-#include "ObjectPool.h"
 
 namespace vc {
 	class Block;
@@ -90,8 +89,6 @@ namespace vc {
 			static std::shared_ptr<BlockType> const ACACIA_LOG;
 			static std::shared_ptr<BlockType> const ACACIA_PLANKS;
 
-
-			static ObjectPool<Block> blockPool;
 
 		// ----------------------------------------------------------------------
 		// ---------------------------STATIC-METHODS-----------------------------
