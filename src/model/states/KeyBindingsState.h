@@ -13,6 +13,7 @@ namespace vc {
 			egui::MasterRenderer& renderer;
 			std::shared_ptr<egui::KeyBindingsElement> elem;
 			egui::Scene scene;
+			std::string previousStateName;
 
 
 		// ----------------------------------------------------------------------

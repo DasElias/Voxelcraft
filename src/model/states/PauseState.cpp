@@ -20,7 +20,7 @@ namespace vc {
 			stateManager.changeState("IngameState");
 		}});
 		elem->setOnOptionsBtn({[this](egui::ActionEvent&) {
-			stateManager.changeState("IngameState");
+			stateManager.changeState("KeyBindingsState");
 		}});
 		elem->setOnMainMenuBtn({[this](egui::ActionEvent&) {
 			stateManager.changeState("MainMenuState");

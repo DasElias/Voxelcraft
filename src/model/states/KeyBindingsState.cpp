@@ -5,10 +5,11 @@ namespace vc {
 			State(stateManager),
 			renderer(eguiRenderer),
 			elem(new egui::KeyBindingsElement(eguiCtx)),
-			scene(elem) {
+			scene(elem),
+			previousStateName("MainMenuState") {
 
 		elem->setOnBackButtonAction({[this](egui::ActionEvent& e) {
-			getStateMananger().changeState("MainMenuState");
+			getStateMananger().changeState(previousStateName);
 		}});
 	}
 
@@ -21,5 +22,6 @@ namespace vc {
 	}
 
 	void KeyBindingsState::onStateEnter() {
+		this->previousStateName = getStateMananger().getCurrentStateName();
 	}
 }

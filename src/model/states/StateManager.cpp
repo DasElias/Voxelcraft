@@ -4,6 +4,10 @@ namespace vc {
 	StateManager::StateManager() {
 	}
 
+	std::string StateManager::getCurrentStateName() const {
+		return currentStateName;
+	}
+
 	void StateManager::addState(std::string stateType, State* state) {
 		if(state == nullptr) throw std::invalid_argument("state mustn't be nullptr");
 
@@ -20,9 +24,16 @@ namespace vc {
 			// key doesn't exist
 			throw std::logic_error("This state doesn't exist!");
 		} else {
+			// call onStateExit
 			if(p_currentState != nullptr) p_currentState->onStateExit();
-			p_currentState = allStates.at(stateType);
-			p_currentState->onStateEnter();
+			State* toLoad = allStates.at(stateType);
+
+			// call onStateEnter
+			toLoad->onStateEnter();
+
+			// change state
+			currentStateName = stateType;
+			p_currentState = toLoad;
 		}
 	}
 

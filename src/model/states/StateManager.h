@@ -14,7 +14,7 @@ namespace vc {
 			std::unordered_map<std::string, State*> allStates;
 			Level* p_currentLevel = nullptr;
 			State* p_currentState = nullptr;
-
+			std::string currentStateName = "";
 
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------
@@ -27,6 +27,8 @@ namespace vc {
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		public:
+			std::string getCurrentStateName() const;
+
 			void addState(std::string stateType, State* state);
 			void changeState(std::string stateType);
 			void updateAndRender(float delta);
