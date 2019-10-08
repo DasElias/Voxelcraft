@@ -79,4 +79,8 @@ namespace vc {
 		scene.render(renderer);
 		renderer.endFrame();
 	}
+	void SelectLevelState::onStateEnter() {
+		State::onStateEnter();
+		scene.discardMouseEvents();
+	}
 }

@@ -36,6 +36,11 @@ namespace vc {
 		renderer.endFrame();
 	}
 
+	void MainMenuState::onStateEnter() {
+		State::onStateEnter();
+		scene.discardMouseEvents();
+	}
+
 	void MainMenuState::startGame() {
 		stateManager.changeState("SelectLevelState");
 		

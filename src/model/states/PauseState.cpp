@@ -46,6 +46,7 @@ namespace vc {
 
 	void PauseState::onStateEnter() {
 		State::onStateEnter();
+		scene.discardMouseEvents();
 	}
 
 	void PauseState::onCurrentLevelChange(Level* p_oldLevel, Level* p_newLevel) {

@@ -17,5 +17,7 @@ namespace vc {
 	}
 
 	void OptionsState::onStateEnter() {
+		State::onStateEnter();
+		scene.discardMouseEvents();
 	}
 }

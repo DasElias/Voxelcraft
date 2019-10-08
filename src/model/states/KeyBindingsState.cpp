@@ -22,6 +22,9 @@ namespace vc {
 	}
 
 	void KeyBindingsState::onStateEnter() {
+		State::onStateEnter();
+
 		this->previousStateName = getStateMananger().getCurrentStateName();
+		scene.discardMouseEvents();
 	}
 }
