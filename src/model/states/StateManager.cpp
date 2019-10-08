@@ -43,8 +43,14 @@ namespace vc {
 	}
 
 	void StateManager::setCurrentLevel(Level* level) {
+		if(level == this->p_currentLevel) return;
+
 		for(auto& pair : allStates) {
 			pair.second->onCurrentLevelChange(p_currentLevel, level);
+		}
+
+		if(this->p_currentLevel != nullptr) {
+			delete p_currentLevel;
 		}
 
 		this->p_currentLevel = level;
