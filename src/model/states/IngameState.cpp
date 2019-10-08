@@ -76,8 +76,7 @@ namespace vc {
 		eguiRenderer.beginFrame();
 		fpsLabel->setText("FPSAvg: " + std::to_string(fpsAvg) + 
 						"\nFPSmin: " + std::to_string(fpsMin) + 
-						"\nBPS: " + std::to_string(BlockType::blockPool.size()) +
-						"x: " + std::to_string(player.getPosition().getIntX()) + " y: " + std::to_string(player.getPosition().getIntY()) + " z: " + std::to_string(player.getPosition().getIntZ()));
+						"x: " + std::to_string(player.getPosition().getIntX()) + " y: " + std::to_string(player.getPosition().y) + " z: " + std::to_string(player.getPosition().getIntZ()));
 		float secondsUntilAutosave = stateManager.getCurrentLevel()->getSecondsUntilAutosave();
 		autosaveLabel->setText((secondsUntilAutosave > 10) ? "" : std::to_string(int(secondsUntilAutosave)));
 
