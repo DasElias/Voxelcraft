@@ -270,6 +270,12 @@
     <ClCompile Include="src\model\states\KeyBindingsState.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\eguiImpl\nodes\SelectLevelElement.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\states\SelectLevelState.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h">
@@ -558,6 +564,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\model\states\KeyBindingsState.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\eguiImpl\nodes\SelectLevelElement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\model\states\SelectLevelState.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

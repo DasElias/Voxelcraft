@@ -11,8 +11,7 @@ namespace egui {
 		// --------------------------------FIELDS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
-			std::shared_ptr<Button> createGameScoreBtn;
-			std::shared_ptr<Button> loadGameScoreBtn;
+			std::shared_ptr<Button> startGameBtn;
 			std::shared_ptr<Button> optionsBtn;
 			std::shared_ptr<Button> exitGameBtn;
 			std::shared_ptr<Label> versionLabel;
@@ -27,11 +26,8 @@ namespace egui {
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		public:
-			void setOnCreateGameScore(FunctionWrapper<ActionEvent> eventHandler);
-			void setOnLoadGameScore(FunctionWrapper<ActionEvent> eventHandler);
+			void setOnStartGame(FunctionWrapper<ActionEvent> eventHandler);
 			void setOnOpenOptions(FunctionWrapper<ActionEvent> eventHandler);
 			void setOnExitGame(FunctionWrapper<ActionEvent> eventHandler);
-
-			void setLoadButtonDisabled(bool state);
 	};
 }

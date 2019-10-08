@@ -21,9 +21,8 @@ namespace vc {
 	const int Level::DELETE_RANGE = RENDER_RANGE + 1;
 	const float Level::DAY_NIGHT_LENGTH = 1 * 60;
 
-	Level::Level(std::unique_ptr<LevelMetadata> metadata, std::string levelFolder, AbstractChunkVaoManager& vaoManager, ctpl::thread_pool& helperThreadPool) :
-			levelMetadata(std::move(metadata)),
-			levelFolder(levelFolder),
+	Level::Level(std::shared_ptr<LevelMetadata> metadata, AbstractChunkVaoManager& vaoManager, ctpl::thread_pool& helperThreadPool) :
+			levelMetadata(metadata),
 			allChunkStacks(23, VECTOR2I_HASH, VECTOR2I_EQUAL),
 			player({0, 100, 0}, *this),
 			chunkLoader(*this, {}, {}, helperThreadPool),
@@ -224,7 +223,7 @@ namespace vc {
 	}
 
 	std::string Level::getPathToLevelFolder() const {
-		return levelFolder;
+		return levelMetadata->getLevelFolderPath();
 	}
 
 	std::string Level::getLevelName() const {
@@ -321,7 +320,8 @@ namespace vc {
 		});
 
 		if(! intersections.empty()) {
-			result_block = intersections[0].p_block;
+			Block* p_b = intersections[0].p_block;
+			result_block = p_b;
 
 			return intersections[0].face;
 		} 

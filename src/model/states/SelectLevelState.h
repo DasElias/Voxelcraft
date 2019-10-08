@@ -1,48 +1,45 @@
-#pragma once
-#include <string>
-#include "SimpleIni.h"
+
+#include "State.h"
+#include <model/scene/Scene.h>
+#include "../../eguiImpl/nodes/SelectLevelElement.h"
+#include "../LevelBuilder.h"
 
 
 namespace vc {
-	class LevelMetadata {
+	class SelectLevelState : public State {
 		// ----------------------------------------------------------------------
 		// ----------------------------STATIC-FIELDS-----------------------------
 		// ----------------------------------------------------------------------
 		private:
-			static const char* const LEVEL_NAME_KEY;
-			static const char* const SEED_KEY;
-			static const char* const LAST_LOADED_KEY;
+			static std::string const WORLD_SAVE_PATH;
 
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
-			CSimpleIniA config;
-			std::string levelFolderPath;
-			std::string configFilePath;
+			AbstractChunkVaoManager& vaoCreator;
+			ctpl::thread_pool& threadPool;
 
-			std::string levelName;
-			float seed;
-			long lastLoaded;
+			egui::MasterRenderer& renderer;
+			std::shared_ptr<egui::SelectLevelElement> elem;
+			egui::Scene scene;
+
+			std::vector<std::shared_ptr<LevelMetadata>> levelMetadataArr;
 
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			LevelMetadata(std::string levelFolderPath, std::string configFileName);
-			LevelMetadata(std::string levelFolderPath, std::string configFileName, std::string levelName, float seed);
-			LevelMetadata(const LevelMetadata&) = delete;
-			~LevelMetadata();
+			SelectLevelState(StateManager& stateManager, egui::MasterRenderer& renderer, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool);
+			~SelectLevelState();
 
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
-		public:
-			std::string getLevelName() const;
-			float getSeed() const;
-			long getLastLoaded() const;
-			void setLoadedNow();
+		private:
+			void updateLevelMetadataArr();
 
-			std::string getLevelFolderPath() const;
+		public:
+			void updateAndRender(float delta) override;
 	};
 }

@@ -7,12 +7,6 @@
 namespace vc {
 	class MainMenuState : public State {
 		// ----------------------------------------------------------------------
-		// ----------------------------STATIC-FIELDS-----------------------------
-		// ----------------------------------------------------------------------
-		private:
-			static std::string const WORLD_SAVE_PATH;
-
-		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
@@ -29,24 +23,17 @@ namespace vc {
 		// ----------------------------------------------------------------------
 		public:
 			MainMenuState(StateManager& stateManager, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool, egui::MasterRenderer& eguiRenderer, egui::EGuiContext& eguiCtx);
-			~MainMenuState();
 
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
-			void changeStateAndLoadLevel(Level* p_l);
-
-			void createGameScore();
-			void loadGameScore();
+			void startGame();
 			void openOptions();
 			void exitGame();
 
-			void unloadLevel();
-
 		public:
 			void updateAndRender(float delta) override;
-			void onStateEnter() override;
 	};
 
 }

@@ -57,8 +57,7 @@ namespace vc {
 		private:
 			float daytime = 0;
 			bool day = false;
-			std::unique_ptr<LevelMetadata> levelMetadata;
-			std::string const levelFolder;
+			std::shared_ptr<LevelMetadata> levelMetadata;
 			//ParticleList particles;
 			Player player;
 			std::unordered_map<glm::ivec2, ChunkStack*, vec2i_hashType, vec2i_equalsType> allChunkStacks;
@@ -79,7 +78,7 @@ namespace vc {
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			Level(std::unique_ptr<LevelMetadata> metadata, std::string levelFolder, AbstractChunkVaoManager& vaoManager, ctpl::thread_pool& helperThreadPool);
+			Level(std::shared_ptr<LevelMetadata> metadata, AbstractChunkVaoManager& vaoManager, ctpl::thread_pool& helperThreadPool);
 			Level(const Level&) = delete;
 			~Level();
 

@@ -6,8 +6,20 @@
 
 
 namespace vc {
-	Level* loadLevel(std::string levelFolderPath, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool);
-	Level* createLevel(std::string levelFolderPath, float seed, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool);
-	bool doesLevelExist(std::string levelFolderPath);
-	void deleteLevel(std::string levelFolderPath);
+	class LevelBuilder {
+		// ----------------------------------------------------------------------
+		// ----------------------------STATIC-FIELDS-----------------------------
+		// ----------------------------------------------------------------------
+		public:
+			static std::string const LEVEL_CONFIG_FILENAME;
+
+		// ----------------------------------------------------------------------
+		// ---------------------------STATIC-METHODS-----------------------------
+		// ----------------------------------------------------------------------
+		public:
+			static Level* loadLevel(std::shared_ptr<LevelMetadata> metadata, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool);
+			static Level* createLevel(std::string levelFolderPath, float seed, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool);
+			static bool doesLevelExist(std::string levelFolderPath);
+			static void deleteLevel(std::string levelFolderPath);
+	};
 }

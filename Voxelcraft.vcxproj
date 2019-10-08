@@ -26,6 +26,7 @@
     <ClCompile Include="src\eguiImpl\nodes\OptionsStateElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\PauseStateElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\KeyBindingsElement.cpp" />
+    <ClCompile Include="src\eguiImpl\nodes\SelectLevelElement.cpp" />
     <ClCompile Include="src\eguiImpl\themes\VoxelcraftTheme.cpp" />
     <ClCompile Include="src\model\AbstractBlock.cpp" />
     <ClCompile Include="src\model\Bedrock.cpp" />
@@ -64,6 +65,7 @@
     <ClCompile Include="src\model\states\MainMenuState.cpp" />
     <ClCompile Include="src\model\states\OptionsState.cpp" />
     <ClCompile Include="src\model\states\PauseState.cpp" />
+    <ClCompile Include="src\model\states\SelectLevelState.cpp" />
     <ClCompile Include="src\model\states\State.cpp" />
     <ClCompile Include="src\model\states\StateManager.cpp" />
     <ClCompile Include="src\model\TextureOrientation.cpp" />
@@ -110,6 +112,7 @@
     <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\PauseStateElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\KeyBindingsElement.h" />
+    <ClInclude Include="src\eguiImpl\nodes\SelectLevelElement.h" />
     <ClInclude Include="src\eguiImpl\themes\VoxelcraftTheme.h" />
     <ClInclude Include="src\model\AbstractBlock.h" />
     <ClInclude Include="src\model\AbstractChunk.h" />
@@ -140,6 +143,7 @@
     <ClInclude Include="src\model\Frustum.h" />
     <ClInclude Include="src\model\GameItem.h" />
     <ClInclude Include="src\model\Inventory.h" />
+    <ClInclude Include="src\model\states\SelectLevelState.h" />
     <ClInclude Include="src\rendering\InHandRendererFacade.h" />
     <ClInclude Include="src\renderModel\inventoryGui\CreativeInventoryGUI.h" />
     <ClInclude Include="src\renderModel\inventoryGui\InventoryGUI.h" />
@@ -375,7 +379,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <FloatingPointModel>Precise</FloatingPointModel>
-      <ShowIncludes>true</ShowIncludes>
+      <ShowIncludes>false</ShowIncludes>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
