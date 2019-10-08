@@ -18,7 +18,7 @@ namespace vc {
 		// ----------------------------------------------------------------------
 		public:
 			static Level* loadLevel(std::shared_ptr<LevelMetadata> metadata, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool);
-			static Level* createLevel(std::string levelFolderPath, float seed, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool);
+			static Level* createLevel(std::string levelFolderPath, std::string levelName, float seed, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool);
 			static bool doesLevelExist(std::string levelFolderPath);
 			static void deleteLevel(std::string levelFolderPath);
 	};

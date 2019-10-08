@@ -13,7 +13,7 @@ namespace vc {
 		return p_level;
 	}
 
-	Level* LevelBuilder::createLevel(std::string levelFolderPath, float seed, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool) {
+	Level* LevelBuilder::createLevel(std::string levelFolderPath, std::string levelName, float seed, AbstractChunkVaoManager& vaoCreator, ctpl::thread_pool& threadPool) {
 		if(doesLevelExist(levelFolderPath)) throw LevelIOException("The given folder does already contain a valid level.");
 
 		if(! doesExist(levelFolderPath)) createDirectory(levelFolderPath);
@@ -23,7 +23,7 @@ namespace vc {
 		createFile(configFile);
 
 		// create LevelMetadata
-		std::shared_ptr<LevelMetadata> metadata(new LevelMetadata(levelFolderPath, LevelBuilder::LEVEL_CONFIG_FILENAME, "Welt", seed));
+		std::shared_ptr<LevelMetadata> metadata(new LevelMetadata(levelFolderPath, LevelBuilder::LEVEL_CONFIG_FILENAME, levelName, seed));
 		metadata->setLoadedNow();
 
 		Level* p_level = new Level(metadata, vaoCreator, threadPool);

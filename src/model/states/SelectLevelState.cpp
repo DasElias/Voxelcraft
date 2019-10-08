@@ -41,7 +41,7 @@ namespace vc {
 					counter++;
 					fileName = "save" + std::to_string(counter);
 				}
-				Level* p_l = LevelBuilder::createLevel(WORLD_SAVE_PATH + "\\" + fileName, 100, this->vaoCreator, this->threadPool);
+				Level* p_l = LevelBuilder::createLevel(WORLD_SAVE_PATH + "\\" + fileName, fileName, 100, this->vaoCreator, this->threadPool);
 				
 				updateLevelMetadataArr();
 				getStateMananger().setCurrentLevel(p_l);
