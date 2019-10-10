@@ -276,6 +276,9 @@
     <ClCompile Include="src\model\states\SelectLevelState.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\model\utils\FileDialogUtils.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h">
@@ -570,6 +573,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\model\states\SelectLevelState.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\model\utils\FileDialogUtils.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -70,6 +70,7 @@
     <ClCompile Include="src\model\states\StateManager.cpp" />
     <ClCompile Include="src\model\TextureOrientation.cpp" />
     <ClCompile Include="src\model\utils\Cleanable.cpp" />
+    <ClCompile Include="src\model\utils\FileDialogUtils.cpp" />
     <ClCompile Include="src\model\utils\FileUtils.cpp" />
     <ClCompile Include="src\model\utils\MathUtils.cpp" />
     <ClCompile Include="src\model\utils\TimeUtils.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="src\model\GameItem.h" />
     <ClInclude Include="src\model\Inventory.h" />
     <ClInclude Include="src\model\states\SelectLevelState.h" />
+    <ClInclude Include="src\model\utils\FileDialogUtils.h" />
     <ClInclude Include="src\rendering\InHandRendererFacade.h" />
     <ClInclude Include="src\renderModel\inventoryGui\CreativeInventoryGUI.h" />
     <ClInclude Include="src\renderModel\inventoryGui\InventoryGUI.h" />

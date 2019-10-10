@@ -5,6 +5,7 @@
 #include <iostream>
 #include "../../model/utils/FileUtils.h"
 #include "StateManager.h"
+#include "../../model/utils/FileDialogUtils.h"
 
 using namespace boost::filesystem;
 
@@ -46,6 +47,12 @@ namespace vc {
 				updateLevelMetadataArr();
 				getStateMananger().setCurrentLevel(p_l);
 				getStateMananger().changeState("IngameState");
+			},
+			[this](std::shared_ptr<LevelMetadata> metadata) {
+				std::optional<std::string> fileName = openDialog();
+				if(fileName.has_value()) {
+					std::cout << fileName.value() << " was opened!" << std::endl;
+				}
 			}
 		));
 		elem->setOnBackBtn({[this](egui::ActionEvent&) {
