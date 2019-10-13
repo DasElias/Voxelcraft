@@ -1,10 +1,11 @@
 #pragma once
 
 #include "BlockEvent.h"
-#include "../Cancellable.h"
+#include <model/events/Cancellable.h>
+
 
 namespace vc {
-	class BlockPlaceEvent : public BlockEvent, public Cancellable {
+	class BlockPlaceEvent : public BlockEvent, public egui::Cancellable {
 
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------

@@ -1,13 +1,13 @@
 #pragma once
 
 #include "PlayerEvent.h"
-#include "../Cancellable.h"
+#include <model/events/Cancellable.h>
 
 
 namespace vc {
 	class GameItem;
 
-	class ItemInHandChangedEvent : public PlayerEvent, public Cancellable {
+	class ItemInHandChangedEvent : public PlayerEvent, public egui::Cancellable {
 
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------

@@ -1,9 +1,10 @@
 #pragma once
-#include "../Cancellable.h"
+#include <model/events/Cancellable.h>
+
 #include "PlayerEvent.h"
 
 namespace vc {
-	class ToggleSprintingEvent : public PlayerEvent, public Cancellable {
+	class ToggleSprintingEvent : public PlayerEvent, public egui::Cancellable {
 
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------
