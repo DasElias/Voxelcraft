@@ -30,7 +30,7 @@ namespace vc {
 			void setCursorInputMode(int cursorMode) override;
 
 			std::string getKeyName(int key, int scanCode) override;
-
+			std::string getKeyChar(int key, int scanCode) override;
 
 			egui::EventManager<egui::ScrollEvent>& getScrollEventManager() override;
 			egui::EventManager<egui::MouseEvent>& getMouseBtnEventManager() override;

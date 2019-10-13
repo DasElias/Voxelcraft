@@ -3,6 +3,7 @@
 
 #include <map>
 #include <stdexcept>
+#include <iostream>
 
 namespace vc {
 	namespace {
@@ -22,8 +23,9 @@ namespace vc {
 
 		void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 			std::string keyName = instanceMap.at(window)->getKeyName(key, scancode);
-			egui::KeyEvent evt(key, keyName, scancode, action == GLFW_PRESS);
-
+			std::string keyChar = instanceMap.at(window)->getKeyChar(key, scancode);
+			egui::KeyEvent evt(key, keyName, keyChar, scancode, action == GLFW_PRESS);
+			
 			instanceMap.at(window)->getKeyEventManager().fireEvent(evt);
 		}
 	}
@@ -200,6 +202,99 @@ namespace vc {
 
 		const char* stringPtr = glfwGetKeyName(key, scanCode);
 		if(stringPtr == nullptr) return "UNKNOWN KEY! " + key;
+		return std::string(stringPtr);
+	}
+
+	std::string Lwjgl3InputHandler::getKeyChar(int key, int scanCode) {
+		// filter non-printable keys
+		switch(key) {
+			case KEY_SPACE:
+				return " ";
+			case KEY_ENTER:
+			case KEY_ESCAPE:
+			case KEY_TAB:
+			case KEY_BACKSPACE:
+			case KEY_INSERT:
+			case KEY_DELETE:
+			case KEY_RIGHT:
+			case KEY_LEFT:
+			case KEY_DOWN:
+			case KEY_UP:
+			case KEY_PAGE_UP:
+			case KEY_PAGE_DOWN:
+			case KEY_HOME:
+			case KEY_END:
+			case KEY_CAPS_LOCK:
+			case KEY_SCROLL_LOCK:
+			case KEY_NUM_LOCK:
+			case KEY_PRINT_SCREEN:
+			case KEY_PAUSE:
+			case KEY_F1:
+			case KEY_F2:
+			case KEY_F3:
+			case KEY_F4:
+			case KEY_F5:
+			case KEY_F6:
+			case KEY_F7:
+			case KEY_F8:
+			case KEY_F9:
+			case KEY_F10:
+			case KEY_F11:
+			case KEY_F12:
+			case KEY_F13:
+			case KEY_F14:
+			case KEY_F15:
+			case KEY_F16:
+			case KEY_F17:
+			case KEY_F18:
+			case KEY_F19:
+			case KEY_F21:
+			case KEY_F22:
+			case KEY_F23:
+			case KEY_F24:
+			case KEY_F25:
+			case KEY_KP_DECIMAL:
+			case KEY_KP_DIVIDE:
+			case KEY_KP_MULTIPLY:
+			case KEY_KP_SUBTRACT:
+			case KEY_KP_ADD:
+			case KEY_KP_ENTER:
+			case KEY_KP_EQUAL:
+			case KEY_LEFT_SHIFT:
+			case KEY_LEFT_CONTROL:
+			case KEY_LEFT_ALT:
+			case KEY_LEFT_SUPER:
+			case KEY_RIGHT_SHIFT:
+			case KEY_RIGHT_CONTROL:
+			case KEY_RIGHT_ALT:
+			case KEY_RIGHT_SUPER:
+			case KEY_MENU:
+				return "";
+			case KEY_KP_1:
+				return "1";
+			case KEY_KP_2:
+				return "2";
+			case KEY_KP_3:
+				return "3";
+			case KEY_KP_4:
+				return "4";
+			case KEY_KP_5:
+				return "5";
+			case KEY_KP_6:
+				return "6";
+			case KEY_KP_7:
+				return "7";
+			case KEY_KP_8:
+				return "8";
+			case KEY_KP_9:
+				return "9";
+		}
+
+		const char* stringPtr = glfwGetKeyName(key, scanCode);
+		if(stringPtr == nullptr) {
+			std::cerr << "Character not found!";
+			return "";
+		}
 		return std::string(stringPtr);
 	}
 
