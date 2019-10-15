@@ -4,7 +4,6 @@
 #include "DefaultChunkVao.h"
 
 #include "BufferOffsetMacro.h"
-#include <iostream>
 
 namespace vc {
 	// ----------------------------------------------------------------------

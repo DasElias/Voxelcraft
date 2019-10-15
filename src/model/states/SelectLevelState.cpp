@@ -2,7 +2,6 @@
 
 #include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <iostream>
 #include "../../model/utils/FileUtils.h"
 #include "StateManager.h"
 #include "../../model/utils/FileDialogUtils.h"

@@ -11,7 +11,6 @@
 #include <vector>
 
 #include "Face.h"
-#include <iostream>
 
 #include <static_init.h>
 

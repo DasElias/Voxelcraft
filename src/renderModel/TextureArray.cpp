@@ -3,10 +3,9 @@
 #include <GLFW/glfw3.h>
 
 #include "TextureArray.h"
-
+#include <stdexcept>
 #include <algorithm>
 #include <stb_image.h>
-#include <iostream>
 
 namespace vc {
 

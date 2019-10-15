@@ -4,7 +4,6 @@
 #include "LevelRenderer.h"
 
 #include <input/IOHandler.h>
-#include <iostream>
 #include <limits>
 #include <climits>
 

@@ -3,7 +3,6 @@
 #include <gzstream.h>
 #include <tl/optional.hpp>
 #include <cstdint>
-#include <iostream>
 #include <iterator>
 
 #include "Block.h"

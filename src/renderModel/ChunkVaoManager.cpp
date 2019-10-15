@@ -1,7 +1,5 @@
 #include "ChunkVaoManager.h"
 
-#include <iostream>
-
 namespace vc {
 	ChunkVaoManager::ChunkVaoManager(int size) {
 		for(int counter = 0; counter < size; ++counter) {

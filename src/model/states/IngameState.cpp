@@ -1,7 +1,6 @@
 #include "IngameState.h"
 
 #include <input/IOHandler.h>
-#include <iostream>
 
 #include "../../rendering/LevelRenderer.h"
 #include "../utils/TimeUtils.h"

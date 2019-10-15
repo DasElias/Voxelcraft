@@ -5,8 +5,6 @@
 
 #include "../renderModel/TextureArray.h"
 
-#include <iostream>
-
 
 #include "shaderPrograms/shaders/chunkCulling_vertex.glsl"
 #include "shaderPrograms/shaders/chunkCulling_fragment.glsl"
