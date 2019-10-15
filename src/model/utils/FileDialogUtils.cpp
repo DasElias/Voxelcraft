@@ -48,7 +48,7 @@ namespace vc {
 			}
 			
 			if(errorCode.has_value()) {
-				BOOST_LOG_TRIVIAL(error) << "File dialog threw an error: " << errorCode;
+				BOOST_LOG_TRIVIAL(error) << "File dialog threw an error: " << errorCode.value();
 			}
 			return std::nullopt;
 		}
@@ -92,7 +92,7 @@ namespace vc {
 			}
 
 			if(errorCode.has_value()) {
-				BOOST_LOG_TRIVIAL(error) << "File dialog threw an error: " << errorCode;
+				BOOST_LOG_TRIVIAL(error) << "File dialog threw an error: " << errorCode.value();
 			}
 			return std::nullopt;
 		}
