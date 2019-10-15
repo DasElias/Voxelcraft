@@ -3,7 +3,7 @@
 
 #include <map>
 #include <stdexcept>
-#include <iostream>
+#include <boost/log/trivial.hpp>
 
 namespace vc {
 	namespace {
@@ -292,7 +292,7 @@ namespace vc {
 
 		const char* stringPtr = glfwGetKeyName(key, scanCode);
 		if(stringPtr == nullptr) {
-			std::cerr << "Character not found!";
+			BOOST_LOG_TRIVIAL(warning) << "Warning! Key not found! Key: " << key << " Scan code: " << scanCode;
 			return "";
 		}
 		return std::string(stringPtr);

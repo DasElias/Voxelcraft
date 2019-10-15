@@ -1,6 +1,7 @@
 #include "FileDialogUtils.h"
-#include <iostream>
 #include <tchar.h>
+
+#include <boost/log/trivial.hpp>
 
 #ifndef NOMINMAX
 #define NOMINMAX
@@ -47,7 +48,7 @@ namespace vc {
 			}
 			
 			if(errorCode.has_value()) {
-				std::cerr << "An error occured! " << errorCode.value() << std::endl;
+				BOOST_LOG_TRIVIAL(error) << "File dialog threw an error: " << errorCode;
 			}
 			return std::nullopt;
 		}
@@ -91,7 +92,7 @@ namespace vc {
 			}
 
 			if(errorCode.has_value()) {
-				std::cerr << "An error occured! " << errorCode.value() << std::endl;
+				BOOST_LOG_TRIVIAL(error) << "File dialog threw an error: " << errorCode;
 			}
 			return std::nullopt;
 		}

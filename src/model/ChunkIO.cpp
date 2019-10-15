@@ -13,6 +13,9 @@
 #include "utils/FileUtils.h"
 #include <gzstream.h>
 
+#include <boost/log/trivial.hpp>
+
+
 namespace vc {
 	// ----------------------------------------------------------------------
 	// -----------------------------CONSTRUCTORS-----------------------------
@@ -59,7 +62,8 @@ namespace vc {
 	}
 
 	ChunkStack* ChunkIO::loadImmediately(glm::ivec2 coords) {
-		std::lock_guard<std::mutex> lock1(toLoad_mutex);
+		std::lock_guard<std::mutex> lock1(toLoad_mutex);	
+		BOOST_LOG_TRIVIAL(info) << "Chunk Stack is loaded immediately: (" << coords.x << ", " << coords.y << ")";
 
 		ChunkStack* p_c = nullptr;
 
@@ -83,7 +87,7 @@ namespace vc {
 
 			{
 				std::lock_guard<std::mutex> lock2(loadedChunks_mutex);
-				loadedChunks.erase(loadedChunks.begin());
+				loadedChunks.erase(std::find(loadedChunks.begin(), loadedChunks.end(), p_c));
 			}
 
 			toLoad.erase(p_c->getChunkStackPosition());

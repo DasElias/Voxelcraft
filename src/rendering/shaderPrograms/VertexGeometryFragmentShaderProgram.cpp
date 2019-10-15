@@ -3,7 +3,7 @@
 
 #include "VertexGeometryFragmentShaderProgram.h"
 
-#include <iostream>
+#include <boost/log/trivial.hpp>
 #include <vector>
 namespace vc {
 	VertexGeometryFragmentShaderProgram::VertexGeometryFragmentShaderProgram(const char* vertexShaderCode, const char* geometryShaderCode, const char* fragmentShaderCode,
@@ -39,10 +39,8 @@ namespace vc {
 
 			glDeleteProgram(programId);
 
-			std::string msg = infoLog.data();
-
-			//TODO logging
-			std::cerr << msg;
+			BOOST_LOG_TRIVIAL(fatal) << "Couldn't link shader!";
+			BOOST_LOG_TRIVIAL(fatal) << infoLog.data();
 			exit(-1);
 		}
 

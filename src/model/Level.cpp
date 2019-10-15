@@ -13,6 +13,8 @@
 #include "utils/MathUtils.h"
 #include "utils/VectorUtils.h"
 
+#include <boost/log/trivial.hpp>
+
 namespace vc {
 	const glm::vec4 Level::DAY_SKY_COLOR = {0.494f, 0.671f, 1, 1};
 	const glm::vec4 Level::NIGHT_SKY_COLOR = {0, 0, 0, 1};
@@ -173,7 +175,8 @@ namespace vc {
 		auto it = allChunkStacks.find(pos);
 		if(it != allChunkStacks.end()) {
 			// key already exists, log error
-
+			BOOST_LOG_TRIVIAL(fatal) << "Chunk stack was already inserted in Level.";
+			exit(-1);
 		} else {
 			// key doesn't exist, hence we can use insert
 			allChunkStacks.insert(std::make_pair(pos, p_c));

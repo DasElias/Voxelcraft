@@ -1,6 +1,5 @@
 #include "Chunk.h"
 
-#include <iostream>
 #include <cmath>
 #include <cstdint>
 
@@ -15,6 +14,8 @@
 #include "PlayerPosition.h"
 #include "TextureOrientation.h"
 #include "utils/MathUtils.h"
+
+#include <boost/log/trivial.hpp>
 
 namespace vc {
 	float const Chunk::CHUNK_SIZE_FLOAT = CHUNK_SIZE;
@@ -107,8 +108,7 @@ namespace vc {
 
 	void Chunk::updateVao() {
 		if(chunkStack.isAtLeastOneNeighborNull()) {
-			//TODO logging
-			std::cerr << "ChunkStack is updated, even though at least one neighbour is null.";
+			BOOST_LOG_TRIVIAL(warning) << "ChunkStack is updated, even though at least one neighbour is null.";
 		}
 
 		static std::vector<ChunkVaoData> data;

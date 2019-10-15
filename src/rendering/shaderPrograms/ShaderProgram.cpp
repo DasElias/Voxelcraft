@@ -11,7 +11,9 @@
 
 #include <fstream>
 #include <vector>
-#include <iostream>
+
+#include <boost/log/trivial.hpp>
+
 namespace vc {
 	ShaderProgram::ShaderProgram() {
 		programId = glCreateProgram();
@@ -74,8 +76,8 @@ namespace vc {
 	    	std::vector<GLchar> infoLog(maxLength);
 	    	glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
 
-			std::cerr << "Couldn't compile shader!" << std::endl;
-			std::cerr << &infoLog[0];
+			BOOST_LOG_TRIVIAL(fatal) << "Couldn't compile shader!";
+			BOOST_LOG_TRIVIAL(fatal) << &infoLog[0];
 	    	glDeleteShader(shader);
 
 			exit(-1);

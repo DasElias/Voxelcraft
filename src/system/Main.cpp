@@ -5,7 +5,6 @@
 
 #include <input/IOHandler.h>
 
-#include <iostream>
 #include <stdexcept>
 
 #include "../model/states/IngameState.h"
@@ -36,6 +35,9 @@
 #include <model\nodes\Button.cpp>
 #include <model/utils/Image.h>
 
+#include <boost/log/trivial.hpp>
+#include <boost/log/utility/setup.hpp>
+
 using namespace std;
 using namespace vc;
 using namespace vc;
@@ -43,34 +45,28 @@ using namespace vc;
 
 
 void glfwErrorCallback(int error, const char* description) {
-	cerr << "--------------- GLFW-ERROR ---------------" << endl;
-	cerr << endl;
-
-	cerr << error << endl;
-	cerr << description << endl;
-
-	cerr << endl;
-	cerr << "------------------------------------------";
+	BOOST_LOG_TRIVIAL(fatal) << "--------------- GLFW-ERROR ---------------";
+	BOOST_LOG_TRIVIAL(fatal) << error;
+	BOOST_LOG_TRIVIAL(fatal) << description;
+	BOOST_LOG_TRIVIAL(fatal) << "------------------------------------------";
 	exit(-1);
 }
 
 void cppExceptionCallback() {
-	cerr << "--------------- Exception ----------------";
-	cerr << endl;
+	BOOST_LOG_TRIVIAL(fatal) << "--------------- Exception ----------------";
 
 	if(auto exc = std::current_exception()) {
 		// we have an exception
 		try {
 			std::rethrow_exception(exc);
 		} catch(const std::exception& exception) {
-			cerr << exception.what();
+			BOOST_LOG_TRIVIAL(fatal) << exception.what();
 		} catch(...) {
-			cerr << "Unknown Exception!";
+			BOOST_LOG_TRIVIAL(fatal) << "Unknown Exception!";
 		}
 	}
 
-	cerr << endl;
-	cerr << "------------------------------------------";
+	BOOST_LOG_TRIVIAL(fatal) << "------------------------------------------";
 	exit(-1);
 }
 
@@ -78,58 +74,85 @@ void cppExceptionCallback() {
 static void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
 	if(type == GL_DEBUG_TYPE_OTHER) return;
 
-	cerr << "------------- OpenGL-Callback ------------" << endl;
-	cerr << "message: "<< message << endl;
-	cerr << "type: ";
+	BOOST_LOG_TRIVIAL(fatal) << "------------- OpenGL-Callback ------------";
+	BOOST_LOG_TRIVIAL(fatal) << "message: ";
+	BOOST_LOG_TRIVIAL(fatal) << "\t" << message;
+	BOOST_LOG_TRIVIAL(fatal) << "type: ";
 	    switch (type) {
 	    case GL_DEBUG_TYPE_ERROR:
-	        cerr << "ERROR";
+			BOOST_LOG_TRIVIAL(fatal) << "\tERROR";
 	        break;
 	    case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
-	        cerr << "DEPRECATED_BEHAVIOR";
+			BOOST_LOG_TRIVIAL(fatal) << "\tDEPRECATED_BEHAVIOR";
 	        break;
 	    case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
-	        cerr << "UNDEFINED_BEHAVIOR";
+			BOOST_LOG_TRIVIAL(fatal) << "\tUNDEFINED_BEHAVIOR";
 	        break;
 	    case GL_DEBUG_TYPE_PORTABILITY:
-	        cerr << "PORTABILITY";
+			BOOST_LOG_TRIVIAL(fatal) << "\tPORTABILITY";
 	        break;
 	    case GL_DEBUG_TYPE_PERFORMANCE:
-	        cerr << "PERFORMANCE";
-	        break;
-	    case GL_DEBUG_TYPE_OTHER:
-	        cerr << "OTHER";
+			BOOST_LOG_TRIVIAL(fatal) << "\tPERFORMANCE";
 	        break;
 	}
-	cerr << endl;
-
-	cerr << "id: " << id << endl;
-	cerr << "severity: ";
+	BOOST_LOG_TRIVIAL(fatal) << "id:";
+	BOOST_LOG_TRIVIAL(fatal) << "\t" << id;
+	BOOST_LOG_TRIVIAL(fatal) << "severity:";
 	switch (severity) {
 	    case GL_DEBUG_SEVERITY_LOW:
-	        cerr << "LOW";
+			BOOST_LOG_TRIVIAL(fatal) << "\tLOW";
 	        break;
 	    case GL_DEBUG_SEVERITY_MEDIUM:
-	        cerr << "MEDIUM";
+			BOOST_LOG_TRIVIAL(fatal) << "\tMEDIUM";
 	        break;
 	    case GL_DEBUG_SEVERITY_HIGH:
-	        cerr << "HIGH";
+			BOOST_LOG_TRIVIAL(fatal) << "\tHIGH";
 	        break;
 	    }
-	cerr << endl;
-	cerr << "------------------------------------------";
+	BOOST_LOG_TRIVIAL(fatal) << "------------------------------------------";
 
+}
+
+void initLogging() {
+	static const std::string COMMON_FMT("[%TimeStamp%][%Severity%]:  %Message%");
+	boost::log::register_simple_formatter_factory<boost::log::trivial::severity_level, char>("Severity");
+
+	// Output message to console
+	boost::log::add_console_log(
+		std::cerr,
+		boost::log::keywords::format = COMMON_FMT,
+		boost::log::keywords::auto_flush = true
+	);
+
+	// Output message to file
+	boost::log::add_file_log(
+		boost::log::keywords::target = vc::getApplicationFolder() + "\\logs",
+		boost::log::keywords::file_name = "vclog_%3N.log",
+		boost::log::keywords::rotation_size = 1 * 1024 * 1024,
+		boost::log::keywords::max_size = 20 * 1024 * 1024,
+		boost::log::keywords::time_based_rotation = boost::log::sinks::file::rotation_at_time_point(0, 0, 0),
+		boost::log::keywords::format = COMMON_FMT,
+		boost::log::keywords::auto_flush = true
+	);
+
+	boost::log::add_common_attributes();
+
+	boost::log::core::get()->set_filter(
+		boost::log::trivial::severity >= boost::log::trivial::info
+	);
 }
 
 namespace vc {
 	Main::Main() {
+		// initialize boost trivial logging
+		initLogging();
 
+		// log application start
+		BOOST_LOG_TRIVIAL(info) << "Application has started!";
 
 		// set exception handlers
 		std::set_terminate(cppExceptionCallback);
 		glfwSetErrorCallback(glfwErrorCallback);
-
-		// TODO log program start
 
 		if(! glfwInit()) throw std::runtime_error("unable to initialize GLFW");
 
@@ -204,7 +227,7 @@ namespace vc {
 		stateManager.addState("KeyBindingsState", &keyBindingsState);
 		stateManager.addState("SelectLevelState", &selectLevelState);
 		stateManager.changeState("MainMenuState");
-		
+
 		loop();
 
 	}
@@ -250,7 +273,6 @@ namespace vc {
 
 
 int main() {
-	std::cerr << "Application has started!" << endl;
 	vc::Main();
 	return 1;
 }
