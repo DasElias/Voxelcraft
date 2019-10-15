@@ -37,7 +37,14 @@ namespace vc {
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
+			egui::selectLevelFunct getLambda_selectFunc();
+			egui::deleteLevelFunct getLambda_deleteFunc();
+			egui::createLevelFunct getLambda_createFunc();
+			egui::exportFunct getLambda_exportFunc();
+			egui::importFuct getLambda_importFunc();
+
 			void updateLevelMetadataArr();
+			std::string generateLevelFolderName(std::string levelFolderName) const;
 
 		public:
 			void updateAndRender(float delta) override;

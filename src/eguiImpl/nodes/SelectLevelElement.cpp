@@ -7,12 +7,14 @@
 #include <iostream>
 
 namespace egui {
-	SelectLevelElement::SelectLevelElement(std::vector<std::shared_ptr<vc::LevelMetadata>>& levelMetadatas, selectLevelFunct selectFunction, deleteLevelFunct deleteFunction, createLevelFunct createFunction, exportFunct exportFunction) :
+	SelectLevelElement::SelectLevelElement(std::vector<std::shared_ptr<vc::LevelMetadata>>& levelMetadatas, selectLevelFunct selectFunction, deleteLevelFunct deleteFunction, createLevelFunct createFunction, exportFunct exportFunction, importFuct importFunction) :
 			levelMetadatas(levelMetadatas),
 			selectFunction(selectFunction),
 			deleteFunction(deleteFunction),
-			createFunction(createFunction),
-			exportFunction(exportFunction) {
+			exportFunction(exportFunction),
+			importFunction(importFunction) {
+
+
 
 		float const btnHeight = 0.065f;
 		float const verticalSpaceBetweenButtons = 0.02f;
@@ -67,14 +69,14 @@ namespace egui {
 		createNewGameScoreBtn = std::shared_ptr<Button>(new Button("Create new level"));
 		createNewGameScoreBtn->setPreferredWidth(0.5f - (controlButtonBoxSpace / 2), RelativityMode::RELATIVE_IN_PARENT);
 		createNewGameScoreBtn->getActionEventManager().addEventHandler({[this](ActionEvent&) {
-			this->createFunction();
-			rebuildElem();
+			this->createLevelOverlayElement->show();
+			//rebuildElem();
 		}});
 
 		importBtn = std::shared_ptr<Button>(new Button("Import level"));
 		importBtn->setPreferredWidth(0.5f - (controlButtonBoxSpace / 2), RelativityMode::RELATIVE_IN_PARENT);
 		importBtn->getActionEventManager().addEventHandler({[this](ActionEvent&) {
-			//this->importFunction();
+			this->importFunction();
 			rebuildElem();
 		}});
 
@@ -97,10 +99,13 @@ namespace egui {
 		this->rebuildElem();
 
 		// set background
-
 		std::shared_ptr<Image> texture = Image::loadTexture(vc::getApplicationFolder().append("\\textures\\gui\\mainMenuBackground.png"));
 		std::shared_ptr<Background> texturedBackground(new TexturedBackground(texture));
 		UnorganizedParentElement::setBackground(texturedBackground);
+
+		this->createLevelOverlayElement = std::shared_ptr<CreateLevelOverlayElement>(new CreateLevelOverlayElement(createFunction));
+		this->createLevelOverlayElement->hide();
+		UnorganizedParentElement::addChildElement(createLevelOverlayElement);
 	}
 
 	void SelectLevelElement::rebuildElem() {

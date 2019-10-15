@@ -48,9 +48,6 @@
     <ClCompile Include="src\model\events\player\ToggleSprintingEvent.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\model\events\Cancellable.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\model\states\IngameState.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -279,6 +276,9 @@
     <ClCompile Include="src\model\utils\FileDialogUtils.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\eguiImpl\nodes\CreateLevelOverlayElement.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h">
@@ -312,9 +312,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\model\events\player\ToggleSprintingEvent.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\model\events\Cancellable.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\model\states\FpsProvider.h">
@@ -576,6 +573,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\model\utils\FileDialogUtils.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\eguiImpl\nodes\CreateLevelOverlayElement.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

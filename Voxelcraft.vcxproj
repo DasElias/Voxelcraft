@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\..\..\visual_studio_dependencies\glad\src\glad.cpp" />
     <ClCompile Include="..\..\..\..\visual_studio_dependencies\gzstream\gzstream.cpp" />
     <ClCompile Include="..\..\..\..\visual_studio_dependencies\simplex-noise\SimplexNoise.cpp" />
+    <ClCompile Include="src\eguiImpl\nodes\CreateLevelOverlayElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\MainMenuElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\OptionsStateElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\PauseStateElement.cpp" />
@@ -42,7 +43,6 @@
     <ClCompile Include="src\model\events\block\BlockBreakEvent.cpp" />
     <ClCompile Include="src\model\events\block\BlockEvent.cpp" />
     <ClCompile Include="src\model\events\block\BlockPlaceEvent.cpp" />
-    <ClCompile Include="src\model\events\Cancellable.cpp" />
     <ClCompile Include="src\model\events\chunkStack\ChunkStackEvent.cpp" />
     <ClCompile Include="src\model\events\chunkStack\ChunkStackUnloadEvent.cpp" />
     <ClCompile Include="src\model\states\KeyBindingsState.cpp" />
@@ -109,6 +109,7 @@
     <ClCompile Include="src\system\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\eguiImpl\nodes\CreateLevelOverlayElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\OptionsStateElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\PauseStateElement.h" />
@@ -133,7 +134,6 @@
     <ClInclude Include="src\model\events\block\BlockBreakEvent.h" />
     <ClInclude Include="src\model\events\block\BlockEvent.h" />
     <ClInclude Include="src\model\events\block\BlockPlaceEvent.h" />
-    <ClInclude Include="src\model\events\Cancellable.h" />
     <ClInclude Include="src\model\events\chunkStack\ChunkStackEvent.h" />
     <ClInclude Include="src\model\events\chunkStack\ChunkStackUnloadEvent.h" />
     <ClInclude Include="src\model\states\KeyBindingsState.h" />
@@ -326,7 +326,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\include;C:\Users\Elias\visual_studio_dependencies\simpleini;C:\Users\Elias\visual_studio_dependencies\CTPL;C:\Users\Elias\visual_studio_dependencies\optional-master\include;C:\Users\Elias\visual_studio_dependencies\gzstream;C:\Users\Elias\visual_studio_dependencies\simplex-noise;C:\Users\Elias\visual_studio_dependencies\glm;C:\Users\Elias\visual_studio_dependencies\glad\include;C:\Program Files (x86)\GnuWin32\src\zlib\1.2.3\zlib-1.2.3\toProject;C:\Users\Elias\visual_studio_dependencies\static_block;$(SolutionDir)NanoVG;$(SolutionDir)EGui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Elias\Downloads\libzip-1.5.2\libzip-1.5.2\build;C:\Users\Elias\Downloads\libzip-1.5.2\libzip-1.5.2\lib;C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\include;C:\Users\Elias\visual_studio_dependencies\simpleini;C:\Users\Elias\visual_studio_dependencies\CTPL;C:\Users\Elias\visual_studio_dependencies\optional-master\include;C:\Users\Elias\visual_studio_dependencies\gzstream;C:\Users\Elias\visual_studio_dependencies\simplex-noise;C:\Users\Elias\visual_studio_dependencies\glm;C:\Users\Elias\visual_studio_dependencies\glad\include;C:\Program Files (x86)\GnuWin32\src\zlib\1.2.3\zlib-1.2.3\toProject;C:\Users\Elias\visual_studio_dependencies\static_block;$(SolutionDir)NanoVG;$(SolutionDir)EGui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -337,8 +337,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\source\repos\Voxelcraft_1\x64\Debug\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>NanoVG.lib;EGui.lib;zlib.lib;glfw3.lib;glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Elias\visual_studio_dependencies\boost_1_71_0_vs\stage\lib;C:\Users\Elias\Downloads\libzip-1.5.2\libzip-1.5.2\build\lib\Debug;C:\Users\Elias\source\repos\Voxelcraft_1\x64\Debug\;C:\Users\Elias\visual_studio_dependencies\glfw-3.3.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>zip.lib;NanoVG.lib;EGui.lib;zlib.lib;glfw3.lib;glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>

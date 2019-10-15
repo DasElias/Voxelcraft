@@ -6,13 +6,13 @@
 #include <model\nodes\Label.h>
 #include <model\nodes\UnorganizedParentElement.h>
 #include "..//..//model/LevelMetadata.h"
+#include "CreateLevelOverlayElement.h"
 
 namespace egui {
 	typedef std::function<void(std::shared_ptr<vc::LevelMetadata>)> selectLevelFunct;
 	typedef std::function<void(std::shared_ptr<vc::LevelMetadata>)> deleteLevelFunct;
-	typedef std::function<void(void)> createLevelFunct;
 	typedef std::function<void(std::shared_ptr<vc::LevelMetadata>)> exportFunct;
-
+	typedef std::function<void(void)> importFuct;
 
 	class SelectLevelElement : public UnorganizedParentElement {
 		// ----------------------------------------------------------------------
@@ -34,19 +34,21 @@ namespace egui {
 
 			selectLevelFunct selectFunction;
 			deleteLevelFunct deleteFunction;
-			createLevelFunct createFunction;
 			exportFunct exportFunction;
+			importFuct importFunction;
 
 			std::shared_ptr<Button> backBtn;
 			std::shared_ptr<Button> createNewGameScoreBtn;
 			std::shared_ptr<Button> importBtn;
 			std::shared_ptr<Label> noLevelFoundWarning;
 
+			std::shared_ptr<CreateLevelOverlayElement> createLevelOverlayElement;
+
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------
 		// ----------------------------------------------------------------------
 		public:
-			SelectLevelElement(std::vector<std::shared_ptr<vc::LevelMetadata>>& levelMetadatas, selectLevelFunct selectFunction, deleteLevelFunct deleteFunction, createLevelFunct createFunction, exportFunct exportFunction);
+			SelectLevelElement(std::vector<std::shared_ptr<vc::LevelMetadata>>& levelMetadatas, selectLevelFunct selectFunction, deleteLevelFunct deleteFunction, createLevelFunct createFunction, exportFunct exportFunction, importFuct importFunction);
 
 		// ----------------------------------------------------------------------
 		// -------------------------------METHODS--------------------------------
