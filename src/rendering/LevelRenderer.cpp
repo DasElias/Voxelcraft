@@ -3,6 +3,7 @@
 
 #include "LevelRenderer.h"
 
+#include <boost/log/trivial.hpp>
 #include <input/IOHandler.h>
 #include <limits>
 #include <climits>
@@ -97,7 +98,8 @@ namespace vc {
 
 		if(this->lastTimeResizing + RESIZING_FBO_DELAY_MS < getMilliseconds()) {
 			this->lastTimeResizing = LLONG_MAX - RESIZING_FBO_DELAY_MS;
-			//TODO logging
+			
+			BOOST_LOG_TRIVIAL(info) << "FBOs has been re-created!";
 			return true;
 		} else {
 			return false;
