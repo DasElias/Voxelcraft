@@ -4,7 +4,6 @@
 #include <model/positioning/RelativePositioningOnScreen.h>
 #include "../../model/utils/FileUtils.h"
 #include <model/positioning/CenterAllInParentWrapper.h>
-#include <iostream>
 
 namespace egui {
 	SelectLevelElement::SelectLevelElement(std::vector<std::shared_ptr<vc::LevelMetadata>>& levelMetadatas, selectLevelFunct selectFunction, deleteLevelFunct deleteFunction, createLevelFunct createFunction, exportFunct exportFunction, importFuct importFunction) :
@@ -137,7 +136,6 @@ namespace egui {
 
 		// if no world was found, display a warning 
 		noLevelFoundWarning->setVisible(levelMetadatas.empty());
-		std::cout << noLevelFoundWarning->isVisible();
 	}
 
 	void egui::SelectLevelElement::setOnBackBtn(FunctionWrapper<ActionEvent> eventHandler) {
