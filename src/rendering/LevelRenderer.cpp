@@ -55,7 +55,7 @@ namespace vc {
 				texturePaths.push_back(applFolder + (texFile.getPath().append(".png")));
 			}
 
-			return TextureArray(texturePaths);
+			return TextureArray(texturePaths, LevelRenderer::BLOCK_TEXTURE_DIMENSIONS, LevelRenderer::BLOCK_TEXTURE_DIMENSIONS);
 		}
 	}
 	LevelRenderer::LevelRenderer(egui::MasterRenderer& eguiRenderer, egui::EGuiContext& ctx) :

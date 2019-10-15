@@ -9,9 +9,9 @@
 
 namespace vc {
 
-	TextureArray::TextureArray(std::vector<std::string>& textures) :
-			width(64),
-			height(64) {
+	TextureArray::TextureArray(std::vector<std::string>& textures, int32_t width, int32_t height) :
+			width(width),
+			height(height) {
 
 		glGenTextures(1, &texId);
 		glBindTexture(GL_TEXTURE_2D_ARRAY, texId);
@@ -42,11 +42,21 @@ namespace vc {
 		glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA, width, height, GLsizei(textures.size()), 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
 		for(uint32_t counter = 0; counter < textures.size(); counter++) {
-			//TODO does this method query the width/height?
-			unsigned char* img = stbi_load(textures[counter].c_str(), &width, &height, 0, STBI_rgb_alpha);
+			int loadedImageWidth, loadedImageHeight;
+
+			// load image 
+			unsigned char* img = stbi_load(textures[counter].c_str(), &loadedImageWidth, &loadedImageHeight, 0, STBI_rgb_alpha);
+
+			// couldn't load image
 			if(img == nullptr) {
 				throw std::runtime_error(("there is no image at "+textures[counter]).c_str());
 			}
+
+			// image doesn't have the correct dimensions
+			if(loadedImageWidth != width || loadedImageHeight != height) {
+				throw std::runtime_error("Image (" + textures[counter] + ") has the dimensions " + std::to_string(loadedImageWidth) + "/" + std::to_string(loadedImageHeight) + ", but this texture array can store only images with the dimensions " + std::to_string(width) + "/" + std::to_string(height));
+			}
+
 			glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, counter, width, height, 1, GL_RGBA, GL_UNSIGNED_BYTE, img);
 		}
 
