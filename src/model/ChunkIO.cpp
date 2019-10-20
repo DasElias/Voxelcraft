@@ -61,70 +61,55 @@ namespace vc {
 		}
 	}
 
+	ChunkStack* vc::ChunkIO::generateChunkStackImmediately(glm::ivec2 coords) {
+		ChunkStack* p_c = nullptr;
+		if(toLoad.find(coords) == toLoad.end()) {
+			//case 1: load() wasn't called for coords yet
+			p_c = createChunkStack(coords);
+
+		} else {
+			std::future<ChunkStack*>* task = &toLoad.at(coords);
+			p_c = task->get();
+
+			// erase loaded chunk from loadedChunks and toLoad
+			std::lock_guard<std::mutex> lock2(loadedChunks_mutex);
+			loadedChunks.erase(std::find(loadedChunks.begin(), loadedChunks.end(), p_c));
+			toLoad.erase(p_c->getChunkStackPosition());
+		}
+
+		return p_c;
+	}
+
 	ChunkStack* ChunkIO::loadImmediately(glm::ivec2 coords) {
 		std::lock_guard<std::mutex> lock1(toLoad_mutex);	
 		BOOST_LOG_TRIVIAL(info) << "Chunk Stack is loaded immediately: (" << coords.x << ", " << coords.y << ")";
 
-		ChunkStack* p_c = nullptr;
+		// generate chunkStack
+		ChunkStack* p_c = generateChunkStackImmediately(coords);
+		level.putChunkStack({}, p_c);
 
-		if(toLoad.find(coords) == toLoad.end()) {
-			//case 1: load() wasn't called for coords
-			p_c = createChunkStack(coords);
-
-		} else {
-			std::future<ChunkStack*>* task = nullptr;
-
-			/*
-			 * We can't put all the code in one lock_guard-block, since task->get will need loadedChunks_mutex too,
-			 * what is going to cause a deadlock.
-			 */
-			{
-				std::lock_guard<std::mutex> lock2(loadedChunks_mutex);
-				task = &toLoad.at(coords);
-			}
-
-			p_c = task->get();
-
-			{
-				std::lock_guard<std::mutex> lock2(loadedChunks_mutex);
-				loadedChunks.erase(std::find(loadedChunks.begin(), loadedChunks.end(), p_c));
-			}
-
-			toLoad.erase(p_c->getChunkStackPosition());
-		}
-
+		// load neighbours
 		ChunkStack* p_leftNeighbor = level.getChunkStackWithoutLoading({coords.x - 1, coords.y});
 		ChunkStack* p_rightNeighbor = level.getChunkStackWithoutLoading({coords.x + 1, coords.y});
 		ChunkStack* p_frontNeighbor = level.getChunkStackWithoutLoading({coords.x, coords.y - 1});
 		ChunkStack* p_backNeighbor = level.getChunkStackWithoutLoading({coords.x, coords.y + 1});
 
 		if(p_leftNeighbor == nullptr) {
-			p_leftNeighbor = createChunkStack({coords.x - 1, coords.y});
+			p_leftNeighbor = generateChunkStackImmediately({coords.x - 1, coords.y});
 			level.putChunkStack({}, p_leftNeighbor);
 		}
 		if(p_rightNeighbor == nullptr) {
-			p_rightNeighbor = createChunkStack({coords.x + 1, coords.y});
+			p_rightNeighbor = generateChunkStackImmediately({coords.x + 1, coords.y});
 			level.putChunkStack({}, p_rightNeighbor);
 		}
 		if(p_frontNeighbor == nullptr) {
-			p_frontNeighbor = createChunkStack({coords.x, coords.y - 1});
+			p_frontNeighbor = generateChunkStackImmediately({coords.x, coords.y - 1});
 			level.putChunkStack({}, p_frontNeighbor);
 		}
 		if(p_backNeighbor == nullptr) {
-			p_backNeighbor = createChunkStack({coords.x, coords.y + 1});
+			p_backNeighbor = generateChunkStackImmediately({coords.x, coords.y + 1});
 			level.putChunkStack({}, p_backNeighbor);
 		}
-
-		level.putChunkStack({}, p_c);
-		level.removeFromLoadingList({}, *p_c);
-
-		for(Chunk* singleChunk : p_c->getChunks()) {
-			if(singleChunk->getAmountOfPlacedBlocks() > 0) {
-				singleChunk->updateVao();
-			}
-		}
-
-		p_c->setFirstInitialized({});
 
 		return p_c;
 

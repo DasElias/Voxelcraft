@@ -44,6 +44,7 @@ namespace vc {
 		private:
 			ChunkStack* createChunkStack(glm::ivec2 coords);
 			ChunkStack* loadFromFile(std::string pathToFile);
+			ChunkStack* generateChunkStackImmediately(glm::ivec2 coords);
 
 		public:
 			void load(glm::ivec2 coords);
