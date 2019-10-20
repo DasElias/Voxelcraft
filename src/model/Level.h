@@ -87,17 +87,26 @@ namespace vc {
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		private:
+			// this function is called to load ChunkStacks in toLoad to the GPU
 			void loadChunkStacks();
+
+			// this function computes the visible chunks every frame and prepares them for rendering
 			void updateChunkSystem();
+
+			// generate/load new chunks from disk
 			void updateLoadedChunks();
+
+			// unload chunks, which are outside of DELETE_RANGE
 			void deleteUnusedChunks();
 
 		public:
 			void update(float delta);
 			void updateOnlyFrustum(float delta);
 
+			// this function is called, when all four neighbours of a ChunkStacks has been set and the chunk stack hasn't been initialized
+			// it must be only called in ChunkStack
 			void addChunkStackToLoad(Level_AccessKey key, ChunkStack& c);
-			void removeFromLoadingList(Level_AccessKey key, ChunkStack& c);
+
 			void putChunkStack(Level_AccessKey key, ChunkStack* p_c);
 
 			ChunkIO& getChunkIO();

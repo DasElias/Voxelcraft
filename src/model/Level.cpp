@@ -14,7 +14,7 @@
 #include "utils/VectorUtils.h"
 
 #include <boost/log/trivial.hpp>
-
+#include <iostream>
 namespace vc {
 	const glm::vec4 Level::DAY_SKY_COLOR = {0.494f, 0.671f, 1, 1};
 	const glm::vec4 Level::NIGHT_SKY_COLOR = {0, 0, 0, 1};
@@ -164,10 +164,6 @@ namespace vc {
 		toLoad.push_back(&c);
 	}
 
-	void Level::removeFromLoadingList(Level_AccessKey key, ChunkStack& c) {
-		// remove element from loading list
-		toLoad.erase(std::remove(toLoad.begin(), toLoad.end(), &c), toLoad.end());
-	}
 
 	void Level::putChunkStack(Level_AccessKey key, ChunkStack* p_c) {
 		glm::ivec2 pos = p_c->getChunkStackPosition();
@@ -175,7 +171,7 @@ namespace vc {
 		auto it = allChunkStacks.find(pos);
 		if(it != allChunkStacks.end()) {
 			// key already exists, log error
-			BOOST_LOG_TRIVIAL(fatal) << "Chunk stack was already inserted in Level.";
+			BOOST_LOG_TRIVIAL(fatal) << "Chunk stack (" << pos.x << ", " << pos.y << ")was already inserted in Level.";
 			exit(-1);
 		} else {
 			// key doesn't exist, hence we can use insert
