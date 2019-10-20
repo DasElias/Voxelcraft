@@ -136,6 +136,9 @@ namespace egui {
 
 		// if no world was found, display a warning 
 		noLevelFoundWarning->setVisible(levelMetadatas.empty());
+
+		createNewGameScoreBtn->setVisible(levelMetadatas.size() < NUMBER_OF_BTNS);
+		importBtn->setVisible(levelMetadatas.size() < NUMBER_OF_BTNS);
 	}
 
 	void egui::SelectLevelElement::setOnBackBtn(FunctionWrapper<ActionEvent> eventHandler) {
