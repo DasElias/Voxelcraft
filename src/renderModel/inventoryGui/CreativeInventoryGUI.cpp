@@ -16,16 +16,16 @@ using namespace egui;
 
 namespace vc {
 	CreativeInventoryGUI::CreativeInventory::CreativeInventory() :
-			Inventory(std::max(int(std::ceilf(BlockType::getAll().size()) / 9) * 9, 5 * 9)) {
+			Inventory(std::max(int(std::ceilf(GameItem::getAll().size()) / 9) * 9, 5 * 9)) {
 
 		// get map with all block types
-		const std::map<int, std::shared_ptr<BlockType>>& allBlockTypes = BlockType::getAll();
+		const std::map<int, std::shared_ptr<GameItem>>& allGameItemTypes = GameItem::getAll();
 
 		int counter = 0;
 
 		// convert values into list
-		for(auto& pair : allBlockTypes) {
-			if(! pair.second->canPlayerPlace()) continue;
+		for(auto& pair : allGameItemTypes) {
+			if(! pair.second->canPlayerUse()) continue;
 			Inventory::set(Inventory::length() - counter - 1, pair.second, 1);
 			counter++;
 		}

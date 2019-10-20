@@ -279,6 +279,9 @@
     <ClCompile Include="src\eguiImpl\nodes\CreateLevelOverlayElement.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\model\GameItem.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h">

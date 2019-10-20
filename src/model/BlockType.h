@@ -55,14 +55,9 @@ namespace vc {
 		};
 
 	class BlockType : public GameItem {
-		
-
 		// ----------------------------------------------------------------------
 		// ----------------------------STATIC-FIELDS-----------------------------
 		// ----------------------------------------------------------------------
-		private:
-			static std::map<int, std::shared_ptr<BlockType>> ALL_VALUES;
-
 		public:
 			static std::shared_ptr<BlockType> const COBBLESTONE;
 			static std::shared_ptr<BlockType> const STONE;
@@ -88,14 +83,6 @@ namespace vc {
 			static std::shared_ptr<BlockType> const ACACIA_LOG;
 			static std::shared_ptr<BlockType> const ACACIA_PLANKS;
 
-
-		// ----------------------------------------------------------------------
-		// ---------------------------STATIC-METHODS-----------------------------
-		// ----------------------------------------------------------------------
-		public:
-			static void addBlockType(const std::shared_ptr<BlockType>& blockType);
-			static const std::shared_ptr<BlockType>& getBlockTypeById(int id);
-			static const std::map<int, std::shared_ptr<BlockType>>& getAll();
 
 		// ----------------------------------------------------------------------
 		// --------------------------------FIELDS--------------------------------
@@ -125,11 +112,11 @@ namespace vc {
 		// -------------------------------METHODS--------------------------------
 		// ----------------------------------------------------------------------
 		public:
-			uint32_t getId() const;
+			uint32_t getId() const override;
 			const TextureOrientation& getTextureOrientation(Face placedOn = TOP) const;
 			std::string getName() const override;
 			bool canBeReplaced() const;
-			bool canPlayerPlace() const;
+			bool canPlayerUse() const override;
 			bool isBlock() const override;
 			int getMaxStackSize() const override;
 			const std::array<tl::optional<TextureFile>, 6>& getTextureFiles() const;

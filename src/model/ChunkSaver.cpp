@@ -104,7 +104,8 @@ namespace vc {
 					int worldY = convertChunkToWorldValue(chunkCoordY, inChunkY);
 					int worldZ = convertChunkToWorldValue(chunkStackCoordinates.y, inChunkZ);
 
-					const std::shared_ptr<BlockType>& blockType = BlockType::getBlockTypeById(fast_atoi(blockIdString.c_str()));
+					const std::shared_ptr<GameItem>& gameItemType = GameItem::getGameItemById(fast_atoi(blockIdString.c_str()));
+					const std::shared_ptr<BlockType> blockType = std::dynamic_pointer_cast<BlockType>(gameItemType);
 					const TextureOrientation& texOrientation = TextureOrientation::getStoredTextureOrientation(texValue);
 					Block* p_createdBlock = createBlock(worldX, worldY, worldZ, blockType, texOrientation, *p_singleChunk, metadata);
 					p_singleChunk->placeBlockWithoutUpdateAndEvent(p_createdBlock, inChunkX, inChunkY, inChunkZ);

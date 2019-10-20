@@ -1,13 +1,10 @@
 #include "BlockType.h"
 
-#include <unordered_map>
 #include "Bedrock.h"
 #include "Block.h"
 
 
 namespace vc {
-	std::map<int, std::shared_ptr<BlockType>> BlockType::ALL_VALUES = {};
-
 	std::map<std::string, int> TextureFile::allTextureIds = {};
 
 	namespace {
@@ -280,29 +277,29 @@ namespace vc {
 	));
 
 	STATIC_INIT(BlockType) {
-		BlockType::addBlockType(COBBLESTONE);
-		BlockType::addBlockType(STONE);
-		BlockType::addBlockType(BEDROCK);
-		BlockType::addBlockType(DIRT);
-		BlockType::addBlockType(GRASS);
-		BlockType::addBlockType(STONE_BRICKS);
-		BlockType::addBlockType(DIORITE);
-		BlockType::addBlockType(SMOOTH_DIORITE);
-		BlockType::addBlockType(GRANITE);
-		BlockType::addBlockType(SMOOTH_GRANITE);
-		BlockType::addBlockType(ANDESITE);
-		BlockType::addBlockType(SMOOTH_ANDESITE);
+		GameItem::addGameItem(COBBLESTONE);
+		GameItem::addGameItem(STONE);
+		GameItem::addGameItem(BEDROCK);
+		GameItem::addGameItem(DIRT);
+		GameItem::addGameItem(GRASS);
+		GameItem::addGameItem(STONE_BRICKS);
+		GameItem::addGameItem(DIORITE);
+		GameItem::addGameItem(SMOOTH_DIORITE);
+		GameItem::addGameItem(GRANITE);
+		GameItem::addGameItem(SMOOTH_GRANITE);
+		GameItem::addGameItem(ANDESITE);
+		GameItem::addGameItem(SMOOTH_ANDESITE);
 
-		BlockType::addBlockType(OAK_LOG);
-		BlockType::addBlockType(OAK_PLANKS);
-		BlockType::addBlockType(DARK_OAK_LOG);
-		BlockType::addBlockType(DARK_OAK_PLANKS);
-		BlockType::addBlockType(BIRCH_LOG);
-		BlockType::addBlockType(BIRCH_PLANKS);
-		BlockType::addBlockType(JUNGLE_LOG);
-		BlockType::addBlockType(JUNGLE_PLANKS);
-		BlockType::addBlockType(ACACIA_LOG);
-		BlockType::addBlockType(ACACIA_PLANKS);
+		GameItem::addGameItem(OAK_LOG);
+		GameItem::addGameItem(OAK_PLANKS);
+		GameItem::addGameItem(DARK_OAK_LOG);
+		GameItem::addGameItem(DARK_OAK_PLANKS);
+		GameItem::addGameItem(BIRCH_LOG);
+		GameItem::addGameItem(BIRCH_PLANKS);
+		GameItem::addGameItem(JUNGLE_LOG);
+		GameItem::addGameItem(JUNGLE_PLANKS);
+		GameItem::addGameItem(ACACIA_LOG);
+		GameItem::addGameItem(ACACIA_PLANKS);
 
 	}
 
@@ -328,26 +325,6 @@ namespace vc {
 		return path;
 	}
 
-	void BlockType::addBlockType(const std::shared_ptr<BlockType>& blockType) {
-		if(ALL_VALUES.find(blockType->getId()) != ALL_VALUES.end()) {
-			throw std::runtime_error("this id does already exist.");
-		} else {
-			ALL_VALUES.insert(std::make_pair(blockType->getId(), blockType));
-		}
-	}
-
-	const std::shared_ptr<BlockType>& BlockType::getBlockTypeById(int id) {
-		try {
-			return ALL_VALUES.at(id);
-		} catch(std::out_of_range ex) {
-			throw std::runtime_error("this id doesn't exist");
-		}
-	}
-
-
-	const std::map<int, std::shared_ptr<BlockType>>& BlockType::getAll() {
-		return ALL_VALUES;
-	}
 
 	BlockType::BlockType(uint32_t id, std::string name, constructor constructorFunction, destructor destructorFunction,
 		std::function<const TextureOrientation& (Face&)> getTexOrientation,
@@ -402,7 +379,7 @@ namespace vc {
 		return field_canBeReplaced;
 	}
 
-	bool BlockType::canPlayerPlace() const {
+	bool BlockType::canPlayerUse() const {
 		return field_canPlayerPlace;
 	}
 

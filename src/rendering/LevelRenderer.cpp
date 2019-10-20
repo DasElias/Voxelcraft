@@ -24,8 +24,15 @@ namespace vc {
 
 			// put all the TextureFile-objects in an array
 			std::vector<TextureFile> allTextureFiles;
-			for(auto& bt : BlockType::getAll()) {
-				std::array<tl::optional<TextureFile>, 6> texFiles = bt.second->getTextureFiles();
+			for(auto& bt : GameItem::getAll()) {
+				if(! bt.second->isBlock()) continue;
+				std::shared_ptr<BlockType> blockType = std::dynamic_pointer_cast<BlockType>(bt.second);
+				if(blockType == nullptr) {
+					BOOST_LOG_TRIVIAL(warning) << "isBlock() of GameItem " << bt.second->getId() << " returns true, but in fact, the item isn't of type GameItem";
+					continue;
+				}
+
+				std::array<tl::optional<TextureFile>, 6> texFiles = blockType->getTextureFiles();
 				for(auto& texFile : texFiles) {
 					if(! texFile.has_value()) continue;
 
