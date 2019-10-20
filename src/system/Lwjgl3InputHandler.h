@@ -14,6 +14,7 @@ namespace vc {
 			egui::EventManager<egui::ScrollEvent> scrollEventManager;
 			egui::EventManager<egui::MouseEvent> mouseBtnEventManager;
 			egui::EventManager<egui::KeyEvent> keyEventManager;
+			egui::EventManager<egui::CharEnterEvent> charEnteredEventManager;
 
 		// ----------------------------------------------------------------------
 		// -----------------------------CONSTRUCTORS-----------------------------
@@ -35,6 +36,7 @@ namespace vc {
 			egui::EventManager<egui::ScrollEvent>& getScrollEventManager() override;
 			egui::EventManager<egui::MouseEvent>& getMouseBtnEventManager() override;
 			egui::EventManager<egui::KeyEvent>& getKeyEventManager() override;
+			egui::EventManager<egui::CharEnterEvent>& getCharEnteredEventManager() override;
 	};
 
 }

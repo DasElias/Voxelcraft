@@ -14,7 +14,7 @@ namespace vc {
 			instanceMap.at(window)->getMouseBtnEventManager().fireEvent(evt);
 		}
 
-		void  scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
+		void scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
 			if (yoffset != 0) {
 				egui::ScrollEvent evt = { float(yoffset) };
 				instanceMap.at(window)->getScrollEventManager().fireEvent(evt);
@@ -28,6 +28,12 @@ namespace vc {
 			
 			instanceMap.at(window)->getKeyEventManager().fireEvent(evt);
 		}
+
+		void charCallback(GLFWwindow* window, unsigned int codepoint) {
+			egui::CharEnterEvent evt(codepoint);
+
+			instanceMap.at(window)->getCharEnteredEventManager().fireEvent(evt);
+		}
 	}
 
 
@@ -38,6 +44,7 @@ namespace vc {
 		glfwSetScrollCallback(window, scrollCallback);
 		glfwSetMouseButtonCallback(window, mouseBtnCallback);
 		glfwSetKeyCallback(window, keyCallback);
+		glfwSetCharCallback(window, charCallback);
 	}
 
 	Lwjgl3InputHandler::~Lwjgl3InputHandler() {
@@ -308,6 +315,10 @@ namespace vc {
 
 	egui::EventManager<egui::KeyEvent>& Lwjgl3InputHandler::getKeyEventManager() {
 		return keyEventManager;
+	}
+
+	egui::EventManager<egui::CharEnterEvent>& Lwjgl3InputHandler::getCharEnteredEventManager() {
+		return charEnteredEventManager;
 	}
 
 }
