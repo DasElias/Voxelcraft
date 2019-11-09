@@ -24,7 +24,6 @@
     <ClCompile Include="..\..\..\..\visual_studio_dependencies\simplex-noise\SimplexNoise.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\CreateLevelOverlayElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\MainMenuElement.cpp" />
-    <ClCompile Include="src\eguiImpl\nodes\OptionsStateElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\PauseStateElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\KeyBindingsElement.cpp" />
     <ClCompile Include="src\eguiImpl\nodes\SelectLevelElement.cpp" />
@@ -64,7 +63,6 @@
     <ClCompile Include="src\model\Slot.cpp" />
     <ClCompile Include="src\model\states\IngameState.cpp" />
     <ClCompile Include="src\model\states\MainMenuState.cpp" />
-    <ClCompile Include="src\model\states\OptionsState.cpp" />
     <ClCompile Include="src\model\states\PauseState.cpp" />
     <ClCompile Include="src\model\states\SelectLevelState.cpp" />
     <ClCompile Include="src\model\states\State.cpp" />
@@ -104,14 +102,13 @@
     <ClCompile Include="src\renderModel\Texture.cpp" />
     <ClCompile Include="src\renderModel\TextureArray.cpp" />
     <ClCompile Include="src\system\KeyAssignmentsImpl.cpp" />
-    <ClCompile Include="src\system\Lwjgl3CursorHandler.cpp" />
-    <ClCompile Include="src\system\Lwjgl3DisplayHandler.cpp" />
-    <ClCompile Include="src\system\Lwjgl3InputHandler.cpp" />
+    <ClCompile Include="src\system\GlfwCursorHandler.cpp" />
+    <ClCompile Include="src\system\GlfwDisplayHandler.cpp" />
+    <ClCompile Include="src\system\GlfwInputHandler.cpp" />
     <ClCompile Include="src\system\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\eguiImpl\nodes\CreateLevelOverlayElement.h" />
-    <ClInclude Include="src\eguiImpl\nodes\OptionsStateElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\MainMenuElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\PauseStateElement.h" />
     <ClInclude Include="src\eguiImpl\nodes\KeyBindingsElement.h" />
@@ -150,7 +147,6 @@
     <ClInclude Include="src\rendering\InHandRendererFacade.h" />
     <ClInclude Include="src\renderModel\inventoryGui\CreativeInventoryGUI.h" />
     <ClInclude Include="src\renderModel\inventoryGui\InventoryGUI.h" />
-    <ClInclude Include="src\model\states\OptionsState.h" />
     <ClInclude Include="src\model\Level.h" />
     <ClInclude Include="src\model\LevelBuilder.h" />
     <ClInclude Include="src\model\LevelIOException.h" />
@@ -205,9 +201,9 @@
     <ClInclude Include="src\renderModel\VaoManager.h" />
     <ClInclude Include="src\renderModel\VertexArrayObject.h" />
     <ClInclude Include="src\system\KeyAssignmentsImpl.h" />
-    <ClInclude Include="src\system\Lwjgl3CursorHandler.h" />
-    <ClInclude Include="src\system\Lwjgl3DisplayHandler.h" />
-    <ClInclude Include="src\system\Lwjgl3InputHandler.h" />
+    <ClInclude Include="src\system\GlfwCursorHandler.h" />
+    <ClInclude Include="src\system\GlfwDisplayHandler.h" />
+    <ClInclude Include="src\system\GlfwInputHandler.h" />
     <ClInclude Include="src\system\Main.h" />
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +330,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ShowIncludes>false</ShowIncludes>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <AssemblerOutput>AssemblyCode</AssemblerOutput>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -385,6 +382,7 @@
       <ShowIncludes>false</ShowIncludes>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AssemblerOutput>AssemblyCode</AssemblerOutput>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

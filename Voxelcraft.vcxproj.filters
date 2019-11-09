@@ -192,15 +192,6 @@
     <ClCompile Include="src\system\KeyAssignmentsImpl.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\system\Lwjgl3CursorHandler.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\system\Lwjgl3DisplayHandler.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\system\Lwjgl3InputHandler.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\system\Main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -243,12 +234,6 @@
     <ClCompile Include="src\rendering\IngameHotbarRenderer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\eguiImpl\nodes\OptionsStateElement.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\model\states\OptionsState.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\renderModel\inventoryGui\CreativeInventoryGUI.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -280,6 +265,15 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\model\GameItem.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\GlfwCursorHandler.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\GlfwDisplayHandler.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\GlfwInputHandler.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -503,15 +497,6 @@
     <ClInclude Include="src\system\KeyAssignmentsImpl.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\system\Lwjgl3CursorHandler.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\system\Lwjgl3DisplayHandler.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\system\Lwjgl3InputHandler.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\system\Main.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -545,12 +530,6 @@
     <ClInclude Include="src\rendering\IngameHotbarRenderer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\model\states\OptionsState.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\eguiImpl\nodes\OptionsStateElement.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\renderModel\inventoryGui\InventoryGUI.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -579,6 +558,15 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\eguiImpl\nodes\CreateLevelOverlayElement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\GlfwCursorHandler.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\GlfwDisplayHandler.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\GlfwInputHandler.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

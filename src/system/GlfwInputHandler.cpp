@@ -1,4 +1,4 @@
-#include "Lwjgl3InputHandler.h"
+#include "GlfwInputHandler.h"
 #include "model/events/ScrollEvent.h"
 
 #include <map>

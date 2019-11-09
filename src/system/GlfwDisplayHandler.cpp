@@ -1,4 +1,4 @@
-#include "Lwjgl3DisplayHandler.h"
+#include "GlfwDisplayHandler.h"
 
 namespace vc {
 	Lwjgl3DisplayHandler::Lwjgl3DisplayHandler(GLFWwindow* window, int startWidth, int startHeight) :

@@ -11,7 +11,6 @@
 #include "../model/states/KeyBindingsState.h"
 #include "../model/states/MainMenuState.h"
 #include "../model/states/PauseState.h"
-#include "../model/states/OptionsState.h"
 #include "../model/states/SelectLevelState.h"
 #include "../model/states/StateManager.h"
 
@@ -20,9 +19,9 @@
 #include "../rendering/LevelRenderer.h"
 #include "../renderModel/ChunkVaoManager.h"
 #include "KeyAssignmentsImpl.h"
-#include "Lwjgl3CursorHandler.h"
-#include "Lwjgl3DisplayHandler.h"
-#include "Lwjgl3InputHandler.h"
+#include "GlfwCursorHandler.h"
+#include "GlfwDisplayHandler.h"
+#include "GlfwInputHandler.h"
 
 #include <boost/filesystem.hpp>
 #include <static_init.h>
@@ -34,13 +33,13 @@
 #include <themes/ThemeManager.h>
 #include <model\nodes\Button.cpp>
 #include <model/utils/Image.h>
+#include <model/popups/PopupErrorBox.h>
 
 #include <boost/log/trivial.hpp>
 #include <boost/log/utility/setup.hpp>
 
+
 using namespace std;
-using namespace vc;
-using namespace vc;
 using namespace vc;
 
 
@@ -54,6 +53,9 @@ void glfwErrorCallback(int error, const char* description) {
 
 void cppExceptionCallback() {
 	BOOST_LOG_TRIVIAL(fatal) << "--------------- Exception ----------------";
+
+	egui::PopupErrorBox a("A fatal error has occured!", "A fatal unknown error has happened! Please see the logs for details.");
+	a.show();
 
 	if(auto exc = std::current_exception()) {
 		// we have an exception
@@ -216,14 +218,12 @@ namespace vc {
 		MainMenuState mainMenuState(stateManager, vaoManager, threadPool, nvgRenderer, ctx);
 		IngameState ingameState(stateManager, levelRenderer, nvgRenderer);
 		PauseState pauseState(stateManager, levelRenderer, nvgRenderer, ctx);
-		OptionsState optionsState(stateManager, nvgRenderer, ctx);
 		KeyBindingsState keyBindingsState(stateManager, nvgRenderer, ctx);
 		SelectLevelState selectLevelState(stateManager, nvgRenderer, vaoManager, threadPool);
 
 		stateManager.addState("MainMenuState", &mainMenuState);
 		stateManager.addState("IngameState", &ingameState);
 		stateManager.addState("PauseState", &pauseState);
-		stateManager.addState("OptionsState", &optionsState);
 		stateManager.addState("KeyBindingsState", &keyBindingsState);
 		stateManager.addState("SelectLevelState", &selectLevelState);
 		stateManager.changeState("MainMenuState");
