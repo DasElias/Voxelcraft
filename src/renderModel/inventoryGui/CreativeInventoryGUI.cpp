@@ -53,8 +53,9 @@ namespace vc {
 		static std::shared_ptr<Image> img = Image::loadTexture(vc::getApplicationFolder().append("\\textures\\gui\\creativeInventory.png"));
 		this->invElementBackground = img;
 		
-		float imgWidth = img->getWidth();
-		float imgHeight = img->getHeight();
+		// we don't expect the image to be too big for float
+		float imgWidth = float(img->getWidth());
+		float imgHeight = float(img->getHeight());
 		float ar = imgWidth / imgHeight;
 		invElement = std::shared_ptr<AspectRatioElement>(new AspectRatioElement(ar));
 		
@@ -65,7 +66,7 @@ namespace vc {
 		));
 
 
-		invElement->setMaxDimension(0.8f, egui::RelativityMode::RELATIVE_IN_PARENT, 0.8f, egui::RelativityMode::RELATIVE_IN_PARENT);
+		invElement->setMaxDimension({0.8f, egui::RelativityMode::RELATIVE_IN_PARENT}, {0.8f, egui::RelativityMode::RELATIVE_IN_PARENT});
 		invElement->setOwnPositioning(std::shared_ptr<Positioning>(new egui::CenterAllInParentWrapper()));
 
 		std::shared_ptr<UnorganizedParentElement> backgroundElement(new UnorganizedParentElement({invElement}));

@@ -20,23 +20,23 @@ namespace egui {
 		std::shared_ptr<KeySelectButton> openInventory(new KeySelectButton("OPEN_INVENTORY", "Open inventory"));
 
 		backButton = std::shared_ptr<Button>(new Button("Back"));
-		backButton->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
+		backButton->setPreferredDimension({1, RelativityMode::RELATIVE_IN_PARENT}, {btnHeight, RelativityMode::RELATIVE_ON_SCREEN});
 
 		// create grid structure
 		std::shared_ptr<VBox> col1(new VBox({moveForward, moveBackward, moveLeft, moveRight, openInventory}));
 		std::shared_ptr<VBox> col2(new VBox());
-		col1->setPreferredDimension(0.5f - (horizontalSpaceBetweenRows / 2), RelativityMode::RELATIVE_IN_PARENT, 1, RelativityMode::RELATIVE_IN_PARENT);
-		col2->setPreferredDimension(0.5f - (horizontalSpaceBetweenRows / 2), RelativityMode::RELATIVE_IN_PARENT, 1, RelativityMode::RELATIVE_IN_PARENT);
-		col1->setSpaceBetweenElements(verticalSpaceBetweenButtons, RelativityMode::RELATIVE_ON_SCREEN);
-		col2->setSpaceBetweenElements(verticalSpaceBetweenButtons, RelativityMode::RELATIVE_ON_SCREEN);
+		col1->setPreferredDimension({0.5f - (horizontalSpaceBetweenRows / 2), RelativityMode::RELATIVE_IN_PARENT}, {1, RelativityMode::RELATIVE_IN_PARENT});
+		col2->setPreferredDimension({0.5f - (horizontalSpaceBetweenRows / 2), RelativityMode::RELATIVE_IN_PARENT}, {1, RelativityMode::RELATIVE_IN_PARENT});
+		col1->setSpaceBetweenElements({verticalSpaceBetweenButtons, RelativityMode::RELATIVE_ON_SCREEN});
+		col2->setSpaceBetweenElements({verticalSpaceBetweenButtons, RelativityMode::RELATIVE_ON_SCREEN});
 
 		std::shared_ptr<HBox> row1(new HBox({col1, col2}));
-		row1->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, 1 - btnHeight, RelativityMode::RELATIVE_IN_PARENT);
-		row1->setSpaceBetweenElements(horizontalSpaceBetweenRows, RelativityMode::RELATIVE_IN_PARENT);
+		row1->setPreferredDimension({1, RelativityMode::RELATIVE_IN_PARENT}, {1 - btnHeight, RelativityMode::RELATIVE_IN_PARENT});
+		row1->setSpaceBetweenElements({horizontalSpaceBetweenRows, RelativityMode::RELATIVE_IN_PARENT});
 
 		std::shared_ptr<VBox> table(new VBox({row1, backButton}));
 		table->setOwnPositioning(std::shared_ptr<Positioning>(new RelativePositioningOnScreen(0.1, 0.05)));
-		table->setPreferredDimension(0.8, RelativityMode::RELATIVE_IN_PARENT, 0.9, RelativityMode::RELATIVE_IN_PARENT);
+		table->setPreferredDimension({0.8, RelativityMode::RELATIVE_IN_PARENT}, {0.9, RelativityMode::RELATIVE_IN_PARENT});
 		UnorganizedParentElement::addChildElement(table);
 
 		// add KeySelectButtons for slots
@@ -49,10 +49,10 @@ namespace egui {
 
 		// set preferred dimensions
 		for(auto& a : col1->getChildrenElements()) {
-			a->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
+			a->setPreferredDimension({1, RelativityMode::RELATIVE_IN_PARENT}, {btnHeight, RelativityMode::RELATIVE_ON_SCREEN});
 		}
 		for(auto& a : col2->getChildrenElements()) {
-			a->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
+			a->setPreferredDimension({1, RelativityMode::RELATIVE_IN_PARENT}, {btnHeight, RelativityMode::RELATIVE_ON_SCREEN});
 		}
 
 		// set background

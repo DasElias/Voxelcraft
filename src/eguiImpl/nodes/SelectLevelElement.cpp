@@ -24,8 +24,8 @@ namespace egui {
 		float const verticalSpaceBetweenControlButtons = 0.03f;
 
 		std::shared_ptr<VBox> row(new VBox());
-		row->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, 1 - 2 * btnHeight - 2 * verticalSpaceBetweenButtons, RelativityMode::RELATIVE_IN_PARENT);
-		row->setSpaceBetweenElements(verticalSpaceBetweenButtons, RelativityMode::RELATIVE_IN_PARENT);
+		row->setPreferredDimension({1, RelativityMode::RELATIVE_IN_PARENT}, {1 - 2 * btnHeight - 2 * verticalSpaceBetweenButtons, RelativityMode::RELATIVE_IN_PARENT});
+		row->setSpaceBetweenElements({verticalSpaceBetweenButtons, RelativityMode::RELATIVE_IN_PARENT});
 		for(int counter = 0; counter < NUMBER_OF_BTNS; counter++) {	
 			// create elements
 			selectButtons[counter] = std::shared_ptr<Button>(new Button(""));
@@ -34,11 +34,11 @@ namespace egui {
 			buttonBoxes[counter] = std::shared_ptr<HBox>(new HBox());
 
 			// set dimensions
-			buttonBoxes[counter]->setPreferredHeight(btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
-			selectButtons[counter]->setPreferredWidth(selectBtnWidth, RelativityMode::RELATIVE_IN_PARENT);
-			deleteButtons[counter]->setPreferredWidth(deleteBtnWidth, RelativityMode::RELATIVE_IN_PARENT);
-			exportButtons[counter]->setPreferredWidth(exportBtnWidth, RelativityMode::RELATIVE_IN_PARENT);
-			buttonBoxes[counter]->setSpaceBetweenElements(spaceBetweenButtons, RelativityMode::RELATIVE_IN_PARENT);
+			buttonBoxes[counter]->setPreferredHeight({btnHeight, RelativityMode::RELATIVE_ON_SCREEN});
+			selectButtons[counter]->setPreferredWidth({selectBtnWidth, RelativityMode::RELATIVE_IN_PARENT});
+			deleteButtons[counter]->setPreferredWidth({deleteBtnWidth, RelativityMode::RELATIVE_IN_PARENT});
+			exportButtons[counter]->setPreferredWidth({exportBtnWidth, RelativityMode::RELATIVE_IN_PARENT});
+			buttonBoxes[counter]->setSpaceBetweenElements({spaceBetweenButtons, RelativityMode::RELATIVE_IN_PARENT});
 
 			buttonBoxes[counter]->setConsiderElemStretchFlag(false);
 
@@ -63,30 +63,30 @@ namespace egui {
 
 		float const controlButtonBoxSpace = 0.065f;
 		backBtn = std::shared_ptr<Button>(new Button("Back"));
-		backBtn->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
+		backBtn->setPreferredDimension({1, RelativityMode::RELATIVE_IN_PARENT}, {btnHeight, RelativityMode::RELATIVE_ON_SCREEN});
 
 		createNewGameScoreBtn = std::shared_ptr<Button>(new Button("Create new level"));
-		createNewGameScoreBtn->setPreferredWidth(0.5f - (controlButtonBoxSpace / 2), RelativityMode::RELATIVE_IN_PARENT);
+		createNewGameScoreBtn->setPreferredWidth({0.5f - (controlButtonBoxSpace / 2), RelativityMode::RELATIVE_IN_PARENT});
 		createNewGameScoreBtn->getActionEventManager().addEventHandler({[this](ActionEvent&) {
 			this->createLevelOverlayElement->show();
 			//rebuildElem();
 		}});
 
 		importBtn = std::shared_ptr<Button>(new Button("Import level"));
-		importBtn->setPreferredWidth(0.5f - (controlButtonBoxSpace / 2), RelativityMode::RELATIVE_IN_PARENT);
+		importBtn->setPreferredWidth({0.5f - (controlButtonBoxSpace / 2), RelativityMode::RELATIVE_IN_PARENT});
 		importBtn->getActionEventManager().addEventHandler({[this](ActionEvent&) {
 			this->importFunction();
 			rebuildElem();
 		}});
 
-		std::shared_ptr<HBox> controlButtonBox(new HBox(controlButtonBoxSpace, RelativityMode::RELATIVE_IN_PARENT, { importBtn, createNewGameScoreBtn }));
-		controlButtonBox->setPreferredHeight(btnHeight, RelativityMode::RELATIVE_ON_SCREEN);
+		std::shared_ptr<HBox> controlButtonBox(new HBox({controlButtonBoxSpace, RelativityMode::RELATIVE_IN_PARENT}, {importBtn, createNewGameScoreBtn}));
+		controlButtonBox->setPreferredHeight({btnHeight, RelativityMode::RELATIVE_ON_SCREEN});
 		controlButtonBox->setConsiderElemStretchFlag(false);
 		
 		std::shared_ptr<VBox> table(new VBox({row, controlButtonBox, backBtn}));
 		table->setOwnPositioning(std::shared_ptr<Positioning>(new RelativePositioningOnScreen(0.1, 0.05)));
-		table->setPreferredDimension(0.8, RelativityMode::RELATIVE_IN_PARENT, 0.9, RelativityMode::RELATIVE_IN_PARENT);
-		table->setSpaceBetweenElements(verticalSpaceBetweenControlButtons, RelativityMode::RELATIVE_IN_PARENT);
+		table->setPreferredDimension({0.8, RelativityMode::RELATIVE_IN_PARENT}, {0.9, RelativityMode::RELATIVE_IN_PARENT});
+		table->setSpaceBetweenElements({verticalSpaceBetweenControlButtons, RelativityMode::RELATIVE_IN_PARENT});
 		UnorganizedParentElement::addChildElement(table);
 
 		// button, which is shown, when no level exists

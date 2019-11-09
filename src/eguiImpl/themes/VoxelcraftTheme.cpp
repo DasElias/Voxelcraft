@@ -49,7 +49,7 @@ std::function<void(egui::Node* const)> egui::VoxelcraftTheme::button_keySelectBu
 		if(!p_btn) throw std::logic_error("Component is not of type Button or KeySelectButton!");
 
 		// set dimensions
-		p_btn->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, BTN_HEIGHT, RelativityMode::RELATIVE_ON_SCREEN);
+		p_btn->setPreferredDimension({1, RelativityMode::RELATIVE_IN_PARENT}, {BTN_HEIGHT, RelativityMode::RELATIVE_ON_SCREEN});
 		p_btn->setRadius(0.2f, true);
 
 		p_btn->getTextComponent()->setForceOneLine(true);
@@ -104,7 +104,7 @@ std::function<void(egui::Node* const)> egui::VoxelcraftTheme::inputField_apply()
 		if(!p_btn) throw std::logic_error("Component is not of type InputField!");
 
 		// set dimensions
-		p_btn->setPreferredDimension(1, RelativityMode::RELATIVE_IN_PARENT, BTN_HEIGHT, RelativityMode::RELATIVE_ON_SCREEN);
+		p_btn->setPreferredDimension({1, RelativityMode::RELATIVE_IN_PARENT}, {BTN_HEIGHT, RelativityMode::RELATIVE_ON_SCREEN});
 
 		p_btn->getTextComponent()->setForceOneLine(true);
 		p_btn->getTextComponent()->setFontSize(0.5f, true);

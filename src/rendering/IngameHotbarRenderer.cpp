@@ -19,8 +19,8 @@ namespace vc {
 		this->selectedElemPositioning = std::shared_ptr<egui::RelativePositioningOnScreen>(new egui::RelativePositioningOnScreen(0, 0));
 
 		// set dimensions and positioning
-		selectedElemLabel->setPreferredWidth(0, egui::RelativityMode::NULLVALUE);
-		selectedElemLabel->setPreferredHeight(0, egui::RelativityMode::NULLVALUE);
+		selectedElemLabel->setPreferredWidth({});
+		selectedElemLabel->setPreferredHeight({});
 		selectedElemLabel->setOwnPositioning(selectedElemPositioning);
 
 
@@ -29,7 +29,7 @@ namespace vc {
 
 		// set label for hotbar background
 		this->hotbarElement = std::shared_ptr<egui::Label>(new egui::Label());
-		hotbarElement->setPreferredDimension(HOTBAR_SPRITE_WIDTH, egui::RelativityMode::ABSOLUTE_VALUE, HOTBAR_SPRITE_HEIGHT, egui::RelativityMode::ABSOLUTE_VALUE);
+		hotbarElement->setPreferredDimension({HOTBAR_SPRITE_WIDTH, egui::RelativityMode::ABSOLUTE_VALUE}, {HOTBAR_SPRITE_HEIGHT, egui::RelativityMode::ABSOLUTE_VALUE});
 
 
 		// set positioning of hotbar
@@ -129,22 +129,22 @@ namespace vc {
 		{
 			// set positioning
 			int horizontalSlotBorderAmount = 2 * selectedSlot;
-			double absXMargin = elemMarginX + imgBorderWidth + horizontalSlotBorderAmount * slotBorderWidth + selectedSlot * slotWidth;
-			double absYMargin = elemMarginY + imgBorderHeight + slotBorderHeight;
+			float absXMargin = elemMarginX + imgBorderWidth + horizontalSlotBorderAmount * slotBorderWidth + selectedSlot * slotWidth;
+			float absYMargin = elemMarginY + imgBorderHeight + slotBorderHeight;
 
-			double width = slotWidth + 2 * slotBorderWidth;
-			double height = slotHeight + 2 * slotBorderHeight;
+			float width = slotWidth + 2 * slotBorderWidth;
+			float height = slotHeight + 2 * slotBorderHeight;
 
-			selectedElemLabel->setPreferredDimension(width, egui::RelativityMode::RELATIVE_IN_PARENT, height, egui::RelativityMode::RELATIVE_IN_PARENT);
+			selectedElemLabel->setPreferredDimension({width, egui::RelativityMode::RELATIVE_IN_PARENT}, {height, egui::RelativityMode::RELATIVE_IN_PARENT});
 			selectedElemPositioning->setX(absXMargin);
 			selectedElemPositioning->setY(absYMargin);
 		}
 		{
 			// compute tex coords
-			double xMargin = 0;
-			double yMargin = float(ACTIVEELEM_MARGINY) / hotbarTextureSheet.getHeight();
-			double width = float(ACTIVEELEM_SPRITE_DIMENSIONS) / hotbarTextureSheet.getWidth();
-			double height = float(ACTIVEELEM_SPRITE_DIMENSIONS) / hotbarTextureSheet.getHeight();
+			float xMargin = 0;
+			float yMargin = float(ACTIVEELEM_MARGINY) / hotbarTextureSheet.getHeight();
+			float width = float(ACTIVEELEM_SPRITE_DIMENSIONS) / hotbarTextureSheet.getWidth();
+			float height = float(ACTIVEELEM_SPRITE_DIMENSIONS) / hotbarTextureSheet.getHeight();
 
 			glBindTexture(GL_TEXTURE_2D, hotbarTextureSheet.getTexId());
 			glDisable(GL_DEPTH_TEST);
