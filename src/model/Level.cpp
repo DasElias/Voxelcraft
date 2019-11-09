@@ -273,7 +273,18 @@ namespace vc {
 		PlayerPosition playerPos = player.getPosition();
 		
 		ChunkStack* playerChunkStack = getChunkStackWithoutLoading({ convertWorldToChunkValue(playerPos.x), convertWorldToChunkValue(playerPos.z) });
-		ChunkStack* chunkStacksToCheck[5] = { playerChunkStack, playerChunkStack->getLeftNeighbor(), playerChunkStack->getRightNeighbor(), playerChunkStack->getFrontNeighbor(), playerChunkStack->getBackNeighbor() };
+
+		std::vector<ChunkStack*> chunkStacksToCheck;
+		chunkStacksToCheck.push_back(playerChunkStack);
+		chunkStacksToCheck.push_back(playerChunkStack->getLeftNeighbor());
+		chunkStacksToCheck.push_back(playerChunkStack->getRightNeighbor());
+		chunkStacksToCheck.push_back(playerChunkStack->getFrontNeighbor());
+		chunkStacksToCheck.push_back(playerChunkStack->getBackNeighbor());
+
+		chunkStacksToCheck.push_back(playerChunkStack->getFrontNeighbor()->getLeftNeighbor());
+		chunkStacksToCheck.push_back(playerChunkStack->getFrontNeighbor()->getRightNeighbor());
+		chunkStacksToCheck.push_back(playerChunkStack->getBackNeighbor()->getLeftNeighbor());
+		chunkStacksToCheck.push_back(playerChunkStack->getBackNeighbor()->getRightNeighbor());
 
 		int const rangeInt = int(ceilf(range));
 		int const playerPosIntX = int(ceilf(playerPos.x));
