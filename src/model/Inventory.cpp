@@ -100,7 +100,7 @@ namespace vc {
 	}
 
 	int Inventory::length() const {
-		return items.size();
+		return int(items.size());
 	}
 	
 }

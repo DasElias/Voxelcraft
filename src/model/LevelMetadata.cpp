@@ -63,7 +63,7 @@ namespace vc {
 			seed /= 10000.0f;
 		}
 
-		return seed;
+		return float(seed);
 	}
 
 	std::string LevelMetadata::getLevelName() const {
